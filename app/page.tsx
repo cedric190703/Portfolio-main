@@ -13,8 +13,6 @@ import {
   Phone,
   MapPin,
   ExternalLink,
-  Calendar,
-  Award,
   Code,
   Brain,
   Gamepad2,
@@ -680,10 +678,11 @@ export default function Portfolio() {
       <section>
         <div className="text-center p-4">
           <Button asChild>
-            <a href="https://github.com/cedric190703?tab=repositories" target="_blank" rel="noopener noreferrer">
-              See more projects <ExternalLink className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
+          <a href="https://github.com/cedric190703?tab=repositories" target="_blank" rel="noopener noreferrer">
+            {language === "en" ? "See more projects" : "Voir plus de projets"} 
+            <ExternalLink className="ml-2 h-4 w-4" />
+          </a>
+        </Button>
         </div>
       </section>
       <section className="section-spacing">
