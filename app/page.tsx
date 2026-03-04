@@ -15,11 +15,8 @@ import {
   ExternalLink,
   Code,
   Brain,
-  Gamepad2,
   ArrowRight,
-  Target,
   Database,
-  Zap,
 } from "lucide-react"
 
 export default function Portfolio() {
@@ -34,16 +31,16 @@ export default function Portfolio() {
         contact: "Contact",
       },
       hero: {
-        specialist: "AI student",
+        specialist: "Data & AI Engineer",
         description:
-          "AI french student looking for a 6-month internship in AI/ML, Computer vision or VR/AR development in 2026.",
+          "Engineering student at EPITA specializing in AI and Data, currently interning at Safran. Seeking opportunities in Data Engineering, Data Analysis, or AI.",
         getInTouch: "Get In Touch",
         viewProjects: "View Projects",
       },
       about: {
         title: "About Me",
-        p1: "I'm a 22-year-old engineering student at EPITA with a deep interest for Medical AI and cutting-edge healthcare technologies.",
-        p2: "Specializing in Medical AI and Computer Vision, I like to do projects that create value through innovative technological solutions.",
+        p1: "I'm a 22-year-old engineering student at EPITA with a strong focus on Data Science, AI, and the development of concrete, high-value technological solutions.",
+        p2: "I am actively looking for a position in Data Engineering, Data Analysis, or AI — domains where I can combine technical rigor with a genuine passion for turning data into actionable insights.",
         technical: "Technical Expertise",
         aiMl: "AI & Machine Learning",
         development: "Development",
@@ -60,19 +57,31 @@ export default function Portfolio() {
       },
       experience: {
         title: "Professional Experience",
-        inserm: "Mixed Reality Intern - Inserm, Paris",
+        safran: "Data Science & AI Intern — Safran, Paris",
+        safranPeriod: "Feb. 2026 – Jul. 2026",
+        safranDesc: "Development of an internal AI assistant for the audit and internal control division.",
+        safranTasks: [
+          "Development of an internal AI assistant for the audit and internal control division.",
+          "Creation of a library of optimized prompts for task automation.",
+          "Training auditors on AI usage and measuring operational performance gains.",
+          "Analysis and identification of time-consuming processes for AI integration.",
+        ],
+        inserm: "Mixed Reality Intern — Inserm, Paris",
+        insermPeriod: "Sept. 2024 – Jan. 2025",
         insermDesc: "VR/AR development for medical training and tele-expertise",
         insermTasks: [
           "Development of immersive VR/AR applications for medical training scenarios",
           "Integration of 360° videos and live streaming for remote medical education",
           "Network optimization for real-time medical tele-expertise systems",
         ],
-        systhen: "Intern - Systhen, Fontenay-sous-Bois",
+        systhen: "Intern — Systhen, Fontenay-sous-Bois",
+        systhenPeriod: "June 2023",
         systhenTasks: [
           "Administrative management and process optimization with Odoo ERP",
           "Creation and standardization of internal documentation systems",
         ],
-        signaturit: "Partnership Intern - Signaturit France, Paris",
+        signaturit: "Partnership Intern — Signaturit France, Paris",
+        signaturitPeriod: "July 2022",
         signaturitTasks: [
           "Development of automated Power BI dashboards for business intelligence",
           "Active participation in strategic commercial meetings and partnerships",
@@ -81,7 +90,7 @@ export default function Portfolio() {
       projects: {
         title: "Projects",
         ovarian: "Ovarian Cancer Segmentation AI",
-        ovarianDesc: "Finalist in medical AI competition - tumor segmentation system",
+        ovarianDesc: "Finalist in medical AI competition — tumor segmentation system",
         ovarianPara:
           "Developed AI models for tumor and metastasis segmentation using ensemble learning techniques and image processing pipelines.",
         localChat: "Local AI Chat Interface",
@@ -89,9 +98,17 @@ export default function Portfolio() {
         localChatPara:
           "Built an interface for local LLM deployment with Retrieval-Augmented Generation (RAG) capabilities, enabling private AI conversations with document understanding.",
         hackathon: "GGH 2025 Hackathon",
-        hackathonDesc: "Jury's Favorite Award - Innovative hackathon solution",
+        hackathonDesc: "Jury's Favorite Award — Innovative hackathon solution",
         hackathonPara: "Developed an application for dyslexic people.",
-        compiler: "Tiger Compiler - LLVM Integration",
+        amd: "AMD Robotics Hackathon 2025",
+        amdDesc: "Robotic camera assistant — team project",
+        amdPara:
+          "Developed a robotic camera assistant in a team of 3, capable of grabbing and stabilizing a camera, tracking and following a target in real time. The system is voice-controlled, enabling hands-free operation to assist content creators with dynamic and adaptive video recording.",
+        ship: "Ship Image Classification — Kaggle Competition (Top 3)",
+        shipDesc: "Ranked Top 3 out of 117 teams — EPITA internal Kaggle competition",
+        shipPara:
+          "Participated in an internal Kaggle competition hosted at EPITA, focused on classifying ship images into multiple categories. Designed and trained a CNN (Keras/TensorFlow) under a strict constraint of less than 30 layers. Ranked Top 3 out of 117 teams with a validation score of 0.87174.",
+        compiler: "Tiger Compiler — LLVM Integration",
         compilerDesc: "Compiler development with LLVM-IR generation",
         compilerPara:
           "Implemented a complete compiler frontend featuring lexical and syntactic analysis with LLVM-IR code generation.",
@@ -99,11 +116,11 @@ export default function Portfolio() {
       interests: {
         title: "Interests",
         tennis: "Tennis",
-        tennisDesc: "4/6",
+        tennisDesc: "Ranked 4/6",
         finance: "Personal Finance",
         financeDesc: "Investment strategies",
         tech: "New Technologies",
-        techDesc: "AI, Blockchain, VR/AR",
+        techDesc: "AI, Data, Blockchain",
       },
       contact: {
         title: "Get In Touch",
@@ -119,16 +136,16 @@ export default function Portfolio() {
         contact: "Contact",
       },
       hero: {
-        specialist: "Étudiant en IA",
+        specialist: "Ingénieur Data & IA",
         description:
-          "Étudiant en IA à la recherche d'un stage de 6 mois en IA/ML, vision par ordinateur ou développement VR/AR en 2026.",
+          "Étudiant ingénieur à l'EPITA spécialisé en IA et Data, actuellement en stage chez Safran. À la recherche d'opportunités en Data Engineering, Data Analyse ou IA.",
         getInTouch: "Me Contacter",
         viewProjects: "Voir les Projets",
       },
       about: {
         title: "À Propos de Moi",
-        p1: "Je suis un étudiant de 22 ans à EPITA, très intéressé par les nouvelles technologies.",
-        p2: "Spécialisé en IA médicale, j'aime faire des projets qui créent de la valeur grâce à des solutions technologiques innovantes.",
+        p1: "Je suis un étudiant de 22 ans à l'EPITA avec une forte orientation Data Science, IA et développement de solutions technologiques à forte valeur ajoutée.",
+        p2: "Je recherche activement un poste en Data Engineering, Data Analyse ou IA — des domaines où je peux combiner rigueur technique et passion pour transformer les données en insights actionnables.",
         technical: "Expertise Technique",
         aiMl: "IA & Machine Learning",
         development: "Développement",
@@ -145,19 +162,31 @@ export default function Portfolio() {
       },
       experience: {
         title: "Expérience Professionnelle",
-        inserm: "Stagiaire en Réalité Mixte - Inserm, Paris",
+        safran: "Stagiaire Data Science & IA — Safran, Paris",
+        safranPeriod: "Févr. 2026 – Juil. 2026",
+        safranDesc: "Développement d'un assistant IA interne pour la direction des audits et du contrôle interne.",
+        safranTasks: [
+          "Développement d'un assistant IA interne pour la direction des audits et du contrôle interne.",
+          "Création d'une bibliothèque de prompts optimisés pour l'automatisation de tâches.",
+          "Formation des auditeurs aux usages de l'IA et mesure des gains de performance opérationnelle.",
+          "Analyse et recensement des processus chronophages pour intégration de solutions d'IA.",
+        ],
+        inserm: "Stagiaire en Réalité Mixte — Inserm, Paris",
+        insermPeriod: "Sept. 2024 – Janv. 2025",
         insermDesc: "Développement d'applications VR/AR pour la formation médicale et la télé-expertise.",
         insermTasks: [
           "Développement d'applications immersives VR/AR pour des scénarios de formation médicale",
           "Intégration de vidéos 360° et de streaming en direct pour l'enseignement médical à distance",
           "Optimisation du réseau pour les systèmes de télé-expertise médicale en temps réel",
         ],
-        systhen: "Stagiaire - Systhen, Fontenay-sous-Bois",
+        systhen: "Stagiaire — Systhen, Fontenay-sous-Bois",
+        systhenPeriod: "Juin 2023",
         systhenTasks: [
           "Gestion administrative et optimisation des processus avec l'ERP Odoo",
           "Création et standardisation des systèmes de documentation interne",
         ],
-        signaturit: "Stagiaire Partenariats - Signaturit France, Paris",
+        signaturit: "Stagiaire Partenariats — Signaturit France, Paris",
+        signaturitPeriod: "Juil. 2022",
         signaturitTasks: [
           "Développement de tableaux de bord Power BI automatisés pour l'informatique décisionnelle",
           "Participation active aux réunions commerciales stratégiques et aux partenariats",
@@ -166,7 +195,7 @@ export default function Portfolio() {
       projects: {
         title: "Projets",
         ovarian: "IA de Segmentation du Cancer de l'Ovaire",
-        ovarianDesc: "Finaliste d'un concours d'IA médicale - Système de segmentation de tumeurs.",
+        ovarianDesc: "Finaliste d'un concours d'IA médicale — Système de segmentation de tumeurs.",
         ovarianPara:
           "Développement de modèles d'IA pour la segmentation des tumeurs et des métastases à l'aide de techniques d'apprentissage d'ensemble et de pipelines de traitement d'images.",
         localChat: "Interface de Chat IA Locale",
@@ -174,9 +203,17 @@ export default function Portfolio() {
         localChatPara:
           "Création d'une interface pour le déploiement local de LLM avec des capacités de génération augmentée par récupération (RAG), permettant des conversations IA privées avec compréhension de documents.",
         hackathon: "Hackathon GGH 2025",
-        hackathonDesc: "Prix Coup de Cœur du Jury - Solution innovante de hackathon.",
+        hackathonDesc: "Prix Coup de Cœur du Jury — Solution innovante de hackathon.",
         hackathonPara: "Développement d'une application pour les personnes dyslexiques.",
-        compiler: "Compilateur Tiger - Intégration LLVM",
+        amd: "AMD Robotics Hackathon 2025",
+        amdDesc: "Assistant caméra robotique — projet d'équipe",
+        amdPara:
+          "Développement en équipe de 3 d'un assistant caméra robotique capable de saisir et stabiliser une caméra, de suivre une cible en temps réel. Le système est contrôlé par la voix pour assister les créateurs de contenu.",
+        ship: "Classification d'Images de Navires — Compétition Kaggle (Top 3)",
+        shipDesc: "Classé Top 3 sur 117 équipes — compétition Kaggle interne à l'EPITA",
+        shipPara:
+          "Participation à une compétition Kaggle interne à l'EPITA portant sur la classification d'images de navires. Conception et entraînement d'un CNN (Keras/TensorFlow) sous contrainte stricte de moins de 30 couches. Classé Top 3 sur 117 équipes (score de validation : 0.87174).",
+        compiler: "Compilateur Tiger — Intégration LLVM",
         compilerDesc: "Développement de compilateur avec génération de LLVM-IR.",
         compilerPara:
           "Implémentation du frontend de compilateur complet avec analyse lexicale et syntaxique avec génération de code LLVM-IR.",
@@ -184,11 +221,11 @@ export default function Portfolio() {
       interests: {
         title: "Centres d'Intérêt",
         tennis: "Tennis",
-        tennisDesc: "4/6",
+        tennisDesc: "Classé 4/6",
         finance: "Finances Personnelles",
         financeDesc: "Stratégies d'investissement",
         tech: "Nouvelles Technologies",
-        techDesc: "IA, Blockchain, VR/AR",
+        techDesc: "IA, Data, Blockchain",
       },
       contact: {
         title: "Me Contacter",
@@ -256,7 +293,7 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-7xl px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-6">
-              <div className="inline-flex items-center space-x-2 bg-primary/10 px-4 py-2 rounded-full text-sm font-medium text-primary border border-primary/20">
+              <div className="inline-flex items-center bg-primary/10 px-4 py-1.5 rounded text-sm font-medium text-primary border border-primary/20 tracking-wide uppercase">
                 <span>{t.hero.specialist}</span>
               </div>
 
@@ -270,20 +307,16 @@ export default function Portfolio() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-3">
-              <Badge variant="secondary" className="text-sm px-4 py-2 bg-primary/10 text-primary border-primary/20">
-                <Brain className="h-3 w-3 mr-1" />
-                Medical AI
+              <Badge variant="outline" className="text-sm px-4 py-1.5 border-primary/30 text-primary">
+                Data Engineering
               </Badge>
-              <Badge variant="secondary" className="text-sm px-4 py-2 bg-accent/10 text-accent border-accent/20">
-                <Zap className="h-3 w-3 mr-1" />
+              <Badge variant="outline" className="text-sm px-4 py-1.5 border-primary/30 text-primary">
                 Machine Learning
               </Badge>
-              <Badge variant="secondary" className="text-sm px-4 py-2 bg-primary/10 text-primary border-primary/20">
-                <Code className="h-3 w-3 mr-1" />
-                VR/AR Development
+              <Badge variant="outline" className="text-sm px-4 py-1.5 border-primary/30 text-primary">
+                Data Analysis
               </Badge>
-              <Badge variant="secondary" className="text-sm px-4 py-2 bg-accent/10 text-accent border-accent/20">
-                <Target className="h-3 w-3 mr-1" />
+              <Badge variant="outline" className="text-sm px-4 py-1.5 border-primary/30 text-primary">
                 Computer Vision
               </Badge>
             </div>
@@ -316,7 +349,7 @@ export default function Portfolio() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <h2 className="text-4xl font-bold tracking-tight">{t.about.title}</h2>
-                <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
+                <div className="w-16 h-px bg-primary/40"></div>
               </div>
 
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
@@ -404,25 +437,25 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section className="section-spacing bg-gradient-to-r from-accent/5 to-primary/5">
+      <section className="section-spacing bg-muted/30">
         <div className="container mx-auto max-w-7xl px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold tracking-tight mb-4">{t.education.title}</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-accent to-primary rounded-full mx-auto"></div>
+            <div className="w-16 h-px bg-primary/40 mx-auto"></div>
           </div>
           <div className="grid gap-6 max-w-4xl mx-auto">
-            <Card className="glass border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-border hover-lift">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span className="text-xl">{t.education.epita}</span>
-                  <Badge variant="secondary" className="bg-accent/10 text-accent">
+                  <Badge variant="secondary" className="bg-primary/10 text-primary">
                     2021 - 2026
                   </Badge>
                 </CardTitle>
-                <CardDescription className="text-lg">{t.education.epitaDesc}</CardDescription>
+                <CardDescription className="text-base">{t.education.epitaDesc}</CardDescription>
               </CardHeader>
             </Card>
-            <Card className="glass border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-border hover-lift">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span className="text-xl">{t.education.uqac}</span>
@@ -430,18 +463,18 @@ export default function Portfolio() {
                     Jan - May 2023
                   </Badge>
                 </CardTitle>
-                <CardDescription className="text-lg">{t.education.uqacDesc}</CardDescription>
+                <CardDescription className="text-base">{t.education.uqacDesc}</CardDescription>
               </CardHeader>
             </Card>
-            <Card className="glass border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-border hover-lift">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span className="text-xl">{t.education.lycee}</span>
-                  <Badge variant="secondary" className="bg-accent/10 text-accent">
+                  <Badge variant="secondary" className="bg-primary/10 text-primary">
                     2021
                   </Badge>
                 </CardTitle>
-                <CardDescription className="text-lg">{t.education.lyceeDesc}</CardDescription>
+                <CardDescription className="text-base">{t.education.lyceeDesc}</CardDescription>
               </CardHeader>
             </Card>
           </div>
@@ -452,16 +485,35 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-7xl px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold tracking-tight mb-4">{t.experience.title}</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto"></div>
+            <div className="w-16 h-px bg-primary/40 mx-auto"></div>
           </div>
 
           <div className="grid gap-8 max-w-4xl mx-auto">
             <Card className="border-border hover-lift">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between text-xl">
+                  <span>{t.experience.safran}</span>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary">
+                    {t.experience.safranPeriod}
+                  </Badge>
+                </CardTitle>
+                <CardDescription className="text-base text-muted-foreground">{t.experience.safranDesc}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                  {t.experience.safranTasks.map((task, index) => (
+                    <li key={index}>{task}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border hover-lift">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between text-xl">
                   <span>{t.experience.inserm}</span>
                   <Badge variant="secondary" className="bg-primary/10 text-primary">
-                    Sept. 2024 - Jan. 2025
+                    {t.experience.insermPeriod}
                   </Badge>
                 </CardTitle>
                 <CardDescription className="text-base text-muted-foreground">{t.experience.insermDesc}</CardDescription>
@@ -480,7 +532,7 @@ export default function Portfolio() {
                 <CardTitle className="flex items-center justify-between text-xl">
                   <span>{t.experience.systhen}</span>
                   <Badge variant="secondary" className="bg-accent/10 text-accent">
-                    June 2023
+                    {t.experience.systhenPeriod}
                   </Badge>
                 </CardTitle>
               </CardHeader>
@@ -498,7 +550,7 @@ export default function Portfolio() {
                 <CardTitle className="flex items-center justify-between text-xl">
                   <span>{t.experience.signaturit}</span>
                   <Badge variant="secondary" className="bg-primary/10 text-primary">
-                    July 2022
+                    {t.experience.signaturitPeriod}
                   </Badge>
                 </CardTitle>
               </CardHeader>
@@ -518,6 +570,7 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-7xl px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold tracking-tight mb-4">{t.projects.title}</h2>
+            <div className="w-16 h-px bg-primary/40 mx-auto"></div>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 max-w-6xl mx-auto">
@@ -646,6 +699,89 @@ export default function Portfolio() {
               </CardContent>
             </Card>
 
+            <Card className="border-border hover-lift group">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between text-xl">
+                  <span>{t.projects.amd}</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    asChild
+                  >
+                    <a
+                      href="https://github.com/crc-amd-hackathon-2025/mission"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </CardTitle>
+                <CardDescription className="text-base">{t.projects.amdDesc}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <Badge variant="secondary" className="bg-primary/10 text-primary">
+                    Robotics
+                  </Badge>
+                  <Badge variant="secondary" className="bg-accent/10 text-accent">
+                    Computer Vision
+                  </Badge>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary">
+                    Voice Control
+                  </Badge>
+                  <Badge variant="secondary" className="bg-accent/10 text-accent">
+                    Python
+                  </Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">{t.projects.amdPara}</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border hover-lift group">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between text-xl">
+                  <span>{t.projects.ship}</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    asChild
+                  >
+                    <a
+                      href="https://github.com/cedric190703/Image-Classification"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </CardTitle>
+                <CardDescription className="text-base">
+                  <span className="text-primary font-semibold">{t.projects.shipDesc}</span>
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <Badge variant="secondary" className="bg-primary/10 text-primary">
+                    Python
+                  </Badge>
+                  <Badge variant="secondary" className="bg-accent/10 text-accent">
+                    TensorFlow / Keras
+                  </Badge>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary">
+                    CNN
+                  </Badge>
+                  <Badge variant="secondary" className="bg-accent/10 text-accent">
+                    Data Augmentation
+                  </Badge>
+                </div>
+                <div className="text-sm text-primary font-semibold mb-2">Validation score: 0.87174</div>
+                <p className="text-sm text-muted-foreground">{t.projects.shipPara}</p>
+              </CardContent>
+            </Card>
+
             <Card className="border-border hover-lift">
               <CardHeader>
                 <CardTitle className="text-xl">{t.projects.compiler}</CardTitle>
@@ -689,52 +825,37 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-7xl px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold tracking-tight mb-4">{t.interests.title}</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-accent to-primary rounded-full mx-auto"></div>
+            <div className="w-16 h-px bg-primary/40 mx-auto"></div>
           </div>
           <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
-            <Card className="glass border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="flex items-center space-x-4 p-8">
-                <div className="p-3 bg-accent/10 rounded-full">
-                  <Gamepad2 className="h-8 w-8 text-accent" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">{t.interests.tennis}</h3>
-                  <p className="text-sm text-muted-foreground">{t.interests.tennisDesc}</p>
-                </div>
+            <Card className="border-border hover-lift">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-base mb-1">{t.interests.tennis}</h3>
+                <p className="text-sm text-muted-foreground">{t.interests.tennisDesc}</p>
               </CardContent>
             </Card>
-            <Card className="glass border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="flex items-center space-x-4 p-8">
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <Code className="h-8 w-8 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">{t.interests.finance}</h3>
-                  <p className="text-sm text-muted-foreground">{t.interests.financeDesc}</p>
-                </div>
+            <Card className="border-border hover-lift">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-base mb-1">{t.interests.finance}</h3>
+                <p className="text-sm text-muted-foreground">{t.interests.financeDesc}</p>
               </CardContent>
             </Card>
-            <Card className="glass border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="flex items-center space-x-4 p-8">
-                <div className="p-3 bg-accent/10 rounded-full">
-                  <Brain className="h-8 w-8 text-accent" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">{t.interests.tech}</h3>
-                  <p className="text-sm text-muted-foreground">{t.interests.techDesc}</p>
-                </div>
+            <Card className="border-border hover-lift">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-base mb-1">{t.interests.tech}</h3>
+                <p className="text-sm text-muted-foreground">{t.interests.techDesc}</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="section-spacing bg-gradient-to-r from-accent/5 to-primary/5">
+      <section id="contact" className="section-spacing bg-muted/30">
         <div className="container mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-12">
               <h2 className="text-4xl font-bold tracking-tight mb-4">{t.contact.title}</h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-accent to-primary rounded-full mx-auto mb-6"></div>
+              <div className="w-16 h-px bg-primary/40 mx-auto mb-6"></div>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 mb-12">
