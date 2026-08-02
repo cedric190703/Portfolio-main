@@ -22,14 +22,15 @@ import { LanguageToggle } from "@/components/language-toggle"
 type Language = "en" | "fr"
 
 const projects = [
-  { key: "mistral", year: "2026", href: "https://github.com/cedric190703/mistral-vibe", tags: ["Python", "TypeScript", "LLM agents"] },
-  { key: "offline", year: "2026", href: "https://github.com/cedric190703/EDTH-Hackathon-Berlin2026-OfflineLingo", tags: ["Kotlin", "whisper.cpp", "llama.cpp"] },
-  { key: "robotics", year: "2025", href: "https://github.com/cedric190703/lerobot", tags: ["PyTorch", "Computer vision", "ROCm"] },
-  { key: "ovarian", year: "2024", href: "https://github.com/cedric190703/Ov-health-challenge", tags: ["TensorFlow", "CNN", "Medical imaging"] },
-  { key: "localchat", year: "2025", href: "https://github.com/cedric190703/local-chat", tags: ["Next.js", "RAG", "Ollama"] },
-  { key: "dyslexia", year: "2025", href: "https://github.com/cedric190703/GGH2025-LaD", tags: ["React", "Node.js", "Accessibility"] },
-  { key: "ocr", year: "2023", href: "https://github.com/cedric190703/Credit_Card_OCR", tags: ["Python", "OCR", "Computer vision"] },
-  { key: "compiler", year: "2024", href: "https://github.com/cedric190703/ERO2", tags: ["C++", "LLVM", "Compilers"] },
+  { key: "creditcard", featured: true, href: "https://github.com/cedric190703/Credit_Card_OCR", tags: ["Python", "OpenCV", "Tesseract"] },
+  { key: "ovarian", featured: true, href: "https://github.com/cedric190703/Ov-health-challenge", tags: ["Python", "TensorFlow", "Medical imaging"] },
+  { key: "localchat", featured: true, href: "https://github.com/cedric190703/local-chat", tags: ["TypeScript", "Ollama", "LangChain"] },
+  { key: "ragui", featured: true, href: "https://github.com/cedric190703/RAG-chatting-UI", tags: ["Python", "RAG", "LLM"] },
+  { key: "robotmanager", featured: true, href: "https://github.com/cedric190703/Robot-Manager-UI", tags: ["TypeScript", "LeRobot", "UI"] },
+  { key: "offline", featured: true, href: "https://github.com/cedric190703/EDTH-Hackathon-Berlin2026-OfflineLingo", tags: ["Kotlin", "Android", "Offline AI"] },
+  { key: "newsagent", featured: false, href: "https://github.com/cedric190703/NewsAgent", tags: ["Python", "AI agents", "News"] },
+  { key: "gemmory", featured: false, href: "https://github.com/cedric190703/hackathon-gemma4-gemmory", tags: ["Hackathon", "Gemma", "AI"] },
+  { key: "ships", featured: false, href: "https://github.com/cedric190703/Image-Classification", tags: ["Python", "CNN", "TensorFlow"] },
 ]
 
 const content = {
@@ -59,15 +60,18 @@ const content = {
     ],
     projects: "Projects",
     projectsIntro: "Selected technical work",
+    pinned: "Pinned repository",
+    additional: "Additional project",
     projectText: {
-      mistral: ["Mistral Vibe extensions", "2nd place overall at the Mistral AI Hackathon 2026. Extended the Vibe CLI with reusable agent skills, browser automation, live testing, local-model discovery, and model routing."],
-      offline: ["OfflineLingo", "Offline Android speech-to-text translation application for emergency responders, built for private, low-latency multilingual communication without network access."],
-      robotics: ["Autonomous manipulation", "Robotic manipulation pipelines combining imitation learning, perception, and computer vision; inference optimized on AMD ROCm for real-time decisions."],
-      ovarian: ["Ovarian cancer segmentation", "Deep-learning models for semantic tumor segmentation. Finalist team in a medical AI challenge with more than 40 participants."],
-      localchat: ["Local AI chat", "Private local LLM interface with Retrieval-Augmented Generation for document-aware conversations and local model deployment."],
-      dyslexia: ["LaD — accessibility hackathon", "Web application developed during GGH 2025 to support people with dyslexia; selected as the jury’s favourite project."],
-      ocr: ["Credit card OCR", "Computer vision and OCR experiment for extracting structured information from credit-card images."],
-      compiler: ["Tiger compiler", "Compiler frontend with lexical and syntactic analysis and LLVM-IR code generation."],
+      creditcard: ["Credit Card OCR", "Detects and extracts card numbers from credit-card images using OpenCV and Tesseract."],
+      ovarian: ["Ovarian cancer segmentation", "Ovarian cancer segmentation project developed for a healthcare competition in France."],
+      localchat: ["Local Chat", "Interface for working locally with multiple LLMs through Ollama, with tools built using LangChain and LangGraph."],
+      ragui: ["RAG Chatting UI", "Simple RAG chatting application."],
+      robotmanager: ["Robot Manager UI", "Interface for managing the different elements of a LeRobot setup."],
+      offline: ["OfflineLingo", "Project developed for the European Defense Tech Hackathon in Berlin, 2026."],
+      newsagent: ["NewsAgent", "Experimental project for agent-based work with news information."],
+      gemmory: ["Gemmory", "Hackathon project created around Gemma 4."],
+      ships: ["Ship Image Classification", "Convolutional neural-network project created for an internal Kaggle competition to classify ships into multiple image categories."],
     },
     source: "Source code",
     education: "Education",
@@ -107,15 +111,18 @@ const content = {
     ],
     projects: "Projets",
     projectsIntro: "Travaux techniques sélectionnés",
+    pinned: "Dépôt épinglé",
+    additional: "Projet complémentaire",
     projectText: {
-      mistral: ["Extensions Mistral Vibe", "2e place au Mistral AI Hackathon 2026. Extension de la CLI Vibe avec skills agents réutilisables, automatisation navigateur, tests en direct, découverte de modèles locaux et routage de modèles."],
-      offline: ["OfflineLingo", "Application Android de traduction vocale hors ligne pour intervenants d’urgence, pensée pour une communication multilingue privée et faible latence sans réseau."],
-      robotics: ["Manipulation autonome", "Pipelines de manipulation robotique combinant imitation learning, perception et vision ; inférence optimisée sur AMD ROCm pour les décisions temps réel."],
-      ovarian: ["Segmentation du cancer de l’ovaire", "Modèles de deep learning pour la segmentation sémantique de tumeurs. Équipe finaliste d’un challenge d’IA médicale réunissant plus de 40 participants."],
-      localchat: ["Chat IA local", "Interface LLM privée avec Retrieval-Augmented Generation pour des conversations liées aux documents et un déploiement de modèles local."],
-      dyslexia: ["LaD — hackathon accessibilité", "Application web développée pendant GGH 2025 pour accompagner les personnes dyslexiques ; sélectionnée comme coup de cœur du jury."],
-      ocr: ["OCR de cartes bancaires", "Expérimentation en vision par ordinateur et OCR pour extraire des informations structurées depuis des images de cartes bancaires."],
-      compiler: ["Compilateur Tiger", "Frontend de compilateur comprenant analyses lexicale et syntaxique et génération de code LLVM-IR."],
+      creditcard: ["OCR de cartes bancaires", "Détecte et extrait les numéros d’une carte bancaire à partir d’images avec OpenCV et Tesseract."],
+      ovarian: ["Segmentation du cancer de l’ovaire", "Projet de segmentation du cancer de l’ovaire développé dans le cadre d’une compétition française en santé."],
+      localchat: ["Local Chat", "Interface pour utiliser localement plusieurs LLM avec Ollama, avec des outils construits avec LangChain et LangGraph."],
+      ragui: ["RAG Chatting UI", "Application de chat RAG simple."],
+      robotmanager: ["Robot Manager UI", "Interface pour gérer les différents éléments d’une installation LeRobot."],
+      offline: ["OfflineLingo", "Projet développé pour le European Defense Tech Hackathon à Berlin en 2026."],
+      newsagent: ["NewsAgent", "Projet expérimental pour travailler avec des informations d’actualité au moyen d’agents."],
+      gemmory: ["Gemmory", "Projet de hackathon créé autour de Gemma 4."],
+      ships: ["Classification d’images de navires", "Projet de réseau de neurones convolutif créé pour une compétition Kaggle interne afin de classer des images de navires en plusieurs catégories."],
     },
     source: "Code source",
     education: "Formation",
@@ -172,7 +179,7 @@ export default function Portfolio() {
 
     <section id="projects" className="section-wrap section-block">
       <div className="section-title"><span>03</span><div><h2>{t.projects}</h2><p>{t.projectsIntro}</p></div></div>
-      <div className="project-grid">{projects.map((project) => { const [title, text] = t.projectText[project.key as keyof typeof t.projectText]; return <article className="project" key={project.key}><div className="project-meta"><span>{project.year}</span><a href={project.href} target="_blank" rel="noreferrer" aria-label={`${title} source code`}><ArrowUpRight size={18} /></a></div><h3>{title}</h3><p>{text}</p><div className="project-footer"><div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a href={project.href} target="_blank" rel="noreferrer">{t.source}</a></div></article>})}</div>
+      <div className="project-grid">{projects.map((project) => { const [title, text] = t.projectText[project.key as keyof typeof t.projectText]; return <article className="project" key={project.key}><div className="project-meta"><span>{project.featured ? t.pinned : t.additional}</span><a href={project.href} target="_blank" rel="noreferrer" aria-label={`${title} source code`}><ArrowUpRight size={18} /></a></div><h3>{title}</h3><p>{text}</p><div className="project-footer"><div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a href={project.href} target="_blank" rel="noreferrer">{t.source}</a></div></article>})}</div>
     </section>
 
     <section id="education" className="section-wrap section-block education">
