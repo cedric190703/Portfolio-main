@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Cédric Brzyski - Portfolio",
+  title: "Cédric Brzyski — AI Engineer & Software Builder",
   description:
-    "Portfolio of Cédric Brzyski"
+    "Portfolio of Cédric Brzyski, an AI engineer building agentic AI systems, computer vision pipelines, and real-time intelligent applications.",
 }
 
 export default function RootLayout({
