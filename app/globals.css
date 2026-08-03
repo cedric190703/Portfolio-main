@@ -25,18 +25,22 @@
 @media (max-width: 1020px) { .desktop-nav { gap: 15px; }.desktop-nav button { font-size: .68rem; }.page-nav > p { display: none; }.page-nav a { padding-inline: 9px; }.resume-link { display: none; } }
 @media (max-width: 760px) { .page-nav { display: none; }.case-study { grid-template-columns: 1fr; gap: 22px; padding: 48px 0; }.case-index { display: flex; align-items: center; gap: 13px; }.case-index p { margin: 0; }.case-columns { grid-template-columns: 1fr; gap: 23px; }.case-heading { flex-direction: column; gap: 13px; }.additional-projects { padding: 55px 0 70px; }.additional-projects a { grid-template-columns: 1fr 20px; gap: 8px; }.additional-projects a > span { grid-column: 1 / -1; grid-row: 2; }.additional-projects svg { grid-column: 2; grid-row: 1; }.editorial-intro { grid-template-columns: 1fr; gap: 26px; padding: 53px 0; }.article-list { padding: 55px 0 72px; }.article-list-heading { align-items: start; flex-direction: column; gap: 7px; }.draft-article { grid-template-columns: 1fr 20px; gap: 12px; }.draft-article > span { grid-column: 1 / -1; }.draft-article > svg { grid-column: 2; grid-row: 2; } }
 
-/* Make navigational and informational markers immediately legible. */
-.intro-heading > p, .section-number { font-size: .78rem; }
-.section-title > span { font-size: .95rem; font-weight: 700; }
-.company { font-size: .76rem; font-weight: 650; }
-.project-meta span, .role time, .studies time { font-size: .72rem; }
-.hub-hero > p { font-size: .8rem; font-weight: 700; }
-.page-nav > p { font-size: .64rem; }
-.page-nav a span { font-size: .68rem; font-weight: 700; }
-.case-index span { width: 62px; height: 62px; font-size: 1.25rem; font-weight: 700; }
-.case-index p { margin-top: 15px; font-size: .82rem; }
-.case-label, .additional-projects > p, .article-list-heading p, .article-list-heading span, .writing-note > div > p { font-size: .74rem; font-weight: 700; }
-.draft-article > span, .draft-article div > p:first-child { font-size: .7rem; }
+/* Blue markers are secondary titles, not small metadata. */
+.intro-heading > p, .section-number { font-size: clamp(1.15rem, 2vw, 1.65rem); font-weight: 700; letter-spacing: .035em; }
+.section-title { grid-template-columns: 230px 1fr; }
+.section-title > span { font-family: Arial, Helvetica, sans-serif; font-size: clamp(2.15rem, 3.3vw, 3rem); font-weight: 700; letter-spacing: -.07em; line-height: .95; }
+.company { font-size: 1rem; font-weight: 700; letter-spacing: .035em; }
+.project-meta span { color: var(--primary); font-size: 1rem; font-weight: 700; }
+.role time, .studies time { font-size: .9rem; }
+.hub-hero > p { font-size: clamp(1.05rem, 1.7vw, 1.35rem); font-weight: 700; letter-spacing: .07em; }
+.page-nav > p { font-size: .78rem; }
+.page-nav a span { font-size: .82rem; font-weight: 700; }
+.case-index span { width: 88px; height: 88px; border-width: 2px; font-size: clamp(2.1rem, 3vw, 2.8rem); font-weight: 700; letter-spacing: -.08em; }
+.case-index p { margin-top: 17px; font-size: .96rem; }
+.case-label, .additional-projects > p, .article-list-heading p, .article-list-heading span, .writing-note > div > p { font-size: .98rem; font-weight: 700; letter-spacing: .045em; }
+.draft-article > span, .draft-article div > p:first-child { font-size: .88rem; }
+.project-meta a svg, .studies svg, .contact > svg, .additional-projects svg { width: 28px; height: 28px; stroke-width: 1.8; }
+.case-heading a svg { width: 21px; height: 21px; stroke-width: 2; }
 .draft-article { grid-template-columns: 160px 1fr; }
 
-@media (max-width: 760px) { .case-index span { width: 52px; height: 52px; font-size: 1.05rem; }.case-index p { margin-top: 0; }.section-title > span { font-size: .86rem; }.draft-article { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .intro-heading > p, .section-number { font-size: 1rem; }.section-title { grid-template-columns: 1fr; }.section-title > span { font-size: 2.15rem; }.case-index span { width: 70px; height: 70px; font-size: 2rem; }.case-index p { margin-top: 0; font-size: .88rem; }.case-label, .additional-projects > p, .article-list-heading p, .article-list-heading span, .writing-note > div > p { font-size: .83rem; }.draft-article { grid-template-columns: 1fr; } }
