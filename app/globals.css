@@ -44,3 +44,23 @@
 .draft-article { grid-template-columns: 160px 1fr; }
 
 @media (max-width: 760px) { .intro-heading > p, .section-number { font-size: 1rem; }.section-title { grid-template-columns: 1fr; }.section-title > span { font-size: 2.15rem; }.case-index span { width: 70px; height: 70px; font-size: 2rem; }.case-index p { margin-top: 0; font-size: .88rem; }.case-label, .additional-projects > p, .article-list-heading p, .article-list-heading span, .writing-note > div > p { font-size: .83rem; }.draft-article { grid-template-columns: 1fr; } }
+
+.challenges { padding-bottom: 18px; }
+.challenge-list { border-top: 1px solid var(--border); }
+.challenge { display: grid; grid-template-columns: 230px minmax(0, 1.2fr) minmax(210px, .8fr); gap: 30px; padding: 31px 0; border-bottom: 1px solid var(--border); }
+.challenge > time { color: var(--muted-foreground); font-family: var(--font-geist-mono), monospace; font-size: .9rem; line-height: 1.5; }
+.challenge h3 { margin: 7px 0 10px; font-size: 1.18rem; letter-spacing: -.04em; }
+.challenge > div:nth-child(2) > p:last-child { max-width: 570px; margin: 0; color: var(--muted-foreground); font-size: .87rem; line-height: 1.62; }
+.challenge-result { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; padding-left: 19px; border-left: 1px solid var(--border); }
+.challenge-result > span { color: var(--primary); font-family: var(--font-geist-mono), monospace; font-size: .78rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.challenge-result strong { font-size: .92rem; line-height: 1.4; }
+.challenge-result a { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--primary); font-size: .78rem; font-weight: 700; text-decoration: none; }
+.challenge-result a:hover { text-decoration: underline; }
+.case-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+.case-facts > div { padding: 18px; border: 1px solid var(--border); background: var(--card); }
+.case-facts > div > p:last-child { margin: 11px 0 0; color: var(--muted-foreground); font-size: .83rem; line-height: 1.6; }
+.case-facts ul { display: grid; gap: 8px; margin: 11px 0 0; padding: 0; list-style: none; }
+.case-facts li { position: relative; padding-left: 14px; color: var(--muted-foreground); font-size: .79rem; line-height: 1.5; }
+.case-facts li::before { content: ""; position: absolute; top: .55em; left: 0; width: 4px; height: 4px; background: var(--primary); }
+
+@media (max-width: 760px) { .challenge { grid-template-columns: 1fr; gap: 13px; padding: 28px 0; }.challenge > time { font-size: .82rem; }.challenge-result { gap: 7px; padding: 15px 0 0; border-top: 1px solid var(--border); border-left: 0; }.challenge-result a { margin-top: 6px; }.case-facts { grid-template-columns: 1fr; }.case-facts > div { padding: 16px; } }
