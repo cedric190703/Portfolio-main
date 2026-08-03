@@ -173,6 +173,7 @@ export default function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false)
   const t = content[language]
   const ids = ["profile", "experience", "projects", "challenges", "education"]
+  const resumeHref = language === "fr" ? "/cv-cedric-brzyski-fr.pdf" : "/resume-cedric-brzyski.pdf"
 
   const navigate = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
@@ -185,16 +186,16 @@ export default function Portfolio() {
       <nav className="desktop-nav" aria-label="Primary navigation">{t.nav.map((item, index) => <button key={item} onClick={() => navigate(ids[index])}>{item}</button>)}</nav>
       <nav className="page-nav" aria-label="Dedicated pages"><p>{t.explore}</p><a href="/showcase"><span>01</span>{t.showcase}</a><a href="/articles"><span>02</span>{t.articles}</a></nav>
       <div className="header-actions">
-        <a className="resume-link desktop-resume" href="/resume-cedric-brzyski.pdf" download><ArrowDownToLine size={14} />{t.resume}</a>
+        <a className="resume-link desktop-resume" href={resumeHref} download><ArrowDownToLine size={14} />{t.resume}</a>
         <LanguageToggle onLanguageChange={(value) => setLanguage(value as Language)} /><ThemeToggle />
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
       </div>
-      {menuOpen && <nav className="mobile-nav">{t.nav.map((item, index) => <button key={item} onClick={() => navigate(ids[index])}>{item}</button>)}<a className="mobile-page-link" href="/showcase">01 / {t.showcase}</a><a className="mobile-page-link" href="/articles">02 / {t.articles}</a><a href="/resume-cedric-brzyski.pdf" download>{t.resume}</a></nav>}
+      {menuOpen && <nav className="mobile-nav">{t.nav.map((item, index) => <button key={item} onClick={() => navigate(ids[index])}>{item}</button>)}<a className="mobile-page-link" href="/showcase">01 / {t.showcase}</a><a className="mobile-page-link" href="/articles">02 / {t.articles}</a><a href={resumeHref} download>{t.resume}</a></nav>}
     </header>
 
     <section id="top" className="intro section-wrap">
       <div className="intro-heading"><p>{t.availability}</p><h1>Cédric Brzyski</h1><h2>{t.title}</h2></div>
-      <div className="intro-summary"><p>{t.intro}</p><a className="resume-button" href="/resume-cedric-brzyski.pdf" download><ArrowDownToLine size={17} />{t.resume}</a></div>
+      <div className="intro-summary"><p>{t.intro}</p><a className="resume-button" href={resumeHref} download><ArrowDownToLine size={17} />{t.resume}</a></div>
       <div className="detail-grid">{t.details.map(([label, value], index) => <div key={label}><span>{index === 0 ? <MapPin size={15} /> : index === 1 ? <Mail size={15} /> : <Languages size={15} />}{label}</span><strong>{value}</strong></div>)}</div>
     </section>
 
@@ -224,6 +225,6 @@ export default function Portfolio() {
     </section>
 
     <section className="contact section-wrap"><BriefcaseBusiness size={22} /><div><p className="section-number">06 / {t.contact}</p><h2>cedric.brzyski@epita.fr</h2><p>{t.contactText}</p></div><div className="contact-links"><a href="mailto:cedric.brzyski@epita.fr"><Mail size={16} />Email</a><a href="https://linkedin.com/in/cedric-brzyski" target="_blank" rel="noreferrer"><Linkedin size={16} />LinkedIn</a><a href="https://github.com/cedric190703" target="_blank" rel="noreferrer"><Github size={16} />GitHub</a></div></section>
-    <footer><span>© 2026 Cédric Brzyski</span><span>{t.footer}</span><a href="/resume-cedric-brzyski.pdf" download>{t.resume}</a></footer>
+    <footer><span>© 2026 Cédric Brzyski</span><span>{t.footer}</span><a href={resumeHref} download>{t.resume}</a></footer>
   </main>
 }
