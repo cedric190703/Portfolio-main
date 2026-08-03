@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, MoveLeft, PenLine } from "lucide-react"
+import { MoveLeft, PenLine } from "lucide-react"
 
 const drafts = [
   { title: "IA local-first : les conséquences d’une inférence sur appareil", subtitle: "Un article sur les compromis entre confidentialité, performance, contrôle et expérience utilisateur.", topic: "Systèmes embarqués", status: "À préparer" },
@@ -9,11 +9,11 @@ const drafts = [
 
 export default function ArticlesPage() {
   return <main className="hub-page articles-page">
-    <header className="hub-header"><Link href="/"><MoveLeft size={16} />Retour au portfolio</Link><a href="mailto:cedric.brzyski@epita.fr?subject=Article%20idea"><PenLine size={16} />Proposer un sujet</a></header>
-    <section className="hub-hero articles-hero"><p>ARTICLES & NOTES</p><h1>Écrire pour <em>mieux comprendre.</em></h1><div><p>Un espace de publication pour des articles personnels sur l’IA appliquée, l’ingénierie logicielle et les systèmes techniques. Le format visé est celui d’une note argumentée : contexte, raisonnement, exemples et références.</p><span>Archive éditoriale · publications à venir</span></div></section>
-    <section className="editorial-intro"><div><p className="case-label">LIGNE ÉDITORIALE</p><h2>Des textes de fond, pas des annonces.</h2></div><p>Les articles publiés ici ne seront ni des résumés d’actualité ni des contenus promotionnels. Ils partiront d’un problème précis, d’une expérience de construction ou d’une question de recherche, et prendront le temps d’expliciter les limites du raisonnement.</p></section>
-    <section className="article-list"><div className="article-list-heading"><p>PUBLICATIONS</p><span>Aucun article publié pour le moment</span></div>{drafts.map((draft, index) => <article className="draft-article" key={draft.title}><span>{String(index + 1).padStart(2, "0")} / {draft.status}</span><div><p>{draft.topic}</p><h2>{draft.title}</h2><p>{draft.subtitle}</p></div><ArrowUpRight size={21} /></article>)}</section>
-    <section className="writing-note"><PenLine size={24} /><div><p>PROCHAINES PUBLICATIONS</p><h2>Les premiers articles seront ajoutés ici sous forme de pages dédiées, avec une lecture confortable, des références et une date de publication.</h2></div></section>
+    <header className="hub-header"><Link href="/"><MoveLeft size={16} />Retour au portfolio</Link><a href="mailto:cedric.brzyski@epita.fr?subject=Note"><PenLine size={16} />Me contacter</a></header>
+    <section className="hub-hero articles-hero"><p>NOTES</p><h1>Notes sur l’IA <em>et le logiciel.</em></h1><div><p>Cet espace me sert à garder et partager des notes de travail sur l’IA appliquée, l’ingénierie logicielle et les systèmes techniques.</p></div></section>
+    <section className="editorial-intro"><div><p className="case-label">À PROPOS</p><h2>Des notes de travail et de lecture.</h2></div><p>J’y ajouterai des idées, des retours d’expérience, des explications techniques et des pistes à approfondir, au fil des projets et des sujets qui m’intéressent.</p></section>
+    <section className="article-list"><div className="article-list-heading"><p>NOTES À RÉDIGER</p><span>Les premières notes seront ajoutées ici</span></div>{drafts.map((draft, index) => <article className="draft-article" key={draft.title}><span>{String(index + 1).padStart(2, "0")} / {draft.status}</span><div><p>{draft.topic}</p><h2>{draft.title}</h2><p>{draft.subtitle}</p></div></article>)}</section>
+    <section className="writing-note"><PenLine size={24} /><div><p>À VENIR</p><h2>Chaque note aura sa propre page, avec un format de lecture simple et les références utiles lorsque nécessaire.</h2></div></section>
     <footer className="hub-footer"><span>© 2026 Cédric Brzyski</span><Link href="/">Portfolio principal</Link></footer>
   </main>
 }
