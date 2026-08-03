@@ -74,11 +74,8 @@ const content = {
       ships: ["Ship Image Classification", "Convolutional neural-network project created for an internal Kaggle competition to classify ships into multiple image categories."],
     },
     source: "Source code",
-    explore: "Explore further",
-    showcaseLink: "Project showcase",
-    showcaseLinkText: "Detailed project cases, technical choices, and source repositories.",
-    articlesLink: "Articles & notes",
-    articlesLinkText: "Personal writing on applied AI, engineering, and technology.",
+    showcase: "Showcase",
+    articles: "Articles",
     education: "Education",
     educationIntro: "Academic background",
     studies: [
@@ -130,11 +127,8 @@ const content = {
       ships: ["Classification d’images de navires", "Projet de réseau de neurones convolutif créé pour une compétition Kaggle interne afin de classer des images de navires en plusieurs catégories."],
     },
     source: "Code source",
-    explore: "Aller plus loin",
-    showcaseLink: "Showcase projets",
-    showcaseLinkText: "Études de cas détaillées, choix techniques et dépôts sources.",
-    articlesLink: "Articles & notes",
-    articlesLinkText: "Écrits personnels sur l’IA appliquée, l’ingénierie et la technologie.",
+    showcase: "Showcase",
+    articles: "Articles",
     education: "Formation",
     educationIntro: "Parcours académique",
     studies: [
@@ -163,12 +157,13 @@ export default function Portfolio() {
     <header className="site-header">
       <a className="wordmark" href="#top" aria-label="Cédric Brzyski home">CÉDRIC BRZYSKI<span> /</span></a>
       <nav className="desktop-nav" aria-label="Primary navigation">{t.nav.map((item, index) => <button key={item} onClick={() => navigate(ids[index])}>{item}</button>)}</nav>
+      <nav className="page-nav" aria-label="Dedicated pages"><a href="/showcase"><span>01</span>{t.showcase}</a><a href="/articles"><span>02</span>{t.articles}</a></nav>
       <div className="header-actions">
         <a className="resume-link desktop-resume" href="/resume-cedric-brzyski.pdf" download><ArrowDownToLine size={14} />{t.resume}</a>
         <LanguageToggle onLanguageChange={(value) => setLanguage(value as Language)} /><ThemeToggle />
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
       </div>
-      {menuOpen && <nav className="mobile-nav">{t.nav.map((item, index) => <button key={item} onClick={() => navigate(ids[index])}>{item}</button>)}<a href="/resume-cedric-brzyski.pdf" download>{t.resume}</a></nav>}
+      {menuOpen && <nav className="mobile-nav">{t.nav.map((item, index) => <button key={item} onClick={() => navigate(ids[index])}>{item}</button>)}<a className="mobile-page-link" href="/showcase">01 / {t.showcase}</a><a className="mobile-page-link" href="/articles">02 / {t.articles}</a><a href="/resume-cedric-brzyski.pdf" download>{t.resume}</a></nav>}
     </header>
 
     <section id="top" className="intro section-wrap">
@@ -190,11 +185,6 @@ export default function Portfolio() {
     <section id="projects" className="section-wrap section-block">
       <div className="section-title"><span>03</span><div><h2>{t.projects}</h2><p>{t.projectsIntro}</p></div></div>
       <div className="project-grid">{projects.map((project) => { const [title, text] = t.projectText[project.key as keyof typeof t.projectText]; return <article className="project" key={project.key}><div className="project-meta"><span>{project.featured ? t.pinned : t.additional}</span><a href={project.href} target="_blank" rel="noreferrer" aria-label={`${title} source code`}><ArrowUpRight size={18} /></a></div><h3>{title}</h3><p>{text}</p><div className="project-footer"><div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a href={project.href} target="_blank" rel="noreferrer">{t.source}</a></div></article>})}</div>
-    </section>
-
-    <section className="portfolio-hubs section-wrap">
-      <p>{t.explore}</p>
-      <div><a href="/showcase"><span>01</span><h2>{t.showcaseLink}</h2><p>{t.showcaseLinkText}</p><ArrowUpRight size={22} /></a><a href="/articles"><span>02</span><h2>{t.articlesLink}</h2><p>{t.articlesLinkText}</p><ArrowUpRight size={22} /></a></div>
     </section>
 
     <section id="education" className="section-wrap section-block education">
