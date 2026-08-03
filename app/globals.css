@@ -64,3 +64,7 @@
 .case-facts li::before { content: ""; position: absolute; top: .55em; left: 0; width: 4px; height: 4px; background: var(--primary); }
 
 @media (max-width: 760px) { .challenge { grid-template-columns: 1fr; gap: 13px; padding: 28px 0; }.challenge > time { font-size: .82rem; }.challenge-result { gap: 7px; padding: 15px 0 0; border-top: 1px solid var(--border); border-left: 0; }.challenge-result a { margin-top: 6px; }.case-facts { grid-template-columns: 1fr; }.case-facts > div { padding: 16px; } }
+
+.role-description ul { display: grid; gap: 7px; margin: 15px 0 0; padding: 0; list-style: none; }
+.role-description li { position: relative; padding-left: 14px; color: var(--muted-foreground); font-size: .79rem; line-height: 1.55; }
+.role-description li::before { content: ""; position: absolute; top: .58em; left: 0; width: 4px; height: 4px; background: var(--primary); }
