@@ -74,6 +74,7 @@ const content = {
       ships: ["Ship Image Classification", "Convolutional neural-network project created for an internal Kaggle competition to classify ships into multiple image categories."],
     },
     source: "Source code",
+    explore: "Explore",
     showcase: "Showcase",
     articles: "Articles",
     education: "Education",
@@ -127,6 +128,7 @@ const content = {
       ships: ["Classification d’images de navires", "Projet de réseau de neurones convolutif créé pour une compétition Kaggle interne afin de classer des images de navires en plusieurs catégories."],
     },
     source: "Code source",
+    explore: "Explorer",
     showcase: "Showcase",
     articles: "Articles",
     education: "Formation",
@@ -157,7 +159,7 @@ export default function Portfolio() {
     <header className="site-header">
       <a className="wordmark" href="#top" aria-label="Cédric Brzyski home">CÉDRIC BRZYSKI<span> /</span></a>
       <nav className="desktop-nav" aria-label="Primary navigation">{t.nav.map((item, index) => <button key={item} onClick={() => navigate(ids[index])}>{item}</button>)}</nav>
-      <nav className="page-nav" aria-label="Dedicated pages"><a href="/showcase"><span>01</span>{t.showcase}</a><a href="/articles"><span>02</span>{t.articles}</a></nav>
+      <nav className="page-nav" aria-label="Dedicated pages"><p>{t.explore}</p><a href="/showcase"><span>01</span>{t.showcase}</a><a href="/articles"><span>02</span>{t.articles}</a></nav>
       <div className="header-actions">
         <a className="resume-link desktop-resume" href="/resume-cedric-brzyski.pdf" download><ArrowDownToLine size={14} />{t.resume}</a>
         <LanguageToggle onLanguageChange={(value) => setLanguage(value as Language)} /><ThemeToggle />
