@@ -31,7 +31,7 @@ const projects = [
 
 const content = {
   en: {
-    nav: ["Profile", "Experience", "Projects", "Hackathons", "Education"],
+    nav: ["Profile", "Experiences", "Projects", "Hackathons", "Education"],
     availability: "Available for AI & software engineering opportunities",
     title: "AI Engineer · Software Engineer",
     intro: "Final-year computer science engineering student at EPITA, specializing in Artificial Intelligence and Data Science. I work on agentic AI, computer vision, robotics software, and real-time applications.",
@@ -46,8 +46,8 @@ const content = {
       ["Software engineering", "Python, C++, C, C#, SQL, JavaScript, TypeScript, Kotlin"],
       ["Platform & delivery", "FastAPI, Docker, AWS, Linux, Git, CI/CD, REST APIs, MLflow, ROS2"],
     ],
-    experience: "Experience",
-    experienceIntro: "Professional experience",
+    experience: "Experiences",
+    experienceIntro: "Professional experiences",
     roles: [
       { date: "Feb. 2026 – Jul. 2026", company: "Safran · Paris", title: "AI Engineer Intern", text: "Designed and deployed production-oriented agentic AI applications for internal audit workflows.", highlights: ["Built modular LLM pipelines and multi-agent architectures with AWS Bedrock, LangChain and FastAPI.", "Automated document understanding, findings extraction, executive summaries, report generation and slide creation.", "Worked with business stakeholders to translate operational needs into secure, deployable enterprise AI solutions."], tech: "AWS Bedrock · LangChain · FastAPI · Multi-agent architectures" },
       { date: "Sept. 2024 – Jan. 2025", company: "Inserm · Paris", title: "R&D Mixed Reality & Software Intern", text: "Developed real-time VR and AR interfaces for medical simulation.", highlights: ["Connected physical telemetry with interactive digital environments.", "Optimized low-latency communication and telemetry-processing pipelines.", "Stabilized real-time processing of multidimensional data for simulation workflows."], tech: "VR/AR · Real-time telemetry · Network optimization" },
@@ -99,7 +99,7 @@ const content = {
     footer: "Portfolio · Cédric Brzyski",
   },
   fr: {
-    nav: ["Profil", "Expérience", "Projets", "Hackathons", "Formation"],
+    nav: ["Profil", "Expériences", "Projets", "Hackathons", "Formation"],
     availability: "Disponible pour des opportunités en ingénierie IA et logiciel",
     title: "Ingénieur IA · Ingénieur logiciel",
     intro: "Étudiant ingénieur en dernière année à l’EPITA, spécialisé en Intelligence Artificielle et Data Science. Je travaille sur l’IA agentique, la vision par ordinateur, la robotique et les applications temps réel.",
@@ -114,8 +114,8 @@ const content = {
       ["Ingénierie logicielle", "Python, C++, C, C#, SQL, JavaScript, TypeScript, Kotlin"],
       ["Plateforme & livraison", "FastAPI, Docker, AWS, Linux, Git, CI/CD, APIs REST, MLflow, ROS2"],
     ],
-    experience: "Expérience",
-    experienceIntro: "Expérience professionnelle",
+    experience: "Expériences",
+    experienceIntro: "Expériences professionnelles",
     roles: [
       { date: "Fév. 2026 – Juil. 2026", company: "Safran · Paris", title: "Stagiaire AI Engineer", text: "Conception et déploiement d’applications d’IA agentique orientées production pour les flux d’audit interne.", highlights: ["Développement de pipelines LLM modulaires et d’architectures multi-agents avec AWS Bedrock, LangChain et FastAPI.", "Automatisation de la compréhension documentaire, de l’extraction de constats, des synthèses de direction, des rapports et des présentations.", "Travail avec les équipes métier pour transformer des besoins opérationnels en solutions d’IA d’entreprise sécurisées et déployables."], tech: "AWS Bedrock · LangChain · FastAPI · Architectures multi-agents" },
       { date: "Sept. 2024 – Janv. 2025", company: "Inserm · Paris", title: "Stagiaire R&D Réalité Mixte & Logiciel", text: "Développement d’interfaces VR et AR temps réel pour la simulation médicale.", highlights: ["Connexion de télémétrie physique à des environnements numériques interactifs.", "Optimisation de la communication à faible latence et des pipelines de traitement de télémétrie.", "Stabilisation du traitement temps réel de données multidimensionnelles pour les flux de simulation."], tech: "VR/AR · Télémétrie temps réel · Optimisation réseau" },
