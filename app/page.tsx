@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   ArrowDownToLine,
   ArrowUpRight,
@@ -175,6 +175,16 @@ export default function Portfolio() {
   const ids = ["profile", "experience", "projects", "challenges", "education"]
   const resumeHref = language === "fr" ? "/cv-cedric-brzyski-fr.pdf" : "/resume-cedric-brzyski.pdf"
 
+  useEffect(() => {
+    const savedLanguage = window.localStorage.getItem("portfolio-language")
+    if (savedLanguage === "en" || savedLanguage === "fr") setLanguage(savedLanguage)
+  }, [])
+
+  const changeLanguage = (value: Language) => {
+    setLanguage(value)
+    window.localStorage.setItem("portfolio-language", value)
+  }
+
   const navigate = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
     setMenuOpen(false)
@@ -187,7 +197,7 @@ export default function Portfolio() {
       <nav className="page-nav" aria-label="Dedicated pages"><p>{t.explore}</p><a href="/showcase"><span>01</span>{t.showcase}</a><a href="/articles"><span>02</span>{t.articles}</a></nav>
       <div className="header-actions">
         <a className="resume-link desktop-resume" href={resumeHref} download><ArrowDownToLine size={14} />{t.resume}</a>
-        <LanguageToggle onLanguageChange={(value) => setLanguage(value as Language)} /><ThemeToggle />
+        <LanguageToggle language={language} onLanguageChange={changeLanguage} /><ThemeToggle />
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
       </div>
       {menuOpen && <nav className="mobile-nav">{t.nav.map((item, index) => <button key={item} onClick={() => navigate(ids[index])}>{item}</button>)}<a className="mobile-page-link" href="/showcase">01 / {t.showcase}</a><a className="mobile-page-link" href="/articles">02 / {t.articles}</a><a href={resumeHref} download>{t.resume}</a></nav>}

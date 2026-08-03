@@ -68,3 +68,5 @@
 .role-description ul { display: grid; gap: 7px; margin: 15px 0 0; padding: 0; list-style: none; }
 .role-description li { position: relative; padding-left: 14px; color: var(--muted-foreground); font-size: .79rem; line-height: 1.55; }
 .role-description li::before { content: ""; position: absolute; top: .58em; left: 0; width: 4px; height: 4px; background: var(--primary); }
+.hub-header-actions { display: flex; align-items: center; gap: 8px; }
+.hub-header-actions > a { white-space: nowrap; }

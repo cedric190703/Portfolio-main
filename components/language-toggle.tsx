@@ -2,22 +2,19 @@
 
 import { Languages } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
 
-export function LanguageToggle({ onLanguageChange }: { onLanguageChange: (lang: string) => void }) {
-  const [language, setLanguage] = useState("en")
-
+export function LanguageToggle({ language, onLanguageChange }: { language: "en" | "fr"; onLanguageChange: (lang: "en" | "fr") => void }) {
   const toggleLanguage = () => {
     const newLang = language === "en" ? "fr" : "en"
-    setLanguage(newLang)
     onLanguageChange(newLang)
   }
 
   return (
     <Button
       variant="ghost"
-      size="sm"
-      onClick={toggleLanguage}
+    size="sm"
+    onClick={toggleLanguage}
+    aria-label={language === "en" ? "Switch to French" : "Passer en anglais"}
       className="hover:bg-accent/10 transition-all duration-300"
     >
       <Languages className="h-4 w-4 mr-1" />
