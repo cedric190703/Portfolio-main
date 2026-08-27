@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import {
   ArrowDownToLine,
   ArrowUpRight,
+  BadgeCheck,
   BriefcaseBusiness,
   Code2,
   Github,
@@ -22,16 +23,16 @@ import { LanguageToggle } from "@/components/language-toggle"
 type Language = "en" | "fr"
 
 const projects = [
-  { key: "creditcard", featured: true, href: "https://github.com/cedric190703/Credit_Card_OCR", tags: ["Python", "OpenCV", "Tesseract"] },
+  { key: "aegis", featured: true, href: "https://github.com/cedric190703/Finance-project", tags: ["Python", "Rust", "PyO3", "FastAPI"] },
   { key: "localchat", featured: true, href: "https://github.com/cedric190703/local-chat", tags: ["TypeScript", "Ollama", "LangChain"] },
-  { key: "ragui", featured: true, href: "https://github.com/cedric190703/RAG-chatting-UI", tags: ["Python", "RAG", "LLM"] },
-  { key: "robotmanager", featured: true, href: "https://github.com/cedric190703/Robot-Manager-UI", tags: ["TypeScript", "LeRobot", "UI"] },
-  { key: "newsagent", featured: false, href: "https://github.com/cedric190703/NewsAgent", tags: ["Python", "AI agents", "News"] },
+  { key: "ragui", featured: true, href: "https://github.com/cedric190703/RAG-chatting-UI", tags: ["Python", "FAISS", "Ollama"] },
+  { key: "robotmanager", featured: true, href: "https://github.com/cedric190703/Robot-Manager-UI", tags: ["React", "FastAPI", "LeRobot"] },
+  { key: "newsagent", featured: true, href: "https://github.com/cedric190703/NewsAgent", tags: ["LangGraph", "FastAPI", "React"] },
 ]
 
 const content = {
   en: {
-    nav: ["Profile", "Experiences", "Projects", "Hackathons", "Education"],
+    nav: ["Profile", "Experiences", "Projects", "Hackathons", "Education", "Certifications"],
     availability: "Available for AI & software engineering opportunities",
     title: "AI Engineer · Software Engineer",
     intro: "Final-year computer science engineering student at EPITA, specializing in Artificial Intelligence and Data Science. I work on agentic AI, computer vision, robotics software, and real-time applications.",
@@ -59,13 +60,13 @@ const content = {
     pinned: "Pinned repository",
     additional: "Additional project",
     projectText: {
-      creditcard: ["Credit Card OCR", "Detects and extracts card numbers from credit-card images using OpenCV and Tesseract."],
+      aegis: ["Aegis — Risk & P&L Engine", "Multi-asset risk engine that ingests market data, prices a portfolio, computes Greeks and VaR/ES, validates risk models, and explains daily P&L. Python orchestration with Rust compute kernels."],
       ovarian: ["Ovarian cancer segmentation", "Ovarian cancer segmentation project developed for a healthcare competition in France."],
-      localchat: ["Local Chat", "Interface for working locally with multiple LLMs through Ollama, with tools built using LangChain and LangGraph."],
-      ragui: ["RAG Chatting UI", "Simple RAG chatting application."],
-      robotmanager: ["Robot Manager UI", "Interface for managing the different elements of a LeRobot setup."],
+      localchat: ["Local Chat", "Local LLM interface powered by Ollama, with file and image uploads, web search, prompt enhancement and code-friendly conversations."],
+      ragui: ["RAG Chatting UI", "Local document-chat application with Ollama, LangChain and FAISS. Supports PDF, DOCX and TXT uploads, persistent indexing and source excerpts."],
+      robotmanager: ["Robot Manager", "Full-stack control interface for LeRobot SO-101/SO-100 arms: port and camera management, calibration, low-latency teleoperation, recording and dataset workflows."],
       offline: ["OfflineLingo", "Project developed for the European Defense Tech Hackathon in Berlin, 2026."],
-      newsagent: ["NewsAgent", "Experimental project for agent-based work with news information."],
+      newsagent: ["Good News Agent", "Multi-agent news intelligence platform that researches, curates, fact-checks and delivers personalized newsletters, with scheduling and an admin dashboard."],
       gemmory: ["Gemmory", "Hackathon project created around Gemma 4."],
       ships: ["Ship Image Classification", "Convolutional neural-network project created for an internal Kaggle competition to classify ships into multiple image categories."],
     },
@@ -94,12 +95,18 @@ const content = {
       ["2023", "UQAC, Canada", "Exchange semester in mathematics and computer science"],
       ["2021", "Lycée Marcelin Berthelot", "Scientific Baccalaureate, honours"],
     ],
+    certifications: "Certifications",
+    certificationsIntro: "Professional learning credentials",
+    viewCredential: "View credential",
+    certificationsList: [
+      { provider: "Kaggle Learn", title: "Intro to AI Ethics", detail: "Course completion certificate", href: "/certifications/kaggle/C%C3%A9dric%20Brz%20-%20Intro%20to%20AI%20Ethics.png" },
+    ],
     contact: "Contact",
     contactText: "For an opportunity or collaboration, please get in touch by email or LinkedIn.",
     footer: "Portfolio · Cédric Brzyski",
   },
   fr: {
-    nav: ["Profil", "Expériences", "Projets", "Hackathons", "Formation"],
+    nav: ["Profil", "Expériences", "Projets", "Hackathons", "Formation", "Certifications"],
     availability: "Disponible pour des opportunités en ingénierie IA et logiciel",
     title: "Ingénieur IA · Ingénieur logiciel",
     intro: "Étudiant ingénieur en dernière année à l’EPITA, spécialisé en Intelligence Artificielle et Data Science. Je travaille sur l’IA agentique, la vision par ordinateur, la robotique et les applications temps réel.",
@@ -127,13 +134,13 @@ const content = {
     pinned: "Dépôt épinglé",
     additional: "Projet complémentaire",
     projectText: {
-      creditcard: ["OCR de cartes bancaires", "Détecte et extrait les numéros d’une carte bancaire à partir d’images avec OpenCV et Tesseract."],
+      aegis: ["Aegis — Moteur de risque & P&L", "Moteur de risque multi-actifs qui ingère des données de marché, valorise un portefeuille, calcule les sensibilités et la VaR/ES, valide les modèles de risque et explique le P&L quotidien. Orchestration Python et noyaux de calcul Rust."],
       ovarian: ["Segmentation du cancer de l’ovaire", "Projet de segmentation du cancer de l’ovaire développé dans le cadre d’une compétition française en santé."],
-      localchat: ["Local Chat", "Interface pour utiliser localement plusieurs LLM avec Ollama, avec des outils construits avec LangChain et LangGraph."],
-      ragui: ["RAG Chatting UI", "Application de chat RAG simple."],
-      robotmanager: ["Robot Manager UI", "Interface pour gérer les différents éléments d’une installation LeRobot."],
+      localchat: ["Local Chat", "Interface de LLM locaux propulsée par Ollama, avec import de fichiers et d’images, recherche web, amélioration de prompts et conversations adaptées au code."],
+      ragui: ["RAG Chatting UI", "Application locale de dialogue avec des documents, avec Ollama, LangChain et FAISS. Prend en charge les fichiers PDF, DOCX et TXT, l’indexation persistante et les extraits sources."],
+      robotmanager: ["Robot Manager", "Interface full stack de contrôle des bras LeRobot SO-101/SO-100 : gestion des ports et caméras, calibration, téléopération à faible latence, enregistrement et flux de données."],
       offline: ["OfflineLingo", "Projet développé pour le European Defense Tech Hackathon à Berlin en 2026."],
-      newsagent: ["NewsAgent", "Projet expérimental pour travailler avec des informations d’actualité au moyen d’agents."],
+      newsagent: ["Good News Agent", "Plateforme d’intelligence d’actualité multi-agents qui recherche, sélectionne, vérifie et diffuse des newsletters personnalisées, avec planification et tableau de bord d’administration."],
       gemmory: ["Gemmory", "Projet de hackathon créé autour de Gemma 4."],
       ships: ["Classification d’images de navires", "Projet de réseau de neurones convolutif créé pour une compétition Kaggle interne afin de classer des images de navires en plusieurs catégories."],
     },
@@ -162,6 +169,12 @@ const content = {
       ["2023", "UQAC, Canada", "Semestre d’échange en mathématiques et informatique"],
       ["2021", "Lycée Marcelin Berthelot", "Baccalauréat scientifique, mention bien"],
     ],
+    certifications: "Certifications",
+    certificationsIntro: "Certificats de formation professionnelle",
+    viewCredential: "Voir le certificat",
+    certificationsList: [
+      { provider: "Kaggle Learn", title: "Introduction à l’éthique de l’IA", detail: "Certificat de fin de formation", href: "/certifications/kaggle/C%C3%A9dric%20Brz%20-%20Intro%20to%20AI%20Ethics.png" },
+    ],
     contact: "Contact",
     contactText: "Pour une opportunité ou une collaboration, vous pouvez me contacter par email ou LinkedIn.",
     footer: "Portfolio · Cédric Brzyski",
@@ -172,8 +185,8 @@ export default function Portfolio() {
   const [language, setLanguage] = useState<Language>("en")
   const [menuOpen, setMenuOpen] = useState(false)
   const t = content[language]
-  const ids = ["profile", "experience", "projects", "challenges", "education"]
-  const resumeHref = language === "fr" ? "/cv-cedric-brzyski-fr.pdf" : "/resume-cedric-brzyski.pdf"
+  const ids = ["profile", "experience", "projects", "challenges", "education", "certifications"]
+  const resumeHref = language === "fr" ? "/resumes/CV_Cedric_Brzyski.pdf" : "/resumes/Resume_Cedric_Brzyski.pdf"
 
   useEffect(() => {
     const savedLanguage = window.localStorage.getItem("portfolio-language")
@@ -234,7 +247,12 @@ export default function Portfolio() {
       <div className="studies">{t.studies.map(([date, school, degree]) => <article key={school}><time>{date}</time><div><h3>{school}</h3><p>{degree}</p></div><GraduationCap size={21} /></article>)}</div>
     </section>
 
-    <section className="contact section-wrap"><BriefcaseBusiness size={22} /><div><p className="section-number">06 / {t.contact}</p><h2>cedric.brzyski@epita.fr</h2><p>{t.contactText}</p></div><div className="contact-links"><a href="mailto:cedric.brzyski@epita.fr"><Mail size={16} />Email</a><a href="https://linkedin.com/in/cedric-brzyski" target="_blank" rel="noreferrer"><Linkedin size={16} />LinkedIn</a><a href="https://github.com/cedric190703" target="_blank" rel="noreferrer"><Github size={16} />GitHub</a></div></section>
+    <section id="certifications" className="section-wrap section-block certifications">
+      <div className="section-title"><span>06</span><div><h2>{t.certifications}</h2><p>{t.certificationsIntro}</p></div></div>
+      <div className="certification-grid">{t.certificationsList.map((certification) => <article className="certification" key={certification.href}><BadgeCheck aria-hidden="true" /><div><p className="company">{certification.provider}</p><h3>{certification.title}</h3><p>{certification.detail}</p></div><a href={certification.href} target="_blank" rel="noreferrer">{t.viewCredential}<ArrowUpRight size={18} /></a></article>)}</div>
+    </section>
+
+    <section className="contact section-wrap"><BriefcaseBusiness size={22} /><div><p className="section-number">07 / {t.contact}</p><h2>cedric.brzyski@epita.fr</h2><p>{t.contactText}</p></div><div className="contact-links"><a href="mailto:cedric.brzyski@epita.fr"><Mail size={16} />Email</a><a href="https://linkedin.com/in/cedric-brzyski" target="_blank" rel="noreferrer"><Linkedin size={16} />LinkedIn</a><a href="https://github.com/cedric190703" target="_blank" rel="noreferrer"><Github size={16} />GitHub</a></div></section>
     <footer><span>© 2026 Cédric Brzyski</span><span>{t.footer}</span><a href={resumeHref} download>{t.resume}</a></footer>
   </main>
 }
