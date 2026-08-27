@@ -28,6 +28,7 @@ const projects = [
   { key: "ragui", featured: true, href: "https://github.com/cedric190703/RAG-chatting-UI", tags: ["Python", "FAISS", "Ollama"] },
   { key: "robotmanager", featured: true, href: "https://github.com/cedric190703/Robot-Manager-UI", tags: ["React", "FastAPI", "LeRobot"] },
   { key: "newsagent", featured: true, href: "https://github.com/cedric190703/NewsAgent", tags: ["LangGraph", "FastAPI", "React"] },
+  { key: "creditcard", featured: false, href: "https://github.com/cedric190703/Credit_Card_OCR", tags: ["Python", "OpenCV", "Tesseract"] },
 ]
 
 const content = {
@@ -61,6 +62,7 @@ const content = {
     additional: "Additional project",
     projectText: {
       aegis: ["Aegis — Risk & P&L Engine", "Multi-asset risk engine that ingests market data, prices a portfolio, computes Greeks and VaR/ES, validates risk models, and explains daily P&L. Python orchestration with Rust compute kernels."],
+      creditcard: ["Credit Card OCR", "Detects and extracts card numbers from credit-card images using OpenCV and Tesseract."],
       ovarian: ["Ovarian cancer segmentation", "Ovarian cancer segmentation project developed for a healthcare competition in France."],
       localchat: ["Local Chat", "Local LLM interface powered by Ollama, with file and image uploads, web search, prompt enhancement and code-friendly conversations."],
       ragui: ["RAG Chatting UI", "Local document-chat application with Ollama, LangChain and FAISS. Supports PDF, DOCX and TXT uploads, persistent indexing and source excerpts."],
@@ -135,6 +137,7 @@ const content = {
     additional: "Projet complémentaire",
     projectText: {
       aegis: ["Aegis — Moteur de risque & P&L", "Moteur de risque multi-actifs qui ingère des données de marché, valorise un portefeuille, calcule les sensibilités et la VaR/ES, valide les modèles de risque et explique le P&L quotidien. Orchestration Python et noyaux de calcul Rust."],
+      creditcard: ["OCR de cartes bancaires", "Détecte et extrait les numéros d’une carte bancaire à partir d’images avec OpenCV et Tesseract."],
       ovarian: ["Segmentation du cancer de l’ovaire", "Projet de segmentation du cancer de l’ovaire développé dans le cadre d’une compétition française en santé."],
       localchat: ["Local Chat", "Interface de LLM locaux propulsée par Ollama, avec import de fichiers et d’images, recherche web, amélioration de prompts et conversations adaptées au code."],
       ragui: ["RAG Chatting UI", "Application locale de dialogue avec des documents, avec Ollama, LangChain et FAISS. Prend en charge les fichiers PDF, DOCX et TXT, l’indexation persistante et les extraits sources."],
