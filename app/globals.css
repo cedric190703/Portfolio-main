@@ -70,3 +70,12 @@
 .role-description li::before { content: ""; position: absolute; top: .58em; left: 0; width: 4px; height: 4px; background: var(--primary); }
 .hub-header-actions { display: flex; align-items: center; gap: 8px; }
 .hub-header-actions > a { white-space: nowrap; }
+
+/* Keep the portfolio navigation comfortably spaced as the section list grows. */
+.site-header { width: min(1320px, calc(100% - 48px)); }
+.resume-link, .resume-button, footer a { white-space: nowrap; }
+
+@media (max-width: 1279px) {
+  .desktop-nav { display: none; }
+  .menu-button { display: block; }
+}
