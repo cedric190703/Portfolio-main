@@ -10,7 +10,7 @@ export type Article = {
   subtitle: string
   dek: string
   takeaway: string
-  diagram: "agent" | "offline" | "uncertainty" | "harness" | "project"
+  diagram: "agent" | "offline" | "uncertainty" | "harness" | "project" | "robotics"
   diagramTitle: string
   diagramCaption: string
   sections: Array<{ heading: string; paragraphs: string[] }>
@@ -238,6 +238,50 @@ export const articleContent: Record<ArticleLanguage, Article[]> = {
         },
       ],
     },
+    {
+      slug: "robotics-a-camera-that-knows-where-to-look",
+      number: "06",
+      topic: "Robotics · Project note",
+      date: "September 2026",
+      readTime: "9 min read",
+      title: "Robotics is a chain of decisions, not a single model",
+      subtitle: "Notes from the AMD Open Robotics Hackathon, where our team built a voice-controlled robotic camera assistant that could pick up a camera, frame a target and keep a shot stable as that target moved.",
+      dek: "Autonomous manipulation becomes useful only when perception, calibration, planning and the physical action agree on what the world looks like—and on what to do when they do not.",
+      takeaway: "A robot earns autonomy through explicit interfaces between perception, motion and verification. The hard part is not one prediction; it is keeping the whole loop safe and observable.",
+      diagram: "robotics",
+      diagramTitle: "From spoken intent to a stable camera shot",
+      diagramCaption: "The CRC Assistant combined voice commands, YOLO target tracking, calibration, a camera-grasp policy and feedback from the scene to operate as one closed loop.",
+      sections: [
+        {
+          heading: "A useful robot begins with a task people recognise",
+          paragraphs: [
+            "At the AMD Open Robotics Hackathon, our team—CRC—started with a practical brief: help a content creator record without constantly operating a camera or relying on a second person. The resulting assistant had to pick up a camera, point it toward a chosen target, maintain focus and adapt as the target moved. Voice control mattered because it kept the interaction hands-free while the person was in front of the camera.",
+            "That scenario was intentionally more demanding than a single pick-and-place demonstration. It linked language, visual perception, geometry and manipulation to an outcome a user could judge immediately: is the camera safely held, is the subject in frame, and does the shot remain usable? Designing from that outcome made the system boundaries much clearer than starting from a list of models or libraries.",
+          ],
+        },
+        {
+          heading: "Perception is not yet a command to move",
+          paragraphs: [
+            "The project used YOLO tracking to identify targets from the COCO label set—people as well as objects such as a cup—and translate the chosen target into a visual reference. But a bounding box is not a robot action. Before the arm can move safely, the system has to connect image coordinates to a calibrated workspace, account for the camera position and decide whether the target is reachable and stable enough to follow.",
+            "We therefore treated calibration as a first-class feature rather than an invisible setup step. An automatic calibration tool stored its result in a JSON configuration that could be shared and loaded when the system restarted. That small product decision matters in robotics: repeatable configuration turns a one-off demo arrangement into something that can be re-established, inspected and improved.",
+          ],
+        },
+        {
+          heading: "The closed loop is where autonomy becomes credible",
+          paragraphs: [
+            "A camera assistant cannot make one plan and assume the world stays still. The person may move, the object can shift, tracking can become uncertain or the shot can drift. The useful architecture is therefore a loop: observe the scene, estimate target position, select a constrained motion, execute, then observe again. If the target is lost or the confidence falls, the right action may be to pause, reacquire or ask for a new command—not to continue an old trajectory blindly.",
+            "This is also why the interface should express state. Voice commands make the system accessible, but the operator still needs to know whether the robot is listening, tracking, moving, holding position or waiting for recovery. In physical systems, transparency is a safety property: it reduces surprise and makes it possible for a person to intervene before a weak perception signal becomes a bad movement.",
+          ],
+        },
+        {
+          heading: "What the hackathon made concrete",
+          paragraphs: [
+            "The hackathon accelerated a lesson that transfers beyond this specific prototype. Imitation learning and perception models can be powerful components, but the system succeeds at the seams: how data is captured, how models are trained and evaluated, how calibration is carried forward, and how an action is checked in the real world. Our work included a dedicated ROCm training pipeline and a public dataset and model artefacts for the camera-grasp task; those pieces made experimentation more reproducible than an isolated notebook result.",
+            "If I extended the project, I would focus on structured failure testing: target occlusion, changing light, targets near the edge of reach, ambiguous voice commands and recovery after an interrupted motion. I would also add explicit motion limits and more systematic shot-quality metrics. Those are not peripheral refinements. They are the path from a compelling autonomous interaction to a dependable robotic product.",
+          ],
+        },
+      ],
+    },
   ],
   fr: [
     {
@@ -338,6 +382,26 @@ export const articleContent: Record<ArticleLanguage, Article[]> = {
         { heading: "Le pipeline ne représentait que la moitié du travail", paragraphs: ["Le chemin technique associait whisper.cpp pour la reconnaissance vocale embarquée à llama.cpp et un modèle Qwen 2.5 quantifié pour la traduction locale. Ces composants rendaient l’inférence locale possible, mais les relier ne suffisait pas. L’interface devait rendre l’enregistrement, l’attente, la lecture et la reprise compréhensibles lorsqu’une personne peut être sous pression.", "C’est là que les décisions produit comptaient : un contrôle d’enregistrement ciblé, un changement de langue rapide, un contraste élevé, un vocabulaire d’urgence utile et des repères de confiance qui n’interrompent pas tout le parcours. Chaque choix visait à retirer une friction du dernier kilomètre entre une phrase prononcée et une traduction exploitable."] },
         { heading: "L’incertitude devait être conçue, pas cachée", paragraphs: ["La reconnaissance vocale peut avoir du mal avec le bruit, les accents, les noms et les voix qui se chevauchent. Prétendre le contraire créerait une fausse certitude précisément quand une erreur peut compter. Le prototype traite donc la confiance comme une partie de l’interaction : elle donne une raison de faire une pause, de réécouter ou de reformuler plutôt que de présenter chaque phrase comme définitive.", "Cette leçon va bien au-delà de la traduction. L’interface IA la plus responsable n’est pas celle qui semble la plus sûre ; c’est celle qui aide une personne à remarquer lorsque le système peut avoir besoin d’aide. Dans OfflineLingo, les repères de confiance ne sont pas des métadonnées décoratives. Ils préservent le jugement dans un workflow conçu pour la vitesse."] },
         { heading: "Ce que je testerais ensuite", paragraphs: ["Un prototype de hackathon prouve qu’une interaction peut exister ; il ne prouve pas qu’elle est prête pour le terrain. La prochaine étape utile serait un test structuré sur les langues, les accents, le bruit de fond, les performances de différents appareils et le vocabulaire métier. Il faudrait aussi de la recherche utilisateur avec des personnes qui comprennent ce type de workflow, car une interface évidente à un bureau peut échouer sous stress.", "Le projet reste précieux par les questions qu’il rend concrètes : que faut-il garder sur l’appareil, quels échecs ont besoin d’un chemin de reprise et comment l’incertitude peut-elle aider plutôt que ralentir ? Ces questions sont centrales pour de nombreux produits d’IA appliquée, sur un téléphone, dans un navigateur ou au sein d’un workflow d’entreprise plus large."] },
+      ],
+    },
+    {
+      slug: "robotics-a-camera-that-knows-where-to-look",
+      number: "06",
+      topic: "Robotique · Note projet",
+      date: "Septembre 2026",
+      readTime: "9 min de lecture",
+      title: "En robotique, l’autonomie est une chaîne de décisions",
+      subtitle: "Retour sur l’AMD Open Robotics Hackathon, où notre équipe a construit un assistant caméra robotisé, piloté à la voix, capable de saisir une caméra, cadrer une cible et maintenir une prise de vue stable lorsqu’elle se déplace.",
+      dek: "Une manipulation autonome ne devient utile que lorsque perception, calibration, planification et action physique s’accordent sur l’état du monde—et sur la réponse à apporter lorsque ce n’est plus le cas.",
+      takeaway: "Un robot gagne son autonomie grâce à des interfaces explicites entre perception, mouvement et vérification. La difficulté n’est pas une prédiction isolée, mais la sûreté et l’observabilité de toute la boucle.",
+      diagram: "robotics",
+      diagramTitle: "D’une intention vocale à une prise de vue stable",
+      diagramCaption: "Le CRC Assistant relie commandes vocales, suivi de cible YOLO, calibration, politique de saisie de caméra et retour de scène au sein d’une même boucle fermée.",
+      sections: [
+        { heading: "Un robot utile part d’une tâche immédiatement compréhensible", paragraphs: ["À l’AMD Open Robotics Hackathon, notre équipe—CRC—est partie d’un besoin concret : aider un créateur de contenu à enregistrer sans manipuler sa caméra en permanence ni dépendre d’un deuxième opérateur. L’assistant devait saisir une caméra, l’orienter vers une cible choisie, conserver le focus et s’adapter quand cette cible se déplace. Le contrôle vocal gardait l’interaction mains libres pendant que la personne se trouvait devant la caméra.", "Le scénario était volontairement plus exigeant qu’une démonstration isolée de pick-and-place. Il reliait langage, perception visuelle, géométrie et manipulation à un résultat qu’un utilisateur peut juger immédiatement : la caméra est-elle tenue en sécurité, le sujet est-il dans le cadre et le plan reste-t-il exploitable ? Partir de ce résultat rend les frontières du système plus claires qu’une simple liste de modèles ou de bibliothèques."] },
+        { heading: "Percevoir n’est pas encore une instruction de mouvement", paragraphs: ["Le projet utilisait le suivi YOLO pour identifier des cibles parmi les labels COCO—une personne comme un objet tel qu’une tasse—et transformer la cible choisie en référence visuelle. Mais une bounding box n’est pas une action robotique. Avant que le bras bouge, le système doit relier les coordonnées image à un espace de travail calibré, prendre en compte la position de la caméra et déterminer si la cible est atteignable et suffisamment stable pour être suivie.", "Nous avons donc traité la calibration comme une fonctionnalité à part entière, plutôt que comme une étape de préparation invisible. Un outil de calibration automatique enregistrait son résultat dans une configuration JSON partageable et rechargée au redémarrage. C’est un détail produit important en robotique : une configuration répétable transforme une installation de démonstration ponctuelle en un système que l’on peut rétablir, inspecter et améliorer."] },
+        { heading: "La boucle fermée rend l’autonomie crédible", paragraphs: ["Un assistant caméra ne peut pas calculer un plan unique en supposant que le monde restera fixe. La personne peut se déplacer, un objet peut changer de position, le suivi devenir incertain ou le cadrage dériver. L’architecture utile est donc une boucle : observer la scène, estimer la position de la cible, sélectionner un mouvement contraint, exécuter, puis observer à nouveau. Si la cible est perdue ou que la confiance baisse, la bonne action peut être de s’arrêter, de réacquérir ou de demander une nouvelle commande, pas de poursuivre aveuglément une ancienne trajectoire.", "C’est aussi pourquoi l’interface doit exprimer l’état. Les commandes vocales rendent le système accessible, mais l’opérateur doit toujours savoir si le robot écoute, suit, se déplace, tient sa position ou attend une reprise. Dans un système physique, la transparence est une propriété de sûreté : elle réduit la surprise et permet à une personne d’intervenir avant qu’un signal perceptif faible ne devienne un mauvais mouvement."] },
+        { heading: "Ce que le hackathon a rendu concret", paragraphs: ["Le hackathon a accéléré une leçon qui dépasse ce prototype. L’apprentissage par imitation et les modèles de perception sont des composants puissants, mais le système réussit à ses jonctions : capture des données, entraînement et évaluation, transmission de la calibration et vérification de l’action dans le monde réel. Notre travail incluait un pipeline d’entraînement ROCm dédié ainsi que des artefacts publics de données et de modèle pour la tâche de saisie de caméra ; cela rend l’expérimentation plus reproductible qu’un résultat isolé dans un notebook.", "Si je prolongeais le projet, je prioriserais des tests d’échec structurés : occultation de cible, changements de lumière, cible près de la limite de portée, commande vocale ambiguë et reprise après un mouvement interrompu. J’ajouterais aussi des limites de mouvement explicites et des métriques de qualité de plan plus systématiques. Ce ne sont pas des raffinements secondaires : c’est le chemin qui transforme une interaction autonome convaincante en produit robotique fiable."] },
       ],
     },
   ],
