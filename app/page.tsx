@@ -23,6 +23,8 @@ import { LanguageToggle } from "@/components/language-toggle"
 type Language = "en" | "fr"
 
 const projects = [
+  { key: "flightrec", featured: true, href: "https://github.com/cedric190703/flightrec", tags: ["Python", "AI agents", "Observability", "Replay"] },
+  { key: "finresearch", featured: true, href: "https://github.com/cedric190703/fin-research-agents", tags: ["Python", "FastAPI", "Hybrid RAG", "pgvector"] },
   { key: "mistral", featured: true, href: "https://github.com/cedric190703/mistral-vibe", tags: ["Python", "TypeScript", "LLM agents", "Chrome extensions"] },
   { key: "offline", featured: true, href: "https://github.com/cedric190703/EDTH-Hackathon-Berlin2026-OfflineLingo", tags: ["Kotlin", "Android", "whisper.cpp", "llama.cpp"] },
   { key: "amd", featured: true, href: "https://github.com/crc-amd-hackathon-2025/mission", tags: ["Python", "PyTorch", "LeRobot", "AMD ROCm"] },
@@ -60,6 +62,8 @@ const content = {
     pinned: "Pinned repository",
     additional: "Additional project",
     projectText: {
+      flightrec: ["flightrec", "Harness-agnostic flight recorder for AI coding agents. It captures model calls, file edits and shell commands in one replayable timeline, with the ability to fork a session from any recorded step."],
+      finresearch: ["FinResearchAgents", "Multi-agent equity-research system grounded in SEC filings: hybrid RAG, deterministic finance tools and an independent critic produce sourced memos with traceable numerical claims."],
       mistral: ["Mistral Vibe", "2nd-place overall project at the Mistral AI Hackathon. Extended Mistral’s Vibe CLI with reusable agent skills, browser automation and intelligent routing between local and cloud models."],
       offline: ["OfflineLingo", "Offline Android speech-to-text translation application for emergency responders, using on-device speech recognition and local language models for private, low-latency multilingual communication."],
       amd: ["Autonomous Manipulation", "Robotic manipulation pipelines combining imitation learning, computer vision and perception algorithms for real-world tasks, developed for the AMD Open Robotics Hackathon."],
@@ -130,6 +134,8 @@ const content = {
     pinned: "Dépôt épinglé",
     additional: "Projet complémentaire",
     projectText: {
+      flightrec: ["flightrec", "Boîte noire indépendante du harnais pour agents de code IA. Elle capture appels modèle, modifications de fichiers et commandes shell dans une timeline rejouable, avec possibilité de repartir de n’importe quelle étape."],
+      finresearch: ["FinResearchAgents", "Système de recherche actions multi-agents basé sur les dépôts SEC : RAG hybride, outils financiers déterministes et critique indépendant produisent des mémos sourcés avec des chiffres traçables."],
       mistral: ["Mistral Vibe", "Projet classé 2e au général du Hackathon Mistral AI. Extension du CLI Vibe de Mistral avec des skills d’agents réutilisables, l’automatisation du navigateur et un routage intelligent entre modèles locaux et cloud."],
       offline: ["OfflineLingo", "Application Android de traduction vocale hors ligne pour les services de secours, utilisant la reconnaissance vocale embarquée et des modèles de langage locaux pour une communication multilingue privée et à faible latence."],
       amd: ["Manipulation autonome", "Pipelines de manipulation robotique combinant apprentissage par imitation, vision par ordinateur et algorithmes de perception pour des tâches réelles, développés pour l’AMD Open Robotics Hackathon."],

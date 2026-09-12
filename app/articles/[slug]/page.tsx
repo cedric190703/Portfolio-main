@@ -8,34 +8,59 @@ import { ArrowLeft, Clock3, MoveLeft } from "lucide-react"
 import { LanguageToggle } from "@/components/language-toggle"
 import { articleContent, type ArticleLanguage } from "@/lib/articles"
 
-function Diagram({ type, language }: { type: "agent" | "offline" | "uncertainty" | "harness" | "project"; language: ArticleLanguage }) {
+type DiagramType = "agent" | "offline" | "uncertainty" | "harness" | "project"
+
+function SystemGraph({ type, language, variant = "runtime" }: { type: DiagramType; language: ArticleLanguage; variant?: "runtime" | "assurance" }) {
   const english = {
-    agent: { lanes: ["INPUT & EVIDENCE", "DECISION LOOP", "REVIEW & OUTPUT"], labels: ["Task brief", "Evidence", "Plan", "Tool calls", "Review", "Decision"], guardrail: "Trace · policy checks · ownership", loop: "Improve the workflow from observed failures" },
-    offline: { lanes: ["DEVICE INPUT", "LOCAL INFERENCE", "USER VERIFICATION"], labels: ["Voice input", "Transcribe", "Translate", "Confidence", "Verify", "Respond"], guardrail: "No network · limited memory · saved state", loop: "Retry without losing the interaction" },
-    uncertainty: { lanes: ["MODEL RESULT", "INTERPRETATION", "HUMAN JUDGMENT"], labels: ["Model output", "Confidence", "Context", "Verify", "Correct", "Proceed"], guardrail: "Signal only where an action can change", loop: "Use corrections to improve the experience" },
-    harness: { lanes: ["TASK FRAME", "CONTROL SURFACE", "OBSERVABILITY"], labels: ["Task", "Context", "Tool calls", "Guardrails", "Trace", "Evaluate"], guardrail: "Permissions · sandbox · typed contracts", loop: "Turn recurring failures into evaluation cases" },
-    project: { lanes: ["FIELD INPUT", "ON-DEVICE PIPELINE", "CHECKABLE RESULT"], labels: ["Voice", "Capture", "whisper.cpp", "Qwen 2.5", "Confidence", "Retry"], guardrail: "Offline-first · high contrast · emergency vocabulary", loop: "Rephrase or replay before relying on a result" },
+    agent: ["Task & sources", "Evidence retrieval", "Task planner", "Typed tool gateway", "Policy & approval", "Review queue", "Decision / draft", "Run trace store", "Evaluation suite"],
+    offline: ["Voice input", "Local session state", "Audio pipeline", "Local inference", "No-network budget", "Confidence check", "Translation", "Device diagnostics", "Device test matrix"],
+    uncertainty: ["Model result", "Evidence & ambiguity", "Confidence policy", "Alternative / replay", "Risk threshold", "Correction surface", "Actionable result", "Correction events", "Calibration tests"],
+    harness: ["Task specification", "Context selection", "Agent runtime", "Typed tool interface", "Permissions & sandbox", "Approval boundary", "Scoped outcome", "Trace / spans", "Regression suite"],
+    project: ["Voice capture", "Local session state", "Android orchestration", "whisper.cpp + Qwen", "Offline / privacy", "Confidence + retry", "Checkable translation", "On-device diagnostics", "Field test matrix"],
   } as const
   const french = {
-    agent: { lanes: ["ENTRÉE & PREUVES", "BOUCLE DE DÉCISION", "REVUE & SORTIE"], labels: ["Demande", "Preuves", "Plan", "Appels outils", "Revue", "Décision"], guardrail: "Trace · contrôles de politique · responsabilité", loop: "Améliorer le workflow à partir des échecs observés" },
-    offline: { lanes: ["ENTRÉE APPAREIL", "INFÉRENCE LOCALE", "VÉRIFICATION UTILISATEUR"], labels: ["Voix", "Transcrire", "Traduire", "Confiance", "Vérifier", "Répondre"], guardrail: "Sans réseau · mémoire limitée · état préservé", loop: "Réessayer sans perdre l’interaction" },
-    uncertainty: { lanes: ["RÉSULTAT MODÈLE", "INTERPRÉTATION", "JUGEMENT HUMAIN"], labels: ["Sortie modèle", "Confiance", "Contexte", "Vérifier", "Corriger", "Continuer"], guardrail: "Un signal seulement si une action peut changer", loop: "Utiliser les corrections pour améliorer l’expérience" },
-    harness: { lanes: ["CADRAGE TÂCHE", "SURFACE DE CONTRÔLE", "OBSERVABILITÉ"], labels: ["Tâche", "Contexte", "Appels outils", "Garde-fous", "Trace", "Évaluer"], guardrail: "Permissions · sandbox · contrats typés", loop: "Transformer les échecs récurrents en cas d’évaluation" },
-    project: { lanes: ["ENTRÉE TERRAIN", "PIPELINE SUR APPAREIL", "RÉSULTAT VÉRIFIABLE"], labels: ["Voix", "Capture", "whisper.cpp", "Qwen 2.5", "Confiance", "Réessayer"], guardrail: "Hors ligne · contraste élevé · vocabulaire d’urgence", loop: "Reformuler ou réécouter avant de s’appuyer sur le résultat" },
+    agent: ["Tâche & sources", "Recherche de preuves", "Planificateur", "Passerelle d’outils typés", "Politique & approbation", "File de revue", "Décision / brouillon", "Stockage des traces", "Suite d’évaluation"],
+    offline: ["Entrée vocale", "État local de session", "Pipeline audio", "Inférence locale", "Budget sans réseau", "Contrôle de confiance", "Traduction", "Diagnostics appareil", "Matrice de test appareil"],
+    uncertainty: ["Résultat modèle", "Preuves & ambiguïté", "Politique de confiance", "Alternative / réécoute", "Seuil de risque", "Surface de correction", "Résultat exploitable", "Événements correction", "Tests de calibrage"],
+    harness: ["Spécification de tâche", "Sélection du contexte", "Runtime agent", "Interface d’outils typée", "Permissions & sandbox", "Frontière d’approbation", "Résultat cadré", "Traces / spans", "Suite de régression"],
+    project: ["Capture vocale", "État local de session", "Orchestration Android", "whisper.cpp + Qwen", "Hors ligne / vie privée", "Confiance + reprise", "Traduction vérifiable", "Diagnostics sur appareil", "Matrice terrain"],
   } as const
-  const config = (language === "fr" ? french : english)[type]
-  const positions = [[36, 108], [265, 108], [494, 108], [36, 238], [265, 238], [494, 238]] as const
+  const labels = (language === "fr" ? french : english)[type]
+  const edge = language === "fr"
+    ? { input: "entrée", context: "contexte sélectionné", command: "commande typée", result: "résultat structuré", permit: "autorise / bloque", review: "brouillon + preuves", approved: "validé", trace: "événements", history: "historique de run", feedback: "retour de régression", observes: "observe", escalates: "escalade" }
+    : { input: "input", context: "selected context", command: "typed command", result: "structured result", permit: "allow / deny", review: "draft + evidence", approved: "approved", trace: "events", history: "run history", feedback: "regression feedback", observes: "observes", escalates: "escalates" }
+  const marker = `arrow-${type}-${variant}`
+  const Node = ({ x, y, label, kind }: { x: number; y: number; label: string; kind: "input" | "compute" | "control" | "human" | "store" }) => {
+    const lines = label.length > 21 ? [label.slice(0, label.lastIndexOf(" ", 21)), label.slice(label.lastIndexOf(" ", 21) + 1)] : [label]
+    return <g transform={`translate(${x} ${y})`} className={`system-node ${kind}`}><rect width="156" height="58" rx="7" /><text x="12" y={lines.length === 1 ? 34 : 25}>{lines.map((line, index) => <tspan x="12" dy={index === 0 ? 0 : 15} key={`${line}-${index}`}>{line}</tspan>)}</text></g>
+  }
+  const Arrow = ({ d, label, x, y, control = false }: { d: string; label: string; x: number; y: number; control?: boolean }) => <g><path d={d} className={`system-edge${control ? " control" : ""}`} markerEnd={`url(#${control ? `${marker}-control` : marker})`} /><rect x={x - 4} y={y - 11} width={Math.max(46, label.length * 5.2)} height="16" rx="3" className="system-edge-backdrop" /><text x={x} y={y} className="system-edge-label">{label}</text></g>
 
-  return <div className="architecture-diagram" aria-label={`${type} architecture diagram`}>
-    <svg viewBox="0 0 720 405" role="img" aria-label={`${type} system map`}>
-      <defs><marker id={`arrow-${type}`} markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path className="architecture-marker" d="M0,0 L8,4.5 L0,9 Z" /></marker></defs>
-      <rect x="1" y="1" width="718" height="403" rx="10" className="architecture-frame" />
-      {config.lanes.map((lane, index) => <g key={lane}><text x={36 + index * 229} y="45" className="architecture-lane">{lane}</text><line x1={36 + index * 229} y1="57" x2={235 + index * 229} y2="57" className="architecture-rule" /></g>)}
-      <path d="M206 152 H252 M435 152 H481 M150 196 V226 M379 196 V226 M608 196 V226" className="architecture-arrow" markerEnd={`url(#arrow-${type})`} />
-      <path d="M608 282 C676 282 676 368 379 368 C110 368 110 330 110 313" className="architecture-loop" markerEnd={`url(#arrow-${type})`} />
-      {config.labels.map((label, index) => { const [x, y] = positions[index]; const words = label.split(" "); return <g key={label} transform={`translate(${x} ${y})`}><rect width="190" height="88" rx="8" className={`architecture-node node-${index + 1}`} /><text x="16" y="25" className="architecture-number">{String(index + 1).padStart(2, "0")}</text><text x="16" y={words.length > 1 ? 52 : 60} className="architecture-label">{words.map((word, line) => <tspan key={`${word}-${line}`} x="16" dy={line === 0 ? 0 : 17}>{word}</tspan>)}</text></g> })}
-      <g transform="translate(36 329)"><rect width="648" height="38" rx="6" className="architecture-guardrail" /><text x="14" y="24" className="architecture-guardrail-label">{config.guardrail}</text></g>
-      <text x="360" y="394" textAnchor="middle" className="architecture-loop-label">↺ {config.loop}</text>
+  const swipeHint = language === "fr" ? "← faites glisser pour explorer le schéma →" : "← swipe to explore the system map →"
+
+  if (variant === "assurance") return <div className="system-graph" data-swipe-hint={swipeHint} aria-label={`${type} assurance architecture`}>
+    <svg viewBox="0 0 720 460" role="img" aria-label={`${type} control-plane map`}>
+      <defs><marker id={marker} markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path className="system-marker" d="M0,0 L8,4.5 L0,9 Z" /></marker><marker id={`${marker}-control`} markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path className="system-marker control" d="M0,0 L8,4.5 L0,9 Z" /></marker></defs>
+      <rect x="1" y="1" width="718" height="458" rx="10" className="system-frame" />
+      <text x="28" y="38" className="system-zone">CONTROL PLANE</text><text x="28" y="60" className="system-subtitle">policy, review and evidence change what the runtime is allowed to do</text>
+      <rect x="24" y="82" width="672" height="304" rx="10" className="system-group" />
+      <Node x={282} y={190} label={labels[2]} kind="compute" /><Node x={42} y={120} label={labels[4]} kind="control" /><Node x={42} y={278} label={labels[5]} kind="human" /><Node x={522} y={120} label={labels[7]} kind="store" /><Node x={522} y={278} label={labels[8]} kind="control" /><Node x={282} y={322} label={labels[6]} kind="input" />
+      <Arrow d="M198 149 C246 149 239 203 282 213" label={edge.permit} x={207} y={170} control /><Arrow d="M282 230 C228 239 218 299 198 307" label={edge.escalates} x={205} y={261} control /><Arrow d="M438 215 C476 202 488 157 522 149" label={edge.trace} x={452} y={179} /><Arrow d="M438 232 C480 250 489 295 522 307" label={edge.history} x={454} y={273} /><Arrow d="M522 307 C476 363 454 370 438 351" label={edge.feedback} x={448} y={392} control /><Arrow d="M360 248 V322" label={edge.approved} x={372} y={286} /><Arrow d="M360 322 C350 291 280 292 198 307" label={edge.observes} x={252} y={299} control />
+      <text x="38" y="424" className="system-legend"><tspan className="legend-data">●</tspan> data flow&nbsp;&nbsp;&nbsp; <tspan className="legend-control">– –</tspan> control / policy flow&nbsp;&nbsp;&nbsp; <tspan className="legend-human">●</tspan> human decision</text>
+    </svg>
+  </div>
+
+  return <div className="system-graph" data-swipe-hint={swipeHint} aria-label={`${type} system architecture`}>
+    <svg viewBox="0 0 720 540" role="img" aria-label={`${type} runtime system map`}>
+      <defs><marker id={marker} markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path className="system-marker" d="M0,0 L8,4.5 L0,9 Z" /></marker><marker id={`${marker}-control`} markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path className="system-marker control" d="M0,0 L8,4.5 L0,9 Z" /></marker></defs>
+      <rect x="1" y="1" width="718" height="538" rx="10" className="system-frame" />
+      <text x="28" y="38" className="system-zone">RUNTIME DATA FLOW</text><text x="28" y="60" className="system-subtitle">each arrow carries a specific artifact or decision, not an opaque handoff</text>
+      <rect x="24" y="82" width="672" height="348" rx="10" className="system-group" />
+      <Node x={30} y={175} label={labels[0]} kind="input" /><Node x={204} y={175} label={labels[1]} kind="store" /><Node x={378} y={175} label={labels[2]} kind="compute" /><Node x={552} y={175} label={labels[3]} kind="compute" />
+      <Node x={30} y={325} label={labels[4]} kind="control" /><Node x={204} y={325} label={labels[5]} kind="human" /><Node x={378} y={325} label={labels[7]} kind="store" /><Node x={552} y={325} label={labels[8]} kind="control" /><Node x={291} y={414} label={labels[6]} kind="input" />
+      <Arrow d="M186 204 H204" label={edge.input} x={173} y={191} /><Arrow d="M360 204 H378" label={edge.context} x={326} y={191} /><Arrow d="M534 204 H552" label={edge.command} x={500} y={191} /><Arrow d="M552 230 H534" label={edge.result} x={534} y={251} /><Arrow d="M630 325 C630 286 630 267 630 233" label={edge.trace} x={640} y={279} /><Arrow d="M552 208 C488 274 409 330 360 354" label={edge.review} x={442} y={279} /><Arrow d="M282 383 C282 401 332 400 369 414" label={edge.approved} x={290} y={400} /><Arrow d="M186 354 C236 354 297 298 378 230" label={edge.permit} x={225} y={326} control /><Arrow d="M534 354 H552" label={edge.history} x={500} y={342} /><Arrow d="M630 325 C674 265 627 137 534 204" label={edge.feedback} x={596} y={143} control />
+      <line x1="38" y1="493" x2="682" y2="493" className="system-legend-rule" />
+      <text x="38" y="520" className="system-legend"><tspan className="legend-data">●</tspan> data flow&nbsp;&nbsp;&nbsp; <tspan className="legend-control">– –</tspan> control / policy flow&nbsp;&nbsp;&nbsp; <tspan className="legend-human">●</tspan> human decision</text>
     </svg>
   </div>
 }
@@ -108,11 +133,6 @@ const dossiers = {
   },
 } as const
 
-function SequenceDiagram({ actors, steps }: { actors: readonly string[]; steps: readonly string[] }) {
-  const x = [88, 285, 482, 679]
-  return <div className="sequence-diagram"><svg viewBox="0 0 768 350" role="img" aria-label="implementation sequence diagram"><defs><marker id="sequence-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path className="sequence-marker" d="M0,0 L7,4 L0,8 Z" /></marker></defs>{actors.map((actor, index) => <g key={actor}><rect x={x[index] - 69} y="18" width="138" height="38" rx="7" className="sequence-actor" /><text x={x[index]} y="42" textAnchor="middle" className="sequence-actor-label">{actor}</text><line x1={x[index]} y1="57" x2={x[index]} y2="316" className="sequence-lifeline" /></g>)}{steps.map((step, index) => { const from = index % 2 === 0 ? index : 3 - index; const to = index % 2 === 0 ? Math.min(from + 1, 3) : Math.max(from - 1, 0); const y = 102 + index * 60; return <g key={step}><line x1={x[from]} y1={y} x2={x[to]} y2={y} className="sequence-arrow" markerEnd="url(#sequence-arrow)" /><rect x="242" y={y - 25} width="284" height="20" rx="4" className="sequence-note" /><text x="384" y={y - 11} textAnchor="middle" className="sequence-note-label">{step}</text></g> })}</svg></div>
-}
-
 export default function ArticlePage() {
   const [language, setLanguage] = useState<ArticleLanguage>("en")
   const params = useParams<{ slug: string }>()
@@ -152,8 +172,8 @@ export default function ArticlePage() {
         <aside className="article-aside"><p>{copy.takeaway}</p><strong>{article.takeaway}</strong></aside>
         <div className="article-body">
           <p className="article-dek">{article.dek}</p>
-          {article.sections.map((section, index) => <section key={section.heading}><p className="article-section-number">{String(index + 1).padStart(2, "0")}</p><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{index === 1 && <figure><div><p>{copy.diagram}</p><h3>{article.diagramTitle}</h3><Diagram type={article.diagram} language={language} /><div className="diagram-insights">{notes.map(([label, text]) => <div key={label}><strong>{label}</strong><span>{text}</span></div>)}</div></div><figcaption>{article.diagramCaption}</figcaption></figure>}</section>)}
-          <section className="article-dossier"><p className="article-section-number">{copy.dossier}</p><h2>{dossier.title}</h2>{dossier.text.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<SequenceDiagram actors={dossier.actors} steps={dossier.steps} /></section>
+          {article.sections.map((section, index) => <section key={section.heading}><p className="article-section-number">{String(index + 1).padStart(2, "0")}</p><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{index === 1 && <figure><div><p>{copy.diagram}</p><h3>{article.diagramTitle}</h3><SystemGraph type={article.diagram} language={language} /><div className="diagram-insights">{notes.map(([label, text]) => <div key={label}><strong>{label}</strong><span>{text}</span></div>)}</div></div><figcaption>{article.diagramCaption}</figcaption></figure>}</section>)}
+          <section className="article-dossier"><p className="article-section-number">{copy.dossier}</p><h2>{dossier.title}</h2>{dossier.text.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<SystemGraph type={article.diagram} language={language} variant="assurance" /></section>
           <section className="article-operating-matrix"><p className="article-section-number">{copy.matrix}</p><h2>{copy.matrixTitle}</h2><div className="matrix-table"><div className="matrix-head"><span>{copy.concern}</span><span>{copy.failure}</span><span>{copy.response}</span></div>{matrix.map(([concern, failure, response]) => <div className="matrix-row" key={concern}><strong>{concern}</strong><span>{failure}</span><span>{response}</span></div>)}</div></section>
           <section className="article-playbook"><p className="article-section-number">{copy.playbook}</p><ol>{playbook.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ol></section>
           <Link className="article-contact" href="mailto:cbrzyski2@gmail.com?subject=Portfolio%20article"><span>{copy.contact}</span><ArrowLeft size={17} /></Link>
