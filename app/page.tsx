@@ -35,7 +35,7 @@ const content = {
     availability: "Associate Consultant, AI Platforms at Sia Partners",
     title: "Applied AI Engineer",
     intro: "EPITA engineering graduate in Artificial Intelligence and Data Science, now an Associate Consultant in AI Platforms within Sia Partners’ GenAI Solutions practice. I design and build AI applications and backend systems from business need to production.",
-    details: [["Location", "Saint-Maur-des-Fossés, France"], ["Email", "cedric.brzyski@epita.fr"], ["Languages", "French (native), English (C1)"]],
+    details: [["Location", "Saint-Maur-des-Fossés, France"], ["Email", "cbrzyski2@gmail.com"], ["Languages", "French (native), English (C1)"]],
     resume: "Download résumé",
     profile: "Profile",
     profileText: "My projects combine applied machine learning with software engineering: designing useful LLM workflows, working with visual and sensor data, and building interfaces that make technical systems usable. I am particularly interested in practical AI systems that operate reliably in constrained or professional environments.",
@@ -105,7 +105,7 @@ const content = {
     availability: "Consultant Associé, Plateformes IA chez Sia Partners",
     title: "Ingénieur IA appliquée",
     intro: "Ingénieur diplômé de l’EPITA en Intelligence Artificielle et Data Science, aujourd’hui Consultant Associé en Plateformes IA au sein de la practice GenAI Solutions de Sia Partners. Je conçois et développe des applications IA et des systèmes backend, du besoin métier jusqu’à la production.",
-    details: [["Localisation", "Saint-Maur-des-Fossés, France"], ["Email", "cedric.brzyski@epita.fr"], ["Langues", "Français (natif), anglais (C1)"]],
+    details: [["Localisation", "Saint-Maur-des-Fossés, France"], ["Email", "cbrzyski2@gmail.com"], ["Langues", "Français (natif), anglais (C1)"]],
     resume: "Télécharger le CV",
     profile: "Profil",
     profileText: "Mes projets combinent machine learning appliqué et ingénierie logicielle : conception de flux LLM utiles, traitement de données visuelles et de capteurs, et création d’interfaces qui rendent les systèmes techniques utilisables. Je m’intéresse particulièrement aux systèmes IA pratiques, fiables et adaptés aux environnements contraints ou professionnels.",
@@ -243,7 +243,7 @@ export default function Portfolio() {
       <div className="certification-grid">{t.certificationsList.map((certification) => <article className="certification" key={certification.href}><BadgeCheck aria-hidden="true" /><div><p className="company">{certification.provider}</p><h3>{certification.title}</h3><p>{certification.detail}</p></div><a href={certification.href} target="_blank" rel="noreferrer">{t.viewCredential}<ArrowUpRight size={18} /></a></article>)}</div>
     </section>
 
-    <section className="contact section-wrap"><BriefcaseBusiness size={22} /><div><p className="section-number">07 / {t.contact}</p><h2>cedric.brzyski@epita.fr</h2><p>{t.contactText}</p></div><div className="contact-links"><a href="mailto:cedric.brzyski@epita.fr"><Mail size={16} />Email</a><a href="https://linkedin.com/in/cedric-brzyski" target="_blank" rel="noreferrer"><Linkedin size={16} />LinkedIn</a><a href="https://github.com/cedric190703" target="_blank" rel="noreferrer"><Github size={16} />GitHub</a></div></section>
+    <section className="contact section-wrap"><BriefcaseBusiness size={22} /><div><p className="section-number">07 / {t.contact}</p><h2>cbrzyski2@gmail.com</h2><p>{t.contactText}</p></div><div className="contact-links"><a href="mailto:cbrzyski2@gmail.com"><Mail size={16} />Email</a><a href="https://linkedin.com/in/cedric-brzyski" target="_blank" rel="noreferrer"><Linkedin size={16} />LinkedIn</a><a href="https://github.com/cedric190703" target="_blank" rel="noreferrer"><Github size={16} />GitHub</a></div></section>
     <footer><span>© 2026 Cédric Brzyski</span><span>{t.footer}</span><a href={resumeHref} download>{t.resume}</a></footer>
   </main>
 }
