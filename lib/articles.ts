@@ -5,6 +5,13 @@ export type ArticleLanguage = "en" | "fr"
 
 export type DiagramKind = "agent" | "offline" | "uncertainty" | "harness" | "project" | "robotics" | "bci"
 
+export type VisualSchema = {
+  layout: "flow" | "layers" | "compare" | "cycle"
+  title: string
+  caption: string
+  nodes: Array<{ title: string; summary: string; detail: string }>
+}
+
 // Articles are built from blocks so each piece can have its own shape:
 // a project note can lean on code and lists, an essay on prose and a table.
 // Paragraph text may use `backticks` for inline code.
@@ -16,6 +23,7 @@ export type Block =
   | { type: "table"; head: string[]; rows: string[][] }
   | { type: "note"; label: string; text: string }
   | { type: "figure" }
+  | { type: "schema"; visual: VisualSchema }
   | { type: "references"; items: Array<{ title: string; url: string }> }
 
 export type Article = {

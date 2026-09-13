@@ -5,6 +5,7 @@ import { useEffect, useState, type ReactNode } from "react"
 import { ArrowLeft, Clock3, MoveLeft } from "lucide-react"
 
 import { ArticleDiagram } from "@/components/article-diagrams"
+import { ArticleSchema } from "@/components/article-schema"
 import { LanguageToggle } from "@/components/language-toggle"
 import { articleContent, type Article, type ArticleLanguage, type Block } from "@/lib/articles"
 
@@ -17,14 +18,14 @@ function inline(text: string): ReactNode[] {
   })
 }
 
-function Figure({ article, language, label }: { article: Article; language: ArticleLanguage; label: string }) {
-  return <figure>
-    <div><p>{label}</p><h3>{article.diagramTitle}</h3><ArticleDiagram kind={article.diagram} language={language} /></div>
+function Figure({ article, language, label, number }: { article: Article; language: ArticleLanguage; label: string; number: number }) {
+  return <figure id={`figure-${number}`} aria-labelledby={`figure-${number}-title`}>
+    <div><p>{label} {String(number).padStart(2, "0")}</p><h3 id={`figure-${number}-title`}>{article.diagramTitle}</h3><ArticleDiagram kind={article.diagram} language={language} /></div>
     <figcaption>{article.diagramCaption}</figcaption>
   </figure>
 }
 
-function renderBlock(block: Block, index: number, article: Article, language: ArticleLanguage, figureLabel: string) {
+function renderBlock(block: Block, index: number, article: Article, language: ArticleLanguage, figureLabel: string, figureNumber: number) {
   switch (block.type) {
     case "p": return <p key={index}>{inline(block.text)}</p>
     case "code": return <div className="article-code" key={index}><div className="article-code-bar"><span>{block.lang}</span>{block.caption && <em>{block.caption}</em>}</div><pre><code>{block.code}</code></pre></div>
@@ -34,7 +35,8 @@ function renderBlock(block: Block, index: number, article: Article, language: Ar
     case "quote": return <blockquote className="article-quote" key={index}><p>{block.text}</p>{block.cite && <cite>{block.cite}</cite>}</blockquote>
     case "table": return <div className="article-table" key={index}><table><thead><tr>{block.head.map((h) => <th key={h}>{h}</th>)}</tr></thead><tbody>{block.rows.map((row, r) => <tr key={r}>{row.map((cell, c) => <td key={c}>{inline(cell)}</td>)}</tr>)}</tbody></table></div>
     case "note": return <aside className="article-note" key={index}><strong>{block.label}</strong><p>{inline(block.text)}</p></aside>
-    case "figure": return <Figure key={index} article={article} language={language} label={figureLabel} />
+    case "figure": return <Figure key={index} article={article} language={language} label={figureLabel} number={figureNumber} />
+    case "schema": return <ArticleSchema key={index} visual={block.visual} language={language} number={figureNumber} id={`figure-${figureNumber}`} />
     case "references": return <ul className="article-list" key={index}>{block.items.map((item) => <li key={item.url}><a href={item.url}>{item.title}</a></li>)}</ul>
   }
 }
@@ -59,6 +61,7 @@ export default function ArticleReader({ slug }: { slug: string }) {
     ? { back: "All articles", published: "Published", takeaway: "Key takeaway", diagram: "Diagram", contact: "Discuss this article", more: "More articles" }
     : { back: "Tous les articles", published: "Publié", takeaway: "À retenir", diagram: "Schéma", contact: "Discuter de cet article", more: "Autres articles" }
   const others = articleContent[language].filter((item) => item.slug !== article.slug).slice(0, 3)
+  const figures = article.sections.flatMap(section => section.blocks).filter(block => block.type === "figure" || block.type === "schema")
 
   return <main className="article-page" lang={language}>
     <header className="hub-header"><Link href="/articles"><MoveLeft size={16} />{copy.back}</Link><LanguageToggle language={language} onLanguageChange={changeLanguage} /></header>
@@ -77,10 +80,14 @@ export default function ArticleReader({ slug }: { slug: string }) {
         </aside>
         <div className="article-body">
           <p className="article-dek">{article.dek}</p>
+          <details className="article-visual-index">
+            <summary><span>{language === "en" ? "Explore this article visually" : "Explorer cet article en schémas"}</span><small>{figures.length} {language === "en" ? "figures" : "schémas"}</small></summary>
+            <nav aria-label={language === "en" ? "Article figures" : "Schémas de l’article"}>{figures.map((block, i) => <a key={i} href={`#figure-${i + 1}`}><span>{String(i + 1).padStart(2, "0")}</span>{block.type === "schema" ? block.visual.title : article.diagramTitle}</a>)}</nav>
+          </details>
           {article.sections.map((section, index) => <section key={section.heading} id={`s${index + 1}`}>
             <p className="article-section-number">{String(index + 1).padStart(2, "0")}</p>
             <h2>{section.heading}</h2>
-            {section.blocks.map((block, b) => renderBlock(block, b, article, language, copy.diagram))}
+            {section.blocks.map((block, b) => renderBlock(block, b, article, language, copy.diagram, figures.indexOf(block as typeof figures[number]) + 1))}
           </section>)}
           <a className="article-contact" href={`mailto:cbrzyski2@gmail.com?subject=${encodeURIComponent(article.title)}`}><span>{copy.contact}</span><ArrowLeft size={17} /></a>
           <section className="article-more"><p className="article-section-number">{copy.more}</p>{others.map((item) => <Link key={item.slug} href={`/articles/${item.slug}`}><span>{item.number}</span><strong>{item.title}</strong><small>{item.topic} · {item.readTime}</small></Link>)}</section>

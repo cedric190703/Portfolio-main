@@ -1,3 +1,4 @@
+import { articleVisuals } from "@/lib/article-visuals"
 import type { Article } from "@/lib/articles"
 import { retrievalFr } from "@/lib/article-content/retrieval"
 
@@ -28,6 +29,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Ce qu’un passage de relais doit transporter",
         blocks: [
+          { type: "schema", visual: articleVisuals.evidence.fr },
           { type: "p", text: "L’objet d’état entre les nœuds a commencé comme une liste d’URL et de résumés libres. Il a fini comme un enregistrement typé où chaque champ existe parce qu’une panne précise l’a exigé :" },
           { type: "code", lang: "python", caption: "L’enregistrement candidat qui circule entre les nœuds du graphe.", code: `class Candidate(TypedDict):
     url: str
@@ -53,6 +55,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Évaluer la trajectoire, pas la newsletter",
         blocks: [
+          { type: "schema", visual: articleVisuals.agentLoop.fr },
           { type: "p", text: "Une note de rubrique sur le texte final ne m’apprenait presque rien. Deux numéros pouvaient se lire aussi bien alors que l’un citait un lien mort et avait perdu la meilleure source. Les mesures qui ont réellement fait bouger les décisions portaient toutes sur le chemin :" },
           { type: "table", head: ["Mesure", "Ce qu’elle a attrapé"], rows: [
             ["Doublons par numéro (via `content_hash`)", "Le problème des dépêches ; mesurer séparément les doublons exacts et les quasi-doublons"],
@@ -97,6 +100,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Le budget vient avant le modèle",
         blocks: [
+          { type: "schema", visual: articleVisuals.memory.fr },
           { type: "p", text: "La première question est ce que le téléphone cible peut soutenir. Android ne garantit pas à une application une part fixe de la RAM physique : limites du tas, allocations natives, autres processus et pression mémoire du système interviennent. Les téléchargements de modèles consomment aussi le stockage restant. Fixez le budget sur des appareils identifiés, puis mesurez l’application entière." },
           { type: "table", head: ["Contrainte", "Question que j’ai écrite", "Ce qu’elle a exclu"], rows: [
             ["RAM résidente", "Les deux modèles peuvent-ils rester chargés entre deux phrases ?", "whisper `small` (≈ 466 Mo en f16) plus un modèle de langue 3B"],
@@ -126,6 +130,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Dégrader dans une seule direction",
         blocks: [
+          { type: "schema", visual: articleVisuals.lifecycle.fr },
           { type: "p", text: "Quand le budget est dépassé, l’application doit renoncer à quelque chose, et elle doit renoncer à la même chose à chaque fois. Sur OfflineLingo l’ordre est fixe : raccourcir d’abord la fenêtre audio (12 s → 8 s), puis passer whisper de `base` à `tiny`, puis refuser de nouveaux enregistrements jusqu’au retour de la mémoire. L’ordre ne va jamais dans l’autre sens et n’implique jamais un réseau — il n’y a pas de réseau. L’utilisateur voit un petit indicateur de mode changer ; il ne voit jamais une traduction sortie en silence d’un modèle plus petit sans indication." },
           { type: "p", text: "La version de la même règle dans Gemmory, c’est la génération annulable. Une longue réponse diffusée token par token peut être arrêtée à tout moment, et la réponse partielle est conservée comme brouillon de note plutôt que jetée. La personne n’attend jamais quelque chose qu’elle ne peut pas interrompre." },
         ],
@@ -164,6 +169,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Un 0,61 n’est pas un 0,61",
         blocks: [
+          { type: "schema", visual: articleVisuals.signals.fr },
           { type: "p", text: "L’exemple qui a réglé la question pour moi vient des tests d’OfflineLingo avec des phrases médicales. La transcription disait « donnez-lui deux comprimés » et la probabilité de whisper sur « deux » était d’environ 0,6, avec « de » en deuxième position. Quelques mots plus loin, un « euh » avait la même probabilité. Afficher les deux dans le même jaune aurait été techniquement honnête et pratiquement inutile : l’un est du bruit, l’autre peut changer une dose." },
           { type: "p", text: "La question de conception n’est donc pas « comment montrer la confiance » mais « quel est le coût d’une erreur sur ce token précis, et quel est le moyen le moins cher pour la personne de le vérifier ». La confiance est une entrée de cette décision. Le type de token en est l’autre, et il compte davantage." },
         ],
@@ -199,6 +205,7 @@ export const articlesFr: Article[] = [
       {
         heading: "La correction doit coûter moins que la méfiance",
         blocks: [
+          { type: "schema", visual: articleVisuals.correction.fr },
           { type: "p", text: "Un repère qui ne mène nulle part apprend aux gens à ignorer les repères. Chaque token marqué dans OfflineLingo est touchable : le toucher montre les alternatives n-best que whisper a envisagées, et une seconde commande rejoue 1,5 seconde d’audio centrée sur le mot. Choisir une alternative ou retaper le mot met à jour la traduction ; le reste de la phrase n’est pas relancé. Ce dernier point compte — si corriger un mot signifiait attendre à nouveau tout le pipeline, personne ne corrigerait de mots." },
           { type: "p", text: "J’ai aussi retiré le pourcentage. Une première version affichait `61 %` à côté du mot et les testeurs passaient du temps à raisonner sur le chiffre. Le soulignement plus les alternatives transmettaient le même doute et menaient directement à l’action. Un nombre invite à interpréter ; un soulignement invite à toucher." },
         ],
@@ -243,6 +250,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Les cinq anneaux",
         blocks: [
+          { type: "schema", visual: articleVisuals.toolContract.fr },
           { type: "p", text: "Je vois le harnais comme cinq couches concentriques. L’ordre compte, parce que chaque couche a le droit de connaître celle qui est à l’intérieur d’elle et rien d’autre." },
           { type: "list", ordered: true, items: [
             "**Modèle.** Poids, réglages d’échantillonnage, mode de raisonnement. La partie dont tout le monde parle et celle qui change le moins souvent dans un système qui marche.",
@@ -283,6 +291,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Les traces sont l’API de votre propre passé",
         blocks: [
+          { type: "schema", visual: articleVisuals.replay.fr },
           { type: "p", text: "flightrec existe parce que je n’arrêtais pas de demander « qu’est-ce qu’il a fait la dernière fois » sans avoir de réponse. Il enregistre un run comme une séquence d’événements — appel de modèle, appel d’outil, résultat d’outil, changement d’état, approbation — et peut rejouer cette séquence contre une nouvelle configuration. Le rejeu ne ré-exécute pas les effets de bord ; il renvoie les résultats d’outils enregistrés et laisse le nouveau modèle choisir son étape suivante, pour que les deux trajectoires puissent être comparées." },
           { type: "p", text: "Les questions qui deviennent bon marché : le nouveau prompt a-t-il changé quels fichiers ont été lus ? La mise à jour du modèle a-t-elle ajouté des appels d’outils, ou en a-t-elle retiré ? Le changement de permission a-t-il bloqué quelque chose dont un run dépendait ? Chacune était une supposition. Un diff de deux journaux d’événements n’en est pas une." },
         ],
@@ -320,6 +329,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Ce que nous avons livré",
         blocks: [
+          { type: "schema", visual: articleVisuals.translation.fr },
           { type: "list", items: [
             "Une application Android en Kotlin avec une seule commande d’enregistrement en appui maintenu ; relâcher, ou 1,5 seconde de silence, termine la phrase.",
             "whisper.cpp via JNI avec un modèle `base` quantifié pour la reconnaissance sur appareil, en flux PCM 16 kHz depuis le micro.",
@@ -374,6 +384,7 @@ Keep numbers, units and names exactly as given.
       {
         heading: "Ce que je testerais ensuite",
         blocks: [
+          { type: "schema", visual: articleVisuals.recovery.fr },
           { type: "p", text: "Le prototype a été testé par nous, dans un hall calme, dans des langues que nous parlons. Le prochain test est celui qui compte : bruit extérieur, un accent que le modèle n’a pas vu, une phrase contenant une dose et une négation, sur un téléphone resté une heure dans une poche, tenu par quelqu’un qui n’a jamais vu l’application. Si la machine à états tient et que les soulignements tombent sur les bons mots dans ces conditions, le projet mérite d’aller plus loin. Sinon, le schéma dit exactement quelle transition corriger." },
         ],
       },
@@ -398,6 +409,7 @@ Keep numbers, units and names exactly as given.
       {
         heading: "Caméra, cible, maintien",
         blocks: [
+          { type: "schema", visual: articleVisuals.coordinates.fr },
           { type: "p", text: "Le brief que nous nous sommes donné : un créateur qui filme seul dit « suis-moi » ou « filme la tasse », le bras saisit une petite caméra sur son support, la pointe vers la cible et garde la cible cadrée pendant qu’elle bouge. Le succès se juge instantanément par n’importe quel spectateur — la caméra est-elle tenue, le sujet est-il dans le cadre, le plan est-il stable — ce qui en faisait une bonne tâche de hackathon : aucune métrique à discuter." },
           { type: "p", text: "La pile : un bras compatible LeRobot, une caméra au poignet et une caméra de scène, YOLO pour la détection sur les classes COCO (« person », « cup », « bottle » et compagnie fonctionnent d’emblée), un petit analyseur de commandes vocales, et une politique de saisie entraînée par imitation sur des épisodes enregistrés pendant l’événement. AMD fournissait les GPU ROCm ; le pipeline d’entraînement tournait dessus." },
         ],
@@ -429,6 +441,7 @@ Keep numbers, units and names exactly as given.
       {
         heading: "À quoi servait le pipeline ROCm",
         blocks: [
+          { type: "schema", visual: articleVisuals.robotLearning.fr },
           { type: "p", text: "La saisie elle-même — approcher la caméra sur son support, fermer la pince, la lever en position de transport — était apprise plutôt que scriptée, à partir de quelques dizaines d’épisodes téléopérés enregistrés au format de jeu de données LeRobot. Le pipeline d’entraînement sur ROCm gérait la boucle enregistrer, entraîner, évaluer sur des épisodes tenus à l’écart, publier. Nous avons publié le jeu de données et les artefacts de modèle pour que le résultat soit reproductible par quelqu’un avec le même bras." },
           { type: "p", text: "L’intérêt d’un pipeline sur un événement de deux jours n’est pas l’échelle ; c’est que lorsque la calibration a changé ou qu’un épisode s’est révélé mauvais, réentraîner était une commande plutôt qu’une session de notebook. La reproductibilité nous a acheté le deuxième jour." },
         ],
@@ -482,6 +495,7 @@ Keep numbers, units and names exactly as given.
       {
         heading: "Le prétraitement que vous n’avez pas journalisé est celui qui vous a trompé",
         blocks: [
+          { type: "schema", visual: articleVisuals.eegPipeline.fr },
           { type: "p", text: "Avant qu’un décodeur ne voie une feature, le signal est typiquement filtré en coupe-bande à la fréquence du secteur, filtré passe-bande sur la plage d’intérêt, re-référencé (la moyenne commune est un choix fréquent), et contrôlé pour les mauvais canaux et les artefacts. Chaque étape a des paramètres, et chaque paramètre peut discrètement aider ou nuire. Un passe-bande qui commence à 8 Hz convient pour mu mais jette les potentiels lents dont dépend un autre paradigme. Un rejet d’artefacts agressif peut retirer exactement les essais où le participant se concentrait le plus." },
           { type: "code", lang: "python", caption: "Un pipeline dont les réglages sont des données. Le dictionnaire est sauvegardé à côté de chaque fichier dérivé ; le fichier brut n’est jamais modifié.", code: `PREPROC = {
     "version": "2026.09.1",
@@ -517,6 +531,7 @@ epochs.info["description"] = json.dumps(PREPROC)` },
       {
         heading: "L’abstention est une classe",
         blocks: [
+          { type: "schema", visual: articleVisuals.abstain.fr },
           { type: "p", text: "Un décodeur obligé de sortir gauche ou droite à chaque fenêtre sortira n’importe quoi pendant les fenêtres où la personne a éternué, détourné le regard ou simplement n’a pas essayé. La conception la plus sûre traite « pas de décision » comme une sortie avec ses propres règles : un postérieur sous un seuil, un désaccord entre les trois dernières fenêtres chevauchantes, ou un drapeau de qualité de signal sur les canaux concernés mènent tous à l’abstention. Un curseur d’assistance peut se permettre un seuil bas et des mouvements réversibles ; tout ce qui déclenche une action conséquente devrait exiger un accord entre fenêtres et une confirmation explicite." },
           { type: "p", text: "L’abstention donne aussi à l’interface quelque chose d’honnête à montrer. Un indicateur de qualité et une commande « recalibrer » ne sont pas des aveux de faiblesse ; ce sont les parties du système sur lesquelles la personne peut agir." },
         ],

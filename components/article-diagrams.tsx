@@ -115,7 +115,7 @@ function OfflineBudget({ fr }: { fr: boolean }) {
       <text x={t0 + 6 * scale} y="250" textAnchor="middle" className="dg-tag stop">{fr ? "budget 6 s" : "6 s budget"}</text>
       <text x="14" y="272" className="dg-legend">{fr ? "Cibles pour un Android milieu de gamme, pas des mesures de laboratoire — la barre la plus longue fixe le rythme." : "Targets for a mid-range Android phone, not lab measurements — the longest bar sets the pace."}</text>
       <rect x="14" y="286" width="692" height="30" rx="4" className="dg-strip" />
-      <text x="24" y="305" className="dg-strip-text">{fr ? "RAM résidente ≈ 1,3 Go sur 4 Go utilisables · les deux modèles restent chargés entre deux phrases · aucun socket ouvert" : "Resident RAM ≈ 1.3 GB of a usable 4 GB · both models stay loaded between phrases · no socket is ever opened"}</text>
+      <text x="24" y="305" className="dg-strip-text">{fr ? "Budget illustratif · mesurer le pic mémoire, le démarrage à froid et la pression thermique sur l’appareil cible" : "Illustrative budget · measure peak memory, cold start and thermal pressure on the target device"}</text>
     </svg>
   )
 }
@@ -148,7 +148,7 @@ function UncertaintyMatrix({ fr }: { fr: boolean }) {
       <g transform="translate(200 300)">
         <rect width="504" height="44" rx="5" className="dg-callout" />
         <text x="12" y="18" className="dg-callout-text">{fr ? "« Donnez-lui deux comprimés » — p(deux) = 0,61 → même score qu’un « euh », action opposée." : "“Give him two tablets” — p(two) = 0.61 → same score as an “uh”, opposite action."}</text>
-        <text x="12" y="35" className="dg-callout-text muted">{fr ? "La ligne, pas la colonne, décide de ce que voit la personne." : "The row, not the column, decides what the person sees."}</text>
+        <text x="12" y="35" className="dg-callout-text muted">{fr ? "Seuils illustratifs à calibrer ; le score ne garantit pas la justesse." : "Illustrative thresholds to calibrate; the score does not guarantee correctness."}</text>
       </g>
     </svg>
   )

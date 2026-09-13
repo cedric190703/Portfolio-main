@@ -1,3 +1,4 @@
+import { articleVisuals } from "@/lib/article-visuals"
 import type { Article } from "@/lib/articles"
 
 export const retrievalEn: Article = {
@@ -17,6 +18,7 @@ export const retrievalEn: Article = {
     {
       heading: "The answer can be right for the wrong version",
       blocks: [
+        { type: "schema", visual: articleVisuals.ragVersion.en },
         { type: "p", text: "Imagine an internal documentation assistant asked: ‘How long do we retain service logs?’ Its index contains a retired guide saying 30 days and an active guide saying 14 days. The assistant retrieves the retired guide, answers ‘30 days’ and attaches a perfectly functioning citation. The sentence is supported by the retrieved passage, but it does not answer the current question correctly." },
         { type: "p", text: "That example separates three decisions: which documents were eligible, which passages were retrieved, and what the model concluded from them. Rewriting the generation prompt cannot reliably fix a missing active document. Increasing retrieval depth cannot settle which policy is authoritative unless version and status are available." },
         { type: "note", label: "Illustrative values", text: "The retention periods in this example are invented to explain version conflicts. They are not retention recommendations." },
@@ -39,6 +41,7 @@ export const retrievalEn: Article = {
     {
       heading: "Measure retrieval without the writer",
       blocks: [
+        { type: "schema", visual: articleVisuals.ragFlow.en },
         { type: "p", text: "Run retrieval alone and inspect the passages delivered to generation, after filtering and reranking. Recall@k asks what fraction of the labelled relevant items appeared in the first k results. Hit rate asks whether at least one appeared. They answer different questions: one good passage can satisfy a direct lookup while leaving a two-document question incomplete." },
         { type: "code", lang: "python", caption: "A minimal recall calculation over labelled passage IDs; this does not score the answer.", code: `def recall_at_k(retrieved_ids, relevant_ids, k):
     if k <= 0:
@@ -55,6 +58,7 @@ export const retrievalEn: Article = {
     {
       heading: "Then test what the writer does with evidence",
       blocks: [
+        { type: "schema", visual: articleVisuals.ragDiagnosis.en },
         { type: "p", text: "Give the generator the reviewed supporting passages directly. If it still fails, inspect the instructions and answer construction. If it succeeds with those passages but fails with retrieved context, investigate retrieval, ranking or truncation. This controlled comparison narrows the problem without changing several components at once." },
         { type: "p", text: "Review each factual claim against its cited passage. A citation’s presence is not evidence of support, and support is not evidence that the source is current. Track answer correctness, claim support and citation coverage independently. Automated evaluators can help triage failures, but their judgements need checks against human labels, especially for partial support and contradictory sources." },
         { type: "references", items: [
@@ -103,6 +107,7 @@ export const retrievalFr: Article = {
     {
       heading: "Une réponse peut être exacte pour la mauvaise version",
       blocks: [
+        { type: "schema", visual: articleVisuals.ragVersion.fr },
         { type: "p", text: "Imaginons un assistant documentaire interne auquel on demande : « Combien de temps conserve-t-on les journaux du service ? » Son index contient un ancien guide indiquant 30 jours et un guide actif indiquant 14 jours. L’assistant retrouve l’ancien guide, répond « 30 jours » et fournit un lien fonctionnel. Le passage soutient bien la phrase, mais celle-ci ne répond pas correctement à la question actuelle." },
         { type: "p", text: "Cet exemple distingue trois décisions : les documents admissibles, les passages retrouvés et la conclusion du modèle. Réécrire le prompt de génération ne corrige pas de façon fiable l’absence du document actif. Augmenter le nombre de résultats ne détermine pas quelle règle fait autorité si la version et le statut manquent." },
         { type: "note", label: "Valeurs illustratives", text: "Les durées de cet exemple sont inventées pour expliquer un conflit de versions. Ce ne sont pas des recommandations de conservation." },
@@ -125,6 +130,7 @@ export const retrievalFr: Article = {
     {
       heading: "Mesurer la recherche sans le rédacteur",
       blocks: [
+        { type: "schema", visual: articleVisuals.ragFlow.fr },
         { type: "p", text: "Exécutez la recherche seule et inspectez les passages transmis à la génération après filtrage et reclassement. Le rappel à k mesure la proportion d’éléments pertinents annotés présents dans les k premiers résultats. Le taux de succès indique si au moins un y apparaît. Ces mesures répondent à des questions différentes : un passage peut suffire à une recherche directe mais laisser incomplète une question sur deux documents." },
         { type: "code", lang: "python", caption: "Rappel minimal sur des identifiants de passages annotés ; ce calcul n’évalue pas la réponse.", code: `def recall_at_k(retrieved_ids, relevant_ids, k):
     if k <= 0:
@@ -141,6 +147,7 @@ export const retrievalFr: Article = {
     {
       heading: "Tester ensuite ce que le rédacteur fait des preuves",
       blocks: [
+        { type: "schema", visual: articleVisuals.ragDiagnosis.fr },
         { type: "p", text: "Donnez directement au générateur les passages justificatifs relus. S’il échoue encore, inspectez les instructions et la construction de la réponse. S’il réussit avec ces passages mais échoue avec le contexte retrouvé, examinez la recherche, le classement ou la troncature. Cette comparaison contrôlée localise le problème sans modifier plusieurs composants à la fois." },
         { type: "p", text: "Confrontez chaque affirmation factuelle au passage cité. La présence d’une citation ne prouve pas qu’elle soutient l’affirmation ; ce soutien ne prouve pas que la source est actuelle. Mesurez séparément justesse de réponse, soutien des affirmations et couverture des citations. Les évaluateurs automatiques peuvent aider à trier les erreurs, mais leurs jugements doivent être comparés à des annotations humaines, surtout face aux preuves partielles et aux contradictions." },
         { type: "references", items: [

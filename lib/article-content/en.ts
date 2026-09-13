@@ -1,3 +1,4 @@
+import { articleVisuals } from "@/lib/article-visuals"
 import type { Article } from "@/lib/articles"
 import { retrievalEn } from "@/lib/article-content/retrieval"
 
@@ -28,6 +29,7 @@ export const articlesEn: Article[] = [
       {
         heading: "What a handoff should carry",
         blocks: [
+          { type: "schema", visual: articleVisuals.evidence.en },
           { type: "p", text: "The state object between nodes started as a list of URLs and free-text summaries. It ended as a typed record where every field exists because a specific failure needed it:" },
           { type: "code", lang: "python", caption: "The candidate record that travels between graph nodes.", code: `class Candidate(TypedDict):
     url: str
@@ -53,6 +55,7 @@ export const articlesEn: Article[] = [
       {
         heading: "Evaluate the trajectory, not the newsletter",
         blocks: [
+          { type: "schema", visual: articleVisuals.agentLoop.en },
           { type: "p", text: "A rubric score on the final text told me almost nothing. Two issues could read equally well while one had cited a dead link and dropped the best source. The measurements that actually moved decisions were all about the path:" },
           { type: "table", head: ["Metric", "What it caught"], rows: [
             ["Duplicates per issue (by `content_hash`)", "The wire-story problem; measure exact duplicates separately from near-duplicates"],
@@ -97,6 +100,7 @@ export const articlesEn: Article[] = [
       {
         heading: "The budget comes before the model",
         blocks: [
+          { type: "schema", visual: articleVisuals.memory.en },
           { type: "p", text: "The first question is what the target phone can sustain. Android does not promise an app a fixed share of physical RAM: heap limits, native allocations, other processes and system memory pressure all matter. Model downloads also compete with the user’s remaining storage. Set a budget on named devices, then measure the complete app against it." },
           { type: "table", head: ["Constraint", "Question I wrote down", "What it ruled out"], rows: [
             ["Resident RAM", "Can both models stay loaded between phrases?", "whisper `small` (≈ 466 MB f16) plus a 3B language model"],
@@ -126,6 +130,7 @@ export const articlesEn: Article[] = [
       {
         heading: "Degrade in one direction only",
         blocks: [
+          { type: "schema", visual: articleVisuals.lifecycle.en },
           { type: "p", text: "When the budget is exceeded, the app has to give something up, and it has to give up the same thing every time. On OfflineLingo the order is fixed: shorten the audio window first (12 s → 8 s), then drop whisper from `base` to `tiny`, then refuse new recordings until memory is back. The order never goes the other way and never involves a network—there is no network. The user sees a small mode indicator change; they never see a translation that silently came from a smaller model without a hint that it did." },
           { type: "p", text: "Gemmory's version of the same rule is cancellable generation. A long answer streaming token by token can be stopped at any point, and the partial answer is kept as a note draft rather than discarded. The person is never waiting on something they cannot interrupt." },
         ],
@@ -164,6 +169,7 @@ export const articlesEn: Article[] = [
       {
         heading: "A 0.61 is not a 0.61",
         blocks: [
+          { type: "schema", visual: articleVisuals.signals.en },
           { type: "p", text: "The example that fixed this for me came from testing OfflineLingo with medical phrases. The transcript read “give him two tablets” and whisper's per-token probability on “two” was about 0.6, with “to” as the runner-up. A few words later an “uh” had the same probability. Showing both in the same shade of yellow would have been technically honest and practically useless: one is noise, the other could change a dose." },
           { type: "p", text: "So the design question is not “how do we show confidence” but “what is the cost of this specific token being wrong, and what is the cheapest way for the person to check it”. Confidence is one input to that decision. Token type is the other, and it matters more." },
         ],
@@ -199,6 +205,7 @@ export const articlesEn: Article[] = [
       {
         heading: "Correction has to cost less than distrust",
         blocks: [
+          { type: "schema", visual: articleVisuals.correction.en },
           { type: "p", text: "A cue that leads nowhere trains people to ignore cues. Every marked token in OfflineLingo is tappable: the tap shows the n-best alternatives whisper considered, and a second control replays 1.5 seconds of audio centred on the word. Choosing an alternative or retyping the word updates the translation; the rest of the sentence is not re-run. That last part matters—if fixing one word meant waiting for the whole pipeline again, nobody would fix words." },
           { type: "p", text: "I also removed the percentage. An early build showed `61 %` next to the word and testers spent time reasoning about the number. The underline plus alternatives conveyed the same doubt and led directly to the action. A number invites interpretation; an underline invites a tap." },
         ],
@@ -243,6 +250,7 @@ export const articlesEn: Article[] = [
       {
         heading: "The five rings",
         blocks: [
+          { type: "schema", visual: articleVisuals.toolContract.en },
           { type: "p", text: "I think of the harness as five concentric layers. The order matters because each layer is allowed to know about the one inside it and nothing else." },
           { type: "list", ordered: true, items: [
             "**Model.** Weights, sampling settings, reasoning mode. The part everyone talks about and the part that changes least often in a working system.",
@@ -283,6 +291,7 @@ export const articlesEn: Article[] = [
       {
         heading: "Traces are the API to your own past",
         blocks: [
+          { type: "schema", visual: articleVisuals.replay.en },
           { type: "p", text: "flightrec exists because I kept asking \"what did it do last time\" and having no answer. It records a run as a sequence of events—model call, tool call, tool result, state change, approval—and can replay that sequence against a new configuration. The replay does not re-execute side effects; it feeds the recorded tool results back and lets the new model choose its next step, so the two trajectories can be diffed." },
           { type: "p", text: "The questions that become cheap to answer: did the new prompt change which files got read? Did the model upgrade add tool calls, or remove them? Did the permission change block something a run used to rely on? Each of those used to be a guess. A diff of two event logs is not." },
         ],
@@ -320,6 +329,7 @@ export const articlesEn: Article[] = [
       {
         heading: "What we shipped",
         blocks: [
+          { type: "schema", visual: articleVisuals.translation.en },
           { type: "list", items: [
             "A Kotlin Android app with a single press-and-hold record control; releasing, or 1.5 seconds of silence, ends the phrase.",
             "whisper.cpp through JNI with a quantised `base` model for on-device speech recognition, streaming 16 kHz PCM from the microphone.",
@@ -374,6 +384,7 @@ Keep numbers, units and names exactly as given.
       {
         heading: "What I would test next",
         blocks: [
+          { type: "schema", visual: articleVisuals.recovery.en },
           { type: "p", text: "The prototype was tested by us, in a quiet hall, in languages we speak. The next test is the one that counts: outdoor noise, an accent the model has not seen, a phrase containing a dosage and a negation, on a phone that has been in a pocket for an hour, held by someone who has not seen the app before. If the state machine holds and the underlines land on the right words in those conditions, the project is worth taking further. If not, the diagram tells us exactly which transition to fix." },
         ],
       },
@@ -398,6 +409,7 @@ Keep numbers, units and names exactly as given.
       {
         heading: "Camera, target, hold",
         blocks: [
+          { type: "schema", visual: articleVisuals.coordinates.en },
           { type: "p", text: "The brief we set ourselves: a creator recording alone says “follow me” or “film the cup”, the arm picks up a small camera from a rest position, points it at the target and keeps the target framed as it moves. Success is judged instantly by anyone watching—is the camera held, is the subject in frame, is the shot steady—which made it a good hackathon task: no metric to argue about." },
           { type: "p", text: "The stack was a LeRobot-compatible arm, a wrist camera and a scene camera, YOLO for detection over the COCO classes (so “person”, “cup”, “bottle” and friends work out of the box), a small voice-command parser, and a grasp policy trained with imitation learning on episodes we recorded during the event. AMD provided the ROCm GPUs; the training pipeline ran there." },
         ],
@@ -429,6 +441,7 @@ Keep numbers, units and names exactly as given.
       {
         heading: "What the ROCm pipeline was for",
         blocks: [
+          { type: "schema", visual: articleVisuals.robotLearning.en },
           { type: "p", text: "The grasp itself—approach the camera on its rest, close the gripper, lift to a carrying pose—was learned rather than scripted, from a few dozen teleoperated episodes recorded in LeRobot's dataset format. The training pipeline on ROCm handled the loop of record, train, evaluate on held-out episodes, publish. We released the dataset and the model artefacts so the result could be reproduced by someone with the same arm." },
           { type: "p", text: "The point of a pipeline in a two-day event is not scale; it is that when the calibration changed or an episode turned out to be bad, retraining was a command rather than a notebook session. Reproducibility bought us the second day." },
         ],
@@ -482,6 +495,7 @@ Keep numbers, units and names exactly as given.
       {
         heading: "The preprocessing you did not log is the one that fooled you",
         blocks: [
+          { type: "schema", visual: articleVisuals.eegPipeline.en },
           { type: "p", text: "Before a decoder sees a feature the signal is typically notch-filtered at line frequency, band-passed to the range of interest, re-referenced (common average is a frequent choice), and checked for bad channels and artifacts. Each step has parameters, and each parameter can quietly help or hurt. A band-pass that starts at 8 Hz is right for mu but throws away the slow potentials another paradigm depends on. An aggressive artifact rejection can remove exactly the trials where the participant was concentrating hardest." },
           { type: "code", lang: "python", caption: "A pipeline whose settings are data. The dict is saved beside every derived file; the raw file is never modified.", code: `PREPROC = {
     "version": "2026.09.1",
@@ -517,6 +531,7 @@ epochs.info["description"] = json.dumps(PREPROC)` },
       {
         heading: "Abstain is a class",
         blocks: [
+          { type: "schema", visual: articleVisuals.abstain.en },
           { type: "p", text: "A decoder that must output left or right on every window will output nonsense during the windows where the person sneezed, looked away or simply did not try. The safer design treats “no decision” as an output with its own rules: a posterior below a threshold, disagreement between the last three overlapping windows, or a signal-quality flag on the relevant channels all route to abstain. An assistive cursor can afford a low threshold and reversible moves; anything that triggers a consequential action should demand agreement across windows and an explicit confirmation." },
           { type: "p", text: "Abstaining also gives the interface something honest to show. A quality indicator and a “recalibrate” control are not admissions of weakness; they are the parts of the system the person can act on." },
         ],
