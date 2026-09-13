@@ -1,6 +1,8 @@
 import type { Article } from "@/lib/articles"
+import { retrievalFr } from "@/lib/article-content/retrieval"
 
 export const articlesFr: Article[] = [
+  retrievalFr,
   {
     slug: "agentic-ai-beyond-the-demo",
     number: "01",
@@ -53,11 +55,11 @@ export const articlesFr: Article[] = [
         blocks: [
           { type: "p", text: "Une note de rubrique sur le texte final ne m’apprenait presque rien. Deux numéros pouvaient se lire aussi bien alors que l’un citait un lien mort et avait perdu la meilleure source. Les mesures qui ont réellement fait bouger les décisions portaient toutes sur le chemin :" },
           { type: "table", head: ["Mesure", "Ce qu’elle a attrapé"], rows: [
-            ["Doublons par numéro (via `content_hash`)", "Le problème des dépêches ; passé de 2–3 par numéro à zéro"],
+            ["Doublons par numéro (via `content_hash`)", "Le problème des dépêches ; mesurer séparément les doublons exacts et les quasi-doublons"],
             ["Couverture des extraits — % d’affirmations citées avec extrait vérifié", "Le rédacteur qui invente une phrase de liaison entre deux sources"],
-            ["Taux de rejet du relecteur sur les candidats qualifiés", "La notation des paywalls ; au-delà de ~30 %, c’est le qualificateur qui a tort, pas le relecteur"],
-            ["Liens morts au moment de la rédaction", "Corrigé en citant l’instantané récupéré, pas l’URL vivante"],
-            ["Coût par numéro et par nœud", "A montré que 70 % de la dépense allait à la qualification — là où elle doit être"],
+            ["Taux de rejet du relecteur sur les candidats qualifiés", "La notation des paywalls ; examiner les sources et l’accord entre relecteurs avant de modifier les seuils"],
+            ["Liens morts au moment de la rédaction", "Conserver l’instantané et vérifier séparément le lien public"],
+            ["Coût par numéro et par nœud", "Comparer la dépense aux erreurs évitées ; aucune répartition n’est universelle"],
           ] },
           { type: "p", text: "C’est aussi pour cela que j’ai ensuite construit flightrec, un petit enregistreur-rejoueur de runs d’agents. Enregistrer chaque appel de modèle, appel d’outil et transition d’état comme des événements permet de rejouer un run contre un nouveau prompt ou un nouveau modèle et de comparer les deux trajectoires. « Le nouveau prompt a-t-il changé quelles sources sont qualifiées ? » devient une question avec une réponse plutôt qu’une impression." },
         ],
@@ -74,6 +76,7 @@ export const articlesFr: Article[] = [
           ] },
         ],
       },
+      {"heading": "Une empreinte ne constitue pas une archive de preuves", "blocks": [{"type": "p", "text": "Une empreinte identifie un corps normalisé identique ; elle ne détecte pas les dépêches légèrement réécrites. Conservez un identifiant de source stable et comparez séparément les passages similaires. Un horodatage ne conserve pas non plus une page : stockez le texte récupéré et sa provenance selon les règles d’accès et de conservation. Revérifiez les liens publics avant publication, puis confrontez les affirmations du texte final aux extraits. La validation préalable des sources ne détecte pas une affirmation ajoutée pendant la rédaction."}, {"type": "references", "items": [{"title": "Référence technique · LangGraph — Persistence", "url": "https://docs.langchain.com/oss/python/langgraph/persistence"}]}]},
     ],
   },
 
@@ -86,7 +89,7 @@ export const articlesFr: Article[] = [
     title: "Concevoir une IA qui fonctionne sans réseau",
     subtitle: "Deux projets Android m’ont appris que l’IA sur appareil est surtout un problème de budget. Le modèle se choisit en dernier, une fois que la mémoire, le temps de chargement et le coût d’une erreur ont été écrits noir sur blanc.",
     dek: "OfflineLingo exécute whisper.cpp et llama.cpp sur un téléphone sans aucune permission réseau. Gemmory exécute Gemma 4 via LiteRT-LM avec chaque note et chaque réponse conservée dans une base Room locale. Les leçons se recouvrent presque entièrement.",
-    takeaway: "Écrivez d’abord le budget — RAM, stockage, temps de première réponse, batterie — puis choisissez le plus grand modèle qui tient avec de la marge. Ensuite, concevez ce qui se passe quand la marge disparaît.",
+    takeaway: "Écrivez d’abord le budget — RAM, stockage, temps de première réponse, batterie — puis choisissez un modèle qui atteint la qualité attendue avec de la marge. Ensuite, concevez ce qui se passe quand la marge disparaît.",
     diagram: "offline",
     diagramTitle: "Un budget de latence sur une seule frise",
     diagramCaption: "Cibles pour une phrase parlée sur un Android milieu de gamme. La barre la plus longue impose le rythme de toute l’interaction — c’est pourquoi le modèle de langue, et non le modèle de parole, dicte la conception.",
@@ -94,7 +97,7 @@ export const articlesFr: Article[] = [
       {
         heading: "Le budget vient avant le modèle",
         blocks: [
-          { type: "p", text: "Sur les deux projets, la première question n’était pas « quel modèle est le meilleur » mais « qu’est-ce que le téléphone a réellement ». Un Android milieu de gamme peut exposer 4 Go de RAM à une application avant que le système ne commence à tuer les processus en arrière-plan, et l’application doit y tenir avec ses modèles, ses tampons audio et son interface. Le stockage est plus généreux mais pas gratuit : un téléchargement de modèle de 1 Go sur un appareil déjà à 90 % de capacité, c’est un ticket de support." },
+          { type: "p", text: "La première question est ce que le téléphone cible peut soutenir. Android ne garantit pas à une application une part fixe de la RAM physique : limites du tas, allocations natives, autres processus et pression mémoire du système interviennent. Les téléchargements de modèles consomment aussi le stockage restant. Fixez le budget sur des appareils identifiés, puis mesurez l’application entière." },
           { type: "table", head: ["Contrainte", "Question que j’ai écrite", "Ce qu’elle a exclu"], rows: [
             ["RAM résidente", "Les deux modèles peuvent-ils rester chargés entre deux phrases ?", "whisper `small` (≈ 466 Mo en f16) plus un modèle de langue 3B"],
             ["Première réponse", "Combien de temps avant que la personne voie du texte ?", "Tout pipeline qui attend la traduction complète avant d’afficher"],
@@ -131,7 +134,7 @@ export const articlesFr: Article[] = [
         heading: "Une confidentialité qu’on peut montrer du doigt",
         blocks: [
           { type: "p", text: "Une politique de confidentialité est une affirmation. Une permission absente est un fait. Le manifeste d’OfflineLingo ne déclare pas `android.permission.INTERNET`, ce qui signifie que le système refusera tout socket que l’application tenterait d’ouvrir. La déclaration de confidentialité la plus forte du projet est une ligne qui n’existe pas." },
-          { type: "p", text: "Cette absence rend aussi la promesse testable d’une manière que l’utilisateur peut répéter : mettre le téléphone en mode avion, utiliser l’application. Si elle fonctionne à l’identique, l’affirmation est vraie. J’en suis venu à préférer les promesses de cette forme — vérifiables par la personne qui doit y croire — à n’importe quelle formulation dans un écran de réglages." },
+          { type: "p", text: "Le mode avion est un test fonctionnel utile : il montre que les modèles installés permettent l’interaction sans connexion. Il ne prouve pas que l’application ne transmet jamais de données quand le réseau revient. Inspectez séparément le manifeste fusionné, les réglages de sauvegarde, les composants exportés et les actions déléguées. Testez aussi une installation neuve avec import local des modèles ; une démo avec modèles en cache ne couvre pas la mise en route." },
         ],
       },
       {
@@ -140,6 +143,7 @@ export const articlesFr: Article[] = [
           { type: "p", text: "Les habitudes qu’impose l’absence de réseau sont celles qui rendent les produits connectés sereins : l’état est explicite, chaque attente a une cause visible, chaque échec a une étape suivante fixe, et rien d’important n’est perdu quand un appel ne revient pas. J’écris maintenant le chemin dégradé des fonctionnalités cloud de la même manière que pour OfflineLingo, et les interfaces en sortent meilleures même quand le réseau va bien." },
         ],
       },
+      {"heading": "Mesurer une session, pas un fichier de modèle", "blocks": [{"type": "p", "text": "La taille du fichier n’est pas la mémoire résidente. Mesurez le pic mémoire du processus au chargement et pendant la génération, avec le cache KV, les tampons audio et les allocations temporaires. Consignez appareil, système, version du moteur, empreinte du modèle, quantification et limite de contexte. Comparez démarrage à froid, réponse à chaud et conversation prolongée ; rapportez les latences élevées autant que la médiane. Retenez le plus petit modèle qui atteint la qualité attendue avec une marge suffisante dans ces conditions."}, {"type": "references", "items": [{"title": "Référence technique · Android — Memory management", "url": "https://developer.android.com/topic/performance/memory-overview"}]}]},
     ],
   },
 
@@ -165,31 +169,31 @@ export const articlesFr: Article[] = [
         ],
       },
       {
-        heading: "Trois signaux que whisper donne gratuitement",
+        heading: "Quatre signaux à distinguer",
         blocks: [
-          { type: "p", text: "whisper.cpp expose plus qu’une probabilité par mot, et chaque signal pointe vers un problème différent :" },
+          { type: "p", text: "L’écosystème Whisper fournit plusieurs signaux diagnostiques, mais les interfaces n’exposent pas toutes les mêmes champs. L’implémentation Python utilise les diagnostics de segment ci-dessous ; avec whisper.cpp, vérifiez la version de l’API et calculez explicitement les diagnostics manquants. Les alternatives exigent aussi un support du décodeur : un score de token ne fournit pas une liste n-best de mots." },
           { type: "table", head: ["Signal", "Ce qu’il signifie en général", "Réponse raisonnable"], rows: [
-            ["Probabilité de token (par mot)", "Ce mot est ambigu ou les alternatives sont proches", "Souligner ; proposer les alternatives n-best au toucher"],
+            ["Probabilité de token (par sous-mot)", "Ce mot est ambigu ou les alternatives sont proches", "Souligner ; proposer les alternatives n-best au toucher"],
             ["`avg_logprob` (par segment)", "Tout le segment est fragile — bruit, accent, voix superposées", "Marquer la phrase, proposer la réécoute du segment"],
-            ["`no_speech_prob`", "Le modèle doute qu’il y ait eu de la parole", "Ne pas afficher ; demander de réenregistrer"],
-            ["`compression_ratio`", "Sortie répétitive — la boucle d’hallucination classique", "Supprimer le segment ; ne jamais l’afficher"],
+            ["`no_speech_prob`", "Le modèle doute qu’il y ait eu de la parole", "Combiner avec la confiance du segment ; proposer de réenregistrer"],
+            ["`compression_ratio`", "Sortie répétitive — la boucle d’hallucination classique", "Signaler la répétition ; vérifier l’audio avant suppression"],
           ] },
-          { type: "p", text: "Les deux derniers sont les plus importants et ne sont presque jamais montrés. Un segment à `compression_ratio` élevé — le modèle qui répète « merci merci merci » sur du silence — n’est pas de la faible confiance ; c’est faux, et la bonne réponse d’interface est de ne rien afficher. Tout ramener à un score unique efface ces distinctions." },
+          { type: "p", text: "Le silence et la répétition sont des signaux d’alerte, pas la preuve qu’une transcription est fausse. Une vraie parole peut se répéter, et le bruit peut tromper la détection de voix. Combinez les diagnostics, conservez l’audio pour la revue et proposez de réenregistrer un segment douteux. Ne supprimez pas silencieusement de la parole sur la base d’un seul seuil." },
           { type: "figure" },
         ],
       },
       {
         heading: "L’axe de conséquence",
         blocks: [
-          { type: "p", text: "Classer les tokens par conséquence semble demander un modèle. Il faut surtout une expression régulière et une courte liste. Les nombres, les négations (`ne … pas`, `jamais`, `not`, `no`), les unités et les tokens capitalisés hors début de phrase couvrent l’immense majorité des mots où une erreur change le sens d’une phrase d’urgence. Tout le reste est à faible conséquence par défaut." },
+          { type: "p", text: "Classer les tokens par conséquence semble demander un modèle. Il faut surtout une expression régulière et une courte liste. Les nombres, les négations (`ne … pas`, `jamais`, `not`, `no`), les unités et les tokens capitalisés hors début de phrase forment une première heuristique, pas une analyse complète du sens. Les nombres en lettres et les expressions exigent d’autres règles ; les mots non classés peuvent rester importants." },
           { type: "code", lang: "kotlin", caption: "Classification de conséquence bon marché. Le modèle donne la probabilité ; ceci donne la ligne.", code: `fun consequence(token: Token, index: Int): Consequence = when {
     token.text.any { it.isDigit() }                     -> Consequence.HIGH   // doses, quantités, heures
     token.text.lowercase() in NEGATIONS                  -> Consequence.HIGH   // « pas allergique » vs « allergique »
     token.text.lowercase() in UNITS                      -> Consequence.HIGH   // mg, ml, km
-    index > 0 && token.text.first().isUpperCase()        -> Consequence.MEDIUM // noms, lieux
+    index > 0 && token.text.firstOrNull()?.isUpperCase() == true        -> Consequence.MEDIUM // noms, lieux
     else                                                 -> Consequence.LOW
 }` },
-          { type: "p", text: "Avec cela en place, l’interface n’a besoin que de quatre comportements : afficher, souligner, demander confirmation, bloquer et réécouter. Un token à faible conséquence ne déclenche jamais plus qu’un soulignement, quel que soit son score. Un token à forte conséquence sous le seuil empêche la phrase d’être marquée comme finale tant que la personne ne l’a pas réécoutée ou corrigée. Les seuils eux-mêmes comptent bien moins que les lignes ; je les ai déplacés de 0,1 dans un sens et dans l’autre pendant les tests et l’expérience a à peine changé." },
+          { type: "p", text: "Avec cela en place, l’interface n’a besoin que de quatre comportements : afficher, souligner, demander confirmation, bloquer et réécouter. Un token à faible conséquence ne déclenche jamais plus qu’un soulignement, quel que soit son score. Un token à forte conséquence sous le seuil empêche la phrase d’être marquée comme finale tant que la personne ne l’a pas réécoutée ou corrigée. Les seuils doivent être validés sur des enregistrements représentatifs ; cet exemple ne démontre pas un réglage sûr." },
         ],
       },
       {
@@ -210,6 +214,7 @@ export const articlesFr: Article[] = [
           ] },
         ],
       },
+      {"heading": "Un score exige un jeu de calibration", "blocks": [{"type": "p", "text": "Une probabilité de token dépend de l’audio et des tokens déjà décodés ; ce n’est pas une probabilité calibrée qu’un mot soit correct. Un mot peut contenir plusieurs tokens. Validez l’agrégation et les seuils sur des enregistrements annotés dans les langues et conditions acoustiques visées. Mesurez séparément les erreurs importantes manquées et les interruptions inutiles. Un classifieur simple manque aussi les nombres en lettres, les négations composées et les noms sans majuscule : les cas inconnus appellent une revue, pas une étiquette de faible risque automatique."}, {"type": "references", "items": [{"title": "Référence technique · Whisper — Transcription and fallback logic", "url": "https://github.com/openai/whisper/blob/main/whisper/transcribe.py"}]}]},
     ],
   },
 
@@ -288,6 +293,7 @@ export const articlesFr: Article[] = [
           { type: "p", text: "Rien de tout cela ne demande une plateforme. Une tâche, trois outils typés, une liste d’autorisation, un fichier de trace et cinq runs enregistrés suffisent pour savoir si une panne vient du contexte, des outils, des permissions ou du modèle — et ce diagnostic est la raison d’être du harnais. Les modèles continueront de changer. Les anneaux autour d’eux sont la partie qu’une équipe possède vraiment." },
         ],
       },
+      {"heading": "Le rejeu perd sa comparabilité quand les entrées divergent", "blocks": [{"type": "p", "text": "Un résultat d’outil enregistré ne vaut que pour le nom, les arguments et l’état qui l’ont produit. Si un nouveau modèle demande un autre fichier ou modifie une requête, le rejeu doit signaler l’écart au lieu de renvoyer le résultat suivant du journal. Utilisez des cas enregistrés correspondants pour les comparaisons contrôlées et une exécution isolée pour les nouvelles trajectoires. Pour répéter une écriture réelle, consignez un identifiant d’opération et vérifiez si son effet a déjà eu lieu avant de la relancer."}, {"type": "references", "items": [{"title": "Référence technique · LangGraph — Persistence and replay", "url": "https://docs.langchain.com/oss/python/langgraph/persistence"}]}]},
     ],
   },
 
@@ -371,6 +377,7 @@ Keep numbers, units and names exactly as given.
           { type: "p", text: "Le prototype a été testé par nous, dans un hall calme, dans des langues que nous parlons. Le prochain test est celui qui compte : bruit extérieur, un accent que le modèle n’a pas vu, une phrase contenant une dose et une négation, sur un téléphone resté une heure dans une poche, tenu par quelqu’un qui n’a jamais vu l’application. Si la machine à états tient et que les soulignements tombent sur les bons mots dans ces conditions, le projet mérite d’aller plus loin. Sinon, le schéma dit exactement quelle transition corriger." },
         ],
       },
+      {"heading": "Transformer le prochain test en protocole", "blocks": [{"type": "p", "text": "Utilisez le même jeu de phrases sur plusieurs appareils et conservez audio original, sens attendu, transcription corrigée et traduction finale. Incluez nombres en lettres, négations, interruptions et silence. Faites évaluer la préservation du sens par des personnes bilingues sans leur montrer la configuration du modèle. Rapportez les erreurs séparément du temps de réalisation et des abandons. Réécouter un mot confirme ce qui a été entendu ; cela ne valide pas la traduction. Il s’agit toujours d’une évaluation de prototype, pas d’une preuve d’aptitude aux situations d’urgence."}, {"type": "references", "items": [{"title": "Référence technique · whisper.cpp — Models and memory requirements", "url": "https://github.com/ggml-org/whisper.cpp"}]}]},
     ],
   },
 
@@ -408,7 +415,7 @@ Keep numbers, units and names exactly as given.
   "workspace": { "x": [0.12, 0.48], "y": [-0.30, 0.30], "z": [0.02, 0.35] },
   "camera_grasp_pose": { "approach_offset_m": 0.06, "gripper_close": 0.72 }
 }` },
-          { type: "p", text: "`residual_mm` est le champ que je tiendrais absolument à garder. Une calibration avec un résidu de 4 mm convient pour cadrer une personne ; une à 25 mm ne convient pas pour saisir une caméra, et le nombre vous dit dans quelle situation vous êtes avant que la pince ne se referme sur du vide." },
+          { type: "p", text: "`residual_mm` est le champ que je tiendrais absolument à garder. Le résidu aide à repérer un mauvais ajustement, mais l’erreur acceptable dépend de la tâche, de la géométrie et de vérifications sur des points tenus à l’écart. Les valeurs de l’exemple sont illustratives, pas des seuils généraux d’acceptation." },
           { type: "figure" },
         ],
       },
@@ -438,6 +445,7 @@ Keep numbers, units and names exactly as given.
           { type: "p", text: "Aucun de ces problèmes n’était une défaillance de modèle. Tous étaient sur des coutures — entre une classe et une instance, entre une politique et un vérificateur, entre une pose avant et après charge. C’est là que la prochaine itération passerait son temps." },
         ],
       },
+      {"heading": "Séparer le rythme de perception du contrôle moteur", "blocks": [{"type": "p", "text": "La boucle à environ 10 Hz décrite ici concerne la perception et la planification de tâche. Elle ne doit pas déterminer la fréquence du contrôleur moteur ou de ses vérifications de sécurité. Une boîte englobante 2D ne donne pas non plus de profondeur métrique : la projection dans le repère du bras exige une profondeur, une géométrie connue ou une hypothèse de plan explicite, en plus de la calibration. Évaluez séparément réussite de saisie, erreur de suivi et réaction à la perte de cible. Un résidu de calibration décrit un ajustement ; il ne borne pas à lui seul le risque de collision ni l’erreur de l’effecteur."}, {"type": "references", "items": [{"title": "Référence technique · OpenCV — Camera calibration and 3D reconstruction", "url": "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"}]}]},
     ],
   },
 
@@ -480,7 +488,6 @@ Keep numbers, units and names exactly as given.
     "notch_hz": 50.0,
     "bandpass_hz": (8.0, 30.0),
     "reference": "average",
-    "bad_channel_rule": "z(var) > 3 over session",
     "epoch_s": (0.5, 2.5),          # relatif au cue
     "reject_uv": 150.0,             # crête à crête, après filtrage
 }
@@ -489,7 +496,7 @@ raw = mne.io.read_raw_fif(path, preload=True)          # source immuable
 raw.notch_filter(PREPROC["notch_hz"]).filter(*PREPROC["bandpass_hz"])
 raw.set_eeg_reference(PREPROC["reference"])
 epochs = mne.Epochs(raw, events, tmin=PREPROC["epoch_s"][0], tmax=PREPROC["epoch_s"][1],
-                    reject=dict(eeg=PREPROC["reject_uv"] * 1e-6), preload=True)
+                    baseline=None, reject=dict(eeg=PREPROC["reject_uv"] * 1e-6), preload=True)
 epochs.info["description"] = json.dumps(PREPROC)` },
           { type: "p", text: "L’habitude qui compte, c’est que les réglages voyagent avec les données. Quand un résultat change entre deux runs, la première question est de savoir si le prétraitement a changé, et cette question doit pouvoir être tranchée en comparant deux petits dictionnaires plutôt qu’en relisant l’historique d’un notebook." },
         ],
@@ -497,7 +504,7 @@ epochs.info["description"] = json.dumps(PREPROC)` },
       {
         heading: "Mériter le modèle profond",
         blocks: [
-          { type: "p", text: "La ligne de base la plus solide en imagerie motrice a des décennies : des common spatial patterns pour trouver les combinaisons de canaux qui séparent les deux classes, la log-variance du signal filtré comme features, et un classifieur linéaire discriminant. Elle s’entraîne en secondes sur quelques dizaines d’essais, est interprétable (les filtres spatiaux doivent ressembler au cortex moteur), et difficile à battre sur de petits jeux de données par participant." },
+          { type: "p", text: "Une référence utile en imagerie motrice a des décennies : des common spatial patterns pour trouver les combinaisons de canaux qui séparent les deux classes, la log-variance du signal filtré comme features, et un classifieur linéaire discriminant. Elle s’entraîne en secondes sur quelques dizaines d’essais, est interprétable (les filtres spatiaux doivent ressembler au cortex moteur), et difficile à battre sur de petits jeux de données par participant." },
           { type: "table", head: ["Approche", "Données nécessaires", "Force", "Échec à surveiller"], rows: [
             ["Puissance par bande / CSP + LDA", "Dizaines d’essais par classe", "Rapide, interprétable, robuste si calibré par session", "Se dégrade quand les électrodes bougent ; demande une recalibration"],
             ["Riemannien (covariance + espace tangent)", "Similaire", "Moins sensible à l’échelle et aux petits décalages", "Plus difficile à expliquer à un clinicien"],
@@ -521,6 +528,7 @@ epochs.info["description"] = json.dumps(PREPROC)` },
           { type: "p", text: "Tout ce qui est en amont du modèle — acquisition, contexte, fenêtres, découpages, abstention — décide si le chiffre à la fin veut dire quelque chose. Le modèle est la dernière chose à améliorer, pas la première." },
         ],
       },
+      {"heading": "Un pipeline hors ligne n’est pas un décodeur en direct", "blocks": [{"type": "p", "text": "L’extrait illustre la construction d’époques hors ligne : marquez explicitement les mauvais canaux avant le changement de référence et conservez l’enregistrement original sur disque. Pour des époques commençant à 0,5 seconde, utilisez baseline=None sauf si vous incluez volontairement un intervalle de référence. Un filtre à phase nulle peut utiliser des échantillons futurs : toute évaluation en direct exige un traitement causal ou avec tampon dont le délai est mesuré. Ajustez CSP, normalisation et autres transformations apprises dans chaque pli d’entraînement. L’accord entre fenêtres chevauchantes apporte des preuves corrélées, pas trois confirmations indépendantes."}, {"type": "references", "items": [{"title": "Référence technique · MNE — Epochs and baseline correction", "url": "https://mne.tools/stable/generated/mne.Epochs.html"}]}]},
     ],
   },
 ]

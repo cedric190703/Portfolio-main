@@ -1,6 +1,8 @@
 import type { Article } from "@/lib/articles"
+import { retrievalEn } from "@/lib/article-content/retrieval"
 
 export const articlesEn: Article[] = [
+  retrievalEn,
   {
     slug: "agentic-ai-beyond-the-demo",
     number: "01",
@@ -53,11 +55,11 @@ export const articlesEn: Article[] = [
         blocks: [
           { type: "p", text: "A rubric score on the final text told me almost nothing. Two issues could read equally well while one had cited a dead link and dropped the best source. The measurements that actually moved decisions were all about the path:" },
           { type: "table", head: ["Metric", "What it caught"], rows: [
-            ["Duplicates per issue (by `content_hash`)", "The wire-story problem; went from 2–3 per issue to zero"],
+            ["Duplicates per issue (by `content_hash`)", "The wire-story problem; measure exact duplicates separately from near-duplicates"],
             ["Excerpt coverage — % of cited claims with a verified excerpt", "The writer inventing a bridging sentence between two sources"],
-            ["Reviewer drop rate on qualified candidates", "The paywall-stub scoring; a drop rate above ~30 % meant the qualifier was wrong, not the reviewer"],
-            ["Dead links at write time", "Fixed by citing the fetched snapshot, not the live URL"],
-            ["Cost per issue by node", "Showed that 70 % of spend was in qualification, which is where it should be"],
+            ["Reviewer drop rate on qualified candidates", "The paywall-stub scoring; investigate changes in source mix and reviewer agreement before adjusting thresholds"],
+            ["Dead links at write time", "Keep the evidence snapshot and check the public link separately"],
+            ["Cost per issue by node", "Compare spend with errors prevented; no node has a universal target share"],
           ] },
           { type: "p", text: "This is also why I later built flightrec, a small recorder and replayer for agent runs. Recording every model call, tool call and state transition as events means a run can be replayed against a new prompt or model and the two trajectories diffed. \"Did the new prompt change which sources got qualified?\" becomes a question with an answer instead of an impression." },
         ],
@@ -74,6 +76,7 @@ export const articlesEn: Article[] = [
           ] },
         ],
       },
+      {"heading": "A hash is not an evidence archive", "blocks": [{"type": "p", "text": "A hash identifies an exact normalised body; it does not detect edited or syndicated near-duplicates. Keep a stable source identifier and compare similar passages separately. A timestamp also does not preserve a page: store the retrieved text and its provenance, subject to access and retention rules. Recheck public citation links before publication, and run a final claim-to-excerpt review after writing. Early source approval cannot catch a new claim introduced by the writer."}, {"type": "references", "items": [{"title": "Technical reference · LangGraph — Persistence", "url": "https://docs.langchain.com/oss/python/langgraph/persistence"}]}]},
     ],
   },
 
@@ -86,7 +89,7 @@ export const articlesEn: Article[] = [
     title: "Designing AI that works without a network",
     subtitle: "Two Android projects taught me that on-device AI is mostly a budgeting problem. The model is chosen last, after memory, load time and the cost of being wrong have been written down.",
     dek: "OfflineLingo runs whisper.cpp and llama.cpp on a phone with no network permission at all. Gemmory runs Gemma 4 through LiteRT-LM with every note and answer kept in a local Room database. The lessons overlap almost completely.",
-    takeaway: "Write the budget first—RAM, storage, first-response time, battery—then choose the largest model that fits with margin. Then design what happens when the margin disappears.",
+    takeaway: "Write the budget first—RAM, storage, first-response time, battery—then choose a model that meets the quality target with margin. Then design what happens when the margin disappears.",
     diagram: "offline",
     diagramTitle: "A latency budget on one timeline",
     diagramCaption: "Targets for one spoken phrase on a mid-range Android phone. The longest bar sets the pace of the whole interaction, which is why the language model, not the speech model, dictates the design.",
@@ -94,7 +97,7 @@ export const articlesEn: Article[] = [
       {
         heading: "The budget comes before the model",
         blocks: [
-          { type: "p", text: "The first question on both projects was not \"which model is best\" but \"what does the phone actually have\". A mid-range Android device might expose 4 GB of RAM to an app before the system starts killing background processes, and the app itself has to fit in that alongside its models, audio buffers and UI. Storage is more generous but not free: a 1 GB model download on a device that is already at 90 % capacity is a support ticket." },
+          { type: "p", text: "The first question is what the target phone can sustain. Android does not promise an app a fixed share of physical RAM: heap limits, native allocations, other processes and system memory pressure all matter. Model downloads also compete with the user’s remaining storage. Set a budget on named devices, then measure the complete app against it." },
           { type: "table", head: ["Constraint", "Question I wrote down", "What it ruled out"], rows: [
             ["Resident RAM", "Can both models stay loaded between phrases?", "whisper `small` (≈ 466 MB f16) plus a 3B language model"],
             ["First response", "How long until the person sees text?", "Any pipeline that waits for the full translation before rendering"],
@@ -131,7 +134,7 @@ export const articlesEn: Article[] = [
         heading: "Privacy you can point at",
         blocks: [
           { type: "p", text: "A privacy policy is a claim. A missing permission is a fact. OfflineLingo's manifest does not declare `android.permission.INTERNET`, which means the operating system will refuse any socket the app tries to open. The strongest privacy statement in the project is one line that is not there." },
-          { type: "p", text: "That absence also makes the promise testable in a way a user can repeat: put the phone in airplane mode, use the app. If it works identically, the claim is true. I have come to prefer promises of that shape—verifiable by the person who has to trust them—over any wording in a settings screen." },
+          { type: "p", text: "Airplane mode is a useful functional test: it demonstrates that the installed models can support the interaction without connectivity. It does not prove that an app never transmits data when a network returns. Inspect the merged manifest, backup settings, exported components and any delegated actions separately. Also test a fresh installation with models imported locally; a cached-model demo does not cover setup." },
         ],
       },
       {
@@ -140,6 +143,7 @@ export const articlesEn: Article[] = [
           { type: "p", text: "The habits forced by having no network are the same habits that make connected products calm: state is explicit, every wait has a visible cause, every failure has a fixed next step, and nothing important is lost when a call does not return. I now write the degraded path for cloud-backed features the same way I did for OfflineLingo, and the interfaces are better for it even when the network is fine." },
         ],
       },
+      {"heading": "Measure a session, not a model file", "blocks": [{"type": "p", "text": "File size is not resident memory. Measure peak process memory during loading and generation, including the KV cache, audio buffers and temporary allocations. Record the device, OS, runtime revision, model checksum, quantisation and context limit. Compare cold start, warm response and a sustained conversation; report the slow tail as well as the median. Choose the smallest model that meets the task-quality target with enough headroom for those conditions."}, {"type": "references", "items": [{"title": "Technical reference · Android — Memory management", "url": "https://developer.android.com/topic/performance/memory-overview"}]}]},
     ],
   },
 
@@ -165,31 +169,31 @@ export const articlesEn: Article[] = [
         ],
       },
       {
-        heading: "Three signals whisper gives you for free",
+        heading: "Four signals worth distinguishing",
         blocks: [
-          { type: "p", text: "whisper.cpp exposes more than a per-word probability, and each signal points at a different kind of problem:" },
+          { type: "p", text: "The Whisper ecosystem offers several diagnostic signals, but bindings do not expose identical fields. The Python implementation uses the segment diagnostics below; in whisper.cpp, check the pinned API and compute missing diagnostics explicitly. Alternatives also require decoder support; a token score alone does not provide an n-best word list." },
           { type: "table", head: ["Signal", "What it usually means", "Reasonable response"], rows: [
-            ["Token probability (per word)", "This word is ambiguous or the alternatives are close", "Underline; offer the n-best alternatives on tap"],
+            ["Token probability (per subword)", "This word is ambiguous or the decoded token has limited support", "Underline; offer the n-best alternatives on tap"],
             ["`avg_logprob` (per segment)", "The whole segment is shaky—noise, accent, crosstalk", "Mark the sentence, offer replay of the segment"],
-            ["`no_speech_prob`", "The model doubts there was speech at all", "Don't render; ask to re-record"],
-            ["`compression_ratio`", "Repetitive output—the classic hallucination loop", "Drop the segment; never show it"],
+            ["`no_speech_prob`", "The model doubts there was speech at all", "Combine with segment confidence; offer re-recording"],
+            ["`compression_ratio`", "Repetitive output—the classic hallucination loop", "Flag repetition; check audio before discarding"],
           ] },
-          { type: "p", text: "The last two are the important ones and are almost never surfaced. A high `compression_ratio` segment—the model repeating “thank you thank you thank you” over silence—is not low confidence; it is wrong, and the right interface response is to not show it at all. Treating everything as a single score collapses these distinctions." },
+          { type: "p", text: "Silence and repetition are warning signals, not proof that a transcript is false. Genuine speech can repeat, and noise can confuse speech detection. Combine diagnostics, preserve the audio for review and offer re-recording when the segment cannot be trusted. Do not silently delete speech on the strength of one threshold." },
           { type: "figure" },
         ],
       },
       {
         heading: "The consequence axis",
         blocks: [
-          { type: "p", text: "Classifying tokens by consequence sounds like it needs a model. It mostly needs a regular expression and a short list. Numbers, negations (`not`, `no`, `never`, `ne … pas`), units, and capitalised tokens that are not sentence-initial cover the overwhelming majority of words where a mistake changes meaning in an emergency phrase. Everything else is low-consequence by default." },
+          { type: "p", text: "Classifying tokens by consequence sounds like it needs a model. It mostly needs a regular expression and a short list. Numbers, negations (`not`, `no`, `never`, `ne … pas`), units, and capitalised tokens that are not sentence-initial are a starting heuristic, not a complete account of meaning. Written-out numbers and phrases need additional rules, and unclassified words may still be consequential." },
           { type: "code", lang: "kotlin", caption: "Cheap consequence classification. The model gives probability; this gives the row.", code: `fun consequence(token: Token, index: Int): Consequence = when {
     token.text.any { it.isDigit() }                     -> Consequence.HIGH   // doses, counts, times
     token.text.lowercase() in NEGATIONS                  -> Consequence.HIGH   // "not allergic" vs "allergic"
     token.text.lowercase() in UNITS                      -> Consequence.HIGH   // mg, ml, km
-    index > 0 && token.text.first().isUpperCase()        -> Consequence.MEDIUM // names, places
+    index > 0 && token.text.firstOrNull()?.isUpperCase() == true        -> Consequence.MEDIUM // names, places
     else                                                 -> Consequence.LOW
 }` },
-          { type: "p", text: "With that in place, the interface needs exactly four behaviours: show, underline, ask to confirm, block-and-replay. A low-consequence token never triggers more than an underline, whatever its score. A high-consequence token below the threshold blocks the sentence from being marked as final until the person has replayed it or edited it. The thresholds themselves are much less important than the rows; I moved them by 0.1 in either direction during testing and the experience barely changed." },
+          { type: "p", text: "With that in place, the interface needs exactly four behaviours: show, underline, ask to confirm, block-and-replay. A low-consequence token never triggers more than an underline, whatever its score. A high-consequence token below the threshold blocks the sentence from being marked as final until the person has replayed it or edited it. Thresholds must be validated on representative recordings; the example policy does not establish a safe operating point." },
         ],
       },
       {
@@ -210,6 +214,7 @@ export const articlesEn: Article[] = [
           ] },
         ],
       },
+      {"heading": "A score needs a calibration set", "blocks": [{"type": "p", "text": "A token probability is conditional on the audio and previously decoded tokens; it is not a calibrated probability that a word is correct. A word may contain several tokens. Validate any aggregation and thresholds on labelled recordings from the intended languages and acoustic conditions. Measure missed consequential errors and unnecessary interruptions separately. A simple token classifier also misses written-out numbers, multiword negations and names without capitals: unknown cases need review, not an automatic low-risk label."}, {"type": "references", "items": [{"title": "Technical reference · Whisper — Transcription and fallback logic", "url": "https://github.com/openai/whisper/blob/main/whisper/transcribe.py"}]}]},
     ],
   },
 
@@ -279,7 +284,7 @@ export const articlesEn: Article[] = [
         heading: "Traces are the API to your own past",
         blocks: [
           { type: "p", text: "flightrec exists because I kept asking \"what did it do last time\" and having no answer. It records a run as a sequence of events—model call, tool call, tool result, state change, approval—and can replay that sequence against a new configuration. The replay does not re-execute side effects; it feeds the recorded tool results back and lets the new model choose its next step, so the two trajectories can be diffed." },
-          { type: "p", text: "The questions that becomes cheap to answer: did the new prompt change which files got read? Did the model upgrade add tool calls, or remove them? Did the permission change block something a run used to rely on? Each of those used to be a guess. A diff of two event logs is not." },
+          { type: "p", text: "The questions that become cheap to answer: did the new prompt change which files got read? Did the model upgrade add tool calls, or remove them? Did the permission change block something a run used to rely on? Each of those used to be a guess. A diff of two event logs is not." },
         ],
       },
       {
@@ -288,6 +293,7 @@ export const articlesEn: Article[] = [
           { type: "p", text: "None of this needs a platform. One task, three typed tools, an allowlist, a trace file and five recorded runs is enough to find out whether a failure lives in context, tools, permissions or the model—and that diagnosis is what the harness is for. Models will keep changing. The rings around them are the part a team actually owns." },
         ],
       },
+      {"heading": "Replay stops being comparable when the inputs diverge", "blocks": [{"type": "p", "text": "A recorded tool result is valid only for the tool name, arguments and state that produced it. If a new model requests another file or changes a query, replay must flag that mismatch rather than return the next result in the log. Use matched fixtures for controlled comparisons and a separate sandbox run to evaluate new trajectories. For retries of real writes, record an operation identifier and check whether the effect already happened before executing it again."}, {"type": "references", "items": [{"title": "Technical reference · LangGraph — Persistence and replay", "url": "https://docs.langchain.com/oss/python/langgraph/persistence"}]}]},
     ],
   },
 
@@ -371,6 +377,7 @@ Keep numbers, units and names exactly as given.
           { type: "p", text: "The prototype was tested by us, in a quiet hall, in languages we speak. The next test is the one that counts: outdoor noise, an accent the model has not seen, a phrase containing a dosage and a negation, on a phone that has been in a pocket for an hour, held by someone who has not seen the app before. If the state machine holds and the underlines land on the right words in those conditions, the project is worth taking further. If not, the diagram tells us exactly which transition to fix." },
         ],
       },
+      {"heading": "Turn the next test into a protocol", "blocks": [{"type": "p", "text": "Use the same phrase set across devices and record the original audio, expected meaning, corrected transcript and final translation. Include numbers written as words, negations, interruptions and silence. Ask bilingual reviewers to score meaning preservation without seeing the model configuration. Report errors separately from completion time and abandonment. Replaying a word confirms what was heard; it does not validate a translation. This remains a prototype evaluation, not evidence of suitability for emergency use."}, {"type": "references", "items": [{"title": "Technical reference · whisper.cpp — Models and memory requirements", "url": "https://github.com/ggml-org/whisper.cpp"}]}]},
     ],
   },
 
@@ -408,7 +415,7 @@ Keep numbers, units and names exactly as given.
   "workspace": { "x": [0.12, 0.48], "y": [-0.30, 0.30], "z": [0.02, 0.35] },
   "camera_grasp_pose": { "approach_offset_m": 0.06, "gripper_close": 0.72 }
 }` },
-          { type: "p", text: "`residual_mm` is the one field I would insist on keeping. A calibration with a 4 mm residual is fine for framing a person; one with 25 mm is not fine for grasping a camera, and the number tells you which situation you are in before the gripper closes on air." },
+          { type: "p", text: "`residual_mm` is the one field I would insist on keeping. The residual helps detect a poor fit, but acceptable error depends on the task, geometry and held-out calibration checks. The example values are illustrative, not general acceptance thresholds." },
           { type: "figure" },
         ],
       },
@@ -438,6 +445,7 @@ Keep numbers, units and names exactly as given.
           { type: "p", text: "None of these were model failures. They were all at seams—between a class and an instance, between a policy and a verifier, between a pose before and after load. That is where the next iteration would spend its time." },
         ],
       },
+      {"heading": "Separate perception timing from motion control", "blocks": [{"type": "p", "text": "The roughly 10 Hz loop described here is a task-level perception and planning loop. It should not set the frequency of a motor controller or its safety checks. A 2D bounding box also supplies no metric depth: mapping a target into the arm frame needs depth, known geometry or a stated plane assumption, as well as calibration. Evaluate grasp success, tracking error and lost-target response separately. Calibration residuals describe a fit; they do not by themselves bound collision risk or end-effector error."}, {"type": "references", "items": [{"title": "Technical reference · OpenCV — Camera calibration and 3D reconstruction", "url": "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"}]}]},
     ],
   },
 
@@ -480,7 +488,6 @@ Keep numbers, units and names exactly as given.
     "notch_hz": 50.0,
     "bandpass_hz": (8.0, 30.0),
     "reference": "average",
-    "bad_channel_rule": "z(var) > 3 over session",
     "epoch_s": (0.5, 2.5),          # relative to cue
     "reject_uv": 150.0,             # peak-to-peak, after filtering
 }
@@ -489,7 +496,7 @@ raw = mne.io.read_raw_fif(path, preload=True)          # immutable source
 raw.notch_filter(PREPROC["notch_hz"]).filter(*PREPROC["bandpass_hz"])
 raw.set_eeg_reference(PREPROC["reference"])
 epochs = mne.Epochs(raw, events, tmin=PREPROC["epoch_s"][0], tmax=PREPROC["epoch_s"][1],
-                    reject=dict(eeg=PREPROC["reject_uv"] * 1e-6), preload=True)
+                    baseline=None, reject=dict(eeg=PREPROC["reject_uv"] * 1e-6), preload=True)
 epochs.info["description"] = json.dumps(PREPROC)` },
           { type: "p", text: "The habit that matters is that the settings travel with the data. When a result changes between two runs, the first question is whether the preprocessing changed, and that question should be answerable by diffing two small dictionaries rather than by reading a notebook's history." },
         ],
@@ -497,7 +504,7 @@ epochs.info["description"] = json.dumps(PREPROC)` },
       {
         heading: "Earn the deep model",
         blocks: [
-          { type: "p", text: "The strongest baseline in motor imagery is decades old: common spatial patterns to find the channel combinations that separate the two classes, log-variance of the filtered signal as features, and a linear discriminant classifier. It trains in seconds on a few dozen trials, is interpretable (the spatial filters should look like motor cortex), and is hard to beat on small per-participant datasets." },
+          { type: "p", text: "A useful baseline in motor imagery is decades old: common spatial patterns to find the channel combinations that separate the two classes, log-variance of the filtered signal as features, and a linear discriminant classifier. It trains in seconds on a few dozen trials, is interpretable (the spatial filters should look like motor cortex), and is hard to beat on small per-participant datasets." },
           { type: "table", head: ["Approach", "Data needed", "Strength", "Failure to watch"], rows: [
             ["Band power / CSP + LDA", "Tens of trials per class", "Fast, interpretable, robust when calibrated per session", "Degrades as electrodes shift; needs recalibration"],
             ["Riemannian (covariance + tangent space)", "Similar", "Less sensitive to scaling and small shifts", "Harder to explain to a clinician"],
@@ -521,6 +528,7 @@ epochs.info["description"] = json.dumps(PREPROC)` },
           { type: "p", text: "Everything upstream of the model—acquisition, context, windows, splits, abstention—decides whether the number at the end means anything. The model is the last thing to improve, not the first." },
         ],
       },
+      {"heading": "An offline pipeline is not an online decoder", "blocks": [{"type": "p", "text": "The snippet illustrates offline epoch construction: mark bad channels explicitly before re-referencing and keep the original recording on disk. With epochs starting at 0.5 seconds, use baseline=None unless you deliberately include a baseline interval. Zero-phase filtering can use future samples, so online claims require a causal or buffered pipeline with its delay measured. Fit CSP, scaling and other learned transforms inside each training fold. Agreement between overlapping windows is correlated evidence, not three independent confirmations."}, {"type": "references", "items": [{"title": "Technical reference · MNE — Epochs and baseline correction", "url": "https://mne.tools/stable/generated/mne.Epochs.html"}]}]},
     ],
   },
 ]

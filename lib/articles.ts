@@ -16,6 +16,7 @@ export type Block =
   | { type: "table"; head: string[]; rows: string[][] }
   | { type: "note"; label: string; text: string }
   | { type: "figure" }
+  | { type: "references"; items: Array<{ title: string; url: string }> }
 
 export type Article = {
   slug: string

@@ -35,6 +35,7 @@ function renderBlock(block: Block, index: number, article: Article, language: Ar
     case "table": return <div className="article-table" key={index}><table><thead><tr>{block.head.map((h) => <th key={h}>{h}</th>)}</tr></thead><tbody>{block.rows.map((row, r) => <tr key={r}>{row.map((cell, c) => <td key={c}>{inline(cell)}</td>)}</tr>)}</tbody></table></div>
     case "note": return <aside className="article-note" key={index}><strong>{block.label}</strong><p>{inline(block.text)}</p></aside>
     case "figure": return <Figure key={index} article={article} language={language} label={figureLabel} />
+    case "references": return <ul className="article-list" key={index}>{block.items.map((item) => <li key={item.url}><a href={item.url}>{item.title}</a></li>)}</ul>
   }
 }
 
