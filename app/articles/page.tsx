@@ -31,7 +31,7 @@ export default function ArticlesPage() {
     window.localStorage.setItem("portfolio-language", value)
   }
 
-  return <main className="hub-page articles-page">
+  return <main className="hub-page articles-page" lang={language}>
     <header className="hub-header"><Link href="/"><MoveLeft size={16} />{copy.back}</Link><div className="hub-header-actions"><LanguageToggle language={language} onLanguageChange={changeLanguage} /><a href="mailto:cbrzyski2@gmail.com?subject=Article"><PenLine size={16} />{copy.contact}</a></div></header>
     <section className="hub-hero articles-hero"><p>{copy.label}</p><h1>{copy.title}</h1><div><p>{copy.intro}</p></div></section>
     <section className="editorial-intro"><div><p className="case-label">{copy.about}</p><h2>{copy.aboutTitle}</h2></div><p>{copy.aboutText}</p></section>
