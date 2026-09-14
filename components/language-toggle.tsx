@@ -7,6 +7,7 @@ export function LanguageToggle({ language, onLanguageChange }: { language: "en" 
   const toggleLanguage = () => {
     const newLang = language === "en" ? "fr" : "en"
     onLanguageChange(newLang)
+    window.dispatchEvent(new CustomEvent("portfolio-language-change", { detail: newLang }))
   }
 
   return (
