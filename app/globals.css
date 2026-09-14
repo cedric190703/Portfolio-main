@@ -222,3 +222,28 @@
   .schema-detail > span { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .schema-node { transition: none; } }
+
+/* Keep the full explanation available for comparison, keyboard use and print. */
+.schema-explanations { margin-top: 20px; color: var(--schema-ink); }
+.schema-explanations summary { width: fit-content; padding: 8px 0; cursor: pointer; font-size: .78rem; font-weight: 600; }
+.schema-explanations summary:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+.schema-explanations dl { display: grid; gap: 16px; margin-top: 14px; }
+.schema-explanations dl > div { padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); }
+.schema-explanations dt { font-size: .85rem; font-weight: 700; }
+.schema-explanations dd { margin: 7px 0 0; color: var(--muted-foreground); font-size: .82rem; line-height: 1.75; }
+.schema-node { min-height: 165px; }
+.schema-node-summary { font-size: .76rem; }
+.schema-node > strong { font-size: .9rem; }
+.schema-layers .schema-nodes { gap: 9px; padding-left: 12px; border-left: 3px solid var(--schema-accent); }
+@container article-visual (min-width: 521px) and (max-width: 680px) {
+  .schema-flow .schema-nodes, .schema-cycle .schema-nodes { flex-direction: column; }
+  .schema-flow .schema-node, .schema-cycle .schema-node { min-height: 0; }
+  .schema-flow .schema-connector, .schema-cycle .schema-connector { top: 100%; left: 50%; height: 22px; transform: translateX(-50%); }
+  .schema-flow .schema-connector svg:first-child, .schema-cycle .schema-connector svg:first-child { display: none; }
+  .schema-flow .schema-connector svg:last-child, .schema-cycle .schema-connector svg:last-child { display: block; }
+}
+@media print {
+  .schema-explanations > dl { display: grid !important; }
+  .schema-detail, .schema-instruction, .schema-explanations summary { display: none; }
+  .article-schema { break-inside: avoid; }
+}

@@ -1,8 +1,10 @@
+import { reliabilityFr } from "@/lib/article-content/reliability"
 import { articleVisuals } from "@/lib/article-visuals"
 import type { Article } from "@/lib/articles"
 import { retrievalFr } from "@/lib/article-content/retrieval"
 
 export const articlesFr: Article[] = [
+  reliabilityFr,
   retrievalFr,
   {
     slug: "agentic-ai-beyond-the-demo",
@@ -18,6 +20,7 @@ export const articlesFr: Article[] = [
     diagramTitle: "Qui détient les preuves à chaque étape",
     diagramCaption: "Un numéro de la newsletter vu en couloirs. Le journal de preuves est écrit avant que la personne ne voie un brouillon : la revue porte sur des sources et des raisons, pas sur un paragraphe bien tourné.",
     sections: [
+      {"heading": "Un doublon qui change de titre", "blocks": [{"type": "note", "label": "Cas pratique proposé", "text": "Essayez un cas contrôlé avec deux URL reprenant le même reportage, puis modifiez le titre d’une copie. Avant la rédaction, examinez les candidats : quelle source reste, laquelle est écartée, et quelle preuve explique ce choix ? Les empreintes détectent les textes identiques ; une réécriture exige une comparaison de similarité ou une décision éditoriale. Gardez les deux provenances même si un seul sujet atteint le brouillon."}]},
       {
         heading: "La démo a marché un mardi",
         blocks: [
@@ -95,8 +98,9 @@ export const articlesFr: Article[] = [
     takeaway: "Écrivez d’abord le budget — RAM, stockage, temps de première réponse, batterie — puis choisissez un modèle qui atteint la qualité attendue avec de la marge. Ensuite, concevez ce qui se passe quand la marge disparaît.",
     diagram: "offline",
     diagramTitle: "Un budget de latence sur une seule frise",
-    diagramCaption: "Cibles pour une phrase parlée sur un Android milieu de gamme. La barre la plus longue impose le rythme de toute l’interaction — c’est pourquoi le modèle de langue, et non le modèle de parole, dicte la conception.",
+    diagramCaption: "Budget séquentiel illustratif : 5,6 secondes, capture et relecture comprises ; traduction terminée à 4,8 secondes. Chaque étape contribue au total. Ce sont des cibles, pas des mesures sur appareil.",
     sections: [
+      {"heading": "Séparer attente et traitement", "blocks": [{"type": "note", "label": "Cas pratique proposé", "text": "Dans la chronologie illustrative, capture, reconnaissance, traduction et relecture prennent 2,5, 0,9, 1,4 et 0,8 secondes : le total séquentiel est de 5,6 secondes. Après capture, il reste 3,1 secondes, relecture comprise. Gagner 0,2 seconde sur la reconnaissance réduit le total d’autant, sans supprimer le chargement. Séparez essais à froid et à chaud ; distinguez capture et relecture humaine de la latence de calcul."}]},
       {
         heading: "Le budget vient avant le modèle",
         blocks: [
@@ -166,6 +170,7 @@ export const articlesFr: Article[] = [
     diagramTitle: "Conséquence × confiance, pas la confiance seule",
     diagramCaption: "La même probabilité tombe dans des cases différentes selon le type de token. La ligne — ce qui se passe si ce mot est faux — décide de la réponse de l’interface ; la colonne ne fait que l’ajuster.",
     sections: [
+      {"heading": "Tester l’action, pas seulement le marquage", "blocks": [{"type": "note", "label": "Cas pratique proposé", "text": "Utilisez deux transcriptions modifiées avec le même score diagnostique : l’une change une hésitation, l’autre une adresse de livraison. Demandez de retrouver le sens depuis l’audio. Comparez durée, erreurs importantes manquées et interruptions inutiles. Ces cas sont proposés, pas mesurés. Si le marquage allonge la revue sans réduire les erreurs importantes, modifiez l’intervention plutôt que de baisser simplement son seuil."}]},
       {
         heading: "Un 0,61 n’est pas un 0,61",
         blocks: [
@@ -239,6 +244,7 @@ export const articlesFr: Article[] = [
     diagramTitle: "Cinq anneaux, un modèle",
     diagramCaption: "Chaque anneau ne parle qu’à ses voisins. Le modèle voit un contexte sélectionné et des outils typés ; permissions et traçage les enveloppent sans que le modèle en ait conscience. Changer le cœur ne touche pas les anneaux extérieurs.",
     sections: [
+      {"heading": "Un argument valide peut rester interdit", "blocks": [{"type": "note", "label": "Cas pratique proposé", "text": "Imaginez un outil de lecture recevant un chemin bien formé hors du répertoire autorisé. La validation accepte sa forme ; le contrôle des droits refuse son emplacement avant lecture. Journalisez le refus sans contenu protégé. Ce cas distingue structure, autorisation et résultat d’exécution, trois contrôles qu’une démo réussie peut confondre. Ajoutez une lecture autorisée pour repérer aussi un outil qui refuse tout."}]},
       {
         heading: "Même modèle, deux comportements",
         blocks: [
@@ -320,6 +326,7 @@ export const articlesFr: Article[] = [
     diagramTitle: "L’application vue comme une machine à états",
     diagramCaption: "Sept états, avec les délais et les seuils qui font passer de l’un à l’autre. Les transitions pointillées sont déclenchées par l’incertitude ou l’échec ; les pleines sont le chemin nominal et les actions de la personne.",
     sections: [
+      {"heading": "Corriger la source pendant la traduction", "blocks": [{"type": "note", "label": "Cas pratique proposé", "text": "Essayez ce parcours : lancez une traduction, corrigez la transcription, puis laissez l’ancienne requête finir en dernier. Son résultat ne doit pas remplacer celui de la phrase corrigée. Identifiez chaque révision source et n’acceptez qu’un résultat lié à la révision active. L’annulation économise du travail, mais le contrôle de révision reste nécessaire si elle arrive trop tard. Vérifiez ensemble le texte affiché et l’historique enregistré."}]},
       {
         heading: "Le brief",
         blocks: [
@@ -406,6 +413,7 @@ Keep numbers, units and names exactly as given.
     diagramTitle: "Une boucle, trois sorties",
     diagramCaption: "La boucle de contrôle tourne à environ 10 Hz avec une observation fraîche à chaque tour. Les sorties pointillées sont des états à part entière : le bras y attend une nouvelle observation valide plutôt que de finir un ancien plan.",
     sections: [
+      {"heading": "Une livraison récente peut porter une observation ancienne", "blocks": [{"type": "note", "label": "Cas pratique proposé", "text": "Injectez un retard dans la file sans modifier la sortie du détecteur. Une image reçue maintenant peut dater d’avant le déplacement de la cible. Journalisez séparément capture, fin de traitement et commande, puis examinez l’âge de l’observation au moment d’agir. Définissez une réponse adaptée au mécanisme pour les données périmées et testez-la en environnement contrôlé. Une boîte exacte sur une ancienne image ne localise pas la cible actuelle."}]},
       {
         heading: "Caméra, cible, maintien",
         blocks: [
@@ -476,6 +484,7 @@ Keep numbers, units and names exactly as given.
     diagramTitle: "Fenêtres, marqueurs, et un découpage qui respecte le temps",
     diagramCaption: "En haut : un canal filtré avec un marqueur de cue et des fenêtres de 2 secondes qui se chevauchent. En bas : deux façons de découper les mêmes enregistrements. Seule la seconde mesure ce qu’une personne vivra vendredi prochain.",
     sections: [
+      {"heading": "Suivre une fenêtre à travers la séparation", "blocks": [{"type": "note", "label": "Cas pratique proposé", "text": "Pour auditer une fuite de données, associez participant, session, essai et intervalle brut à chaque fenêtre. Choisissez une fenêtre de test et cherchez dans l’entraînement tout chevauchement ou groupe censé être réservé. Séparez ces groupes avant de créer les fenêtres recouvrantes. Ajustez ensuite les prétraitements appris sur l’entraînement uniquement. Un score plus faible après correction peut être plus utile que le résultat optimiste initial."}]},
       {
         heading: "Ce que l’électrode voit réellement",
         blocks: [

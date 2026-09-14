@@ -113,7 +113,7 @@ function OfflineBudget({ fr }: { fr: boolean }) {
       <text x={t0 + 3.4 * scale} y="250" textAnchor="middle" className="dg-tag control">{fr ? "premier texte visible (transcription)" : "first visible text (transcript)"}</text>
       <line x1={t0 + 6 * scale} y1="44" x2={t0 + 6 * scale} y2="236" className="dg-marker-line budget" />
       <text x={t0 + 6 * scale} y="250" textAnchor="middle" className="dg-tag stop">{fr ? "budget 6 s" : "6 s budget"}</text>
-      <text x="14" y="272" className="dg-legend">{fr ? "Cibles pour un Android milieu de gamme, pas des mesures de laboratoire — la barre la plus longue fixe le rythme." : "Targets for a mid-range Android phone, not lab measurements — the longest bar sets the pace."}</text>
+      <text x="14" y="272" className="dg-legend">{fr ? "Budget séquentiel : 5,6 s au total · 3,1 s après capture, relecture comprise." : "Sequential budget: 5.6 s total · 3.1 s after capture, including review."}</text>
       <rect x="14" y="286" width="692" height="30" rx="4" className="dg-strip" />
       <text x="24" y="305" className="dg-strip-text">{fr ? "Budget illustratif · mesurer le pic mémoire, le démarrage à froid et la pression thermique sur l’appareil cible" : "Illustrative budget · measure peak memory, cold start and thermal pressure on the target device"}</text>
     </svg>

@@ -1,8 +1,10 @@
+import { reliabilityEn } from "@/lib/article-content/reliability"
 import { articleVisuals } from "@/lib/article-visuals"
 import type { Article } from "@/lib/articles"
 import { retrievalEn } from "@/lib/article-content/retrieval"
 
 export const articlesEn: Article[] = [
+  reliabilityEn,
   retrievalEn,
   {
     slug: "agentic-ai-beyond-the-demo",
@@ -18,6 +20,7 @@ export const articlesEn: Article[] = [
     diagramTitle: "Who holds the evidence at each step",
     diagramCaption: "A swimlane view of one issue of the newsletter. The evidence log is written to before the person ever sees a draft, so review happens on sources and reasons rather than on a fluent paragraph.",
     sections: [
+      {"heading": "A duplicate that changes its headline", "blocks": [{"type": "note", "label": "Proposed worked case", "text": "Try a controlled case with two URLs carrying the same report, then change the headline of one copy. Inspect the candidate records before the writer runs: which source survives, which is rejected, and what evidence explains that choice? Exact text hashes can catch identical bodies; a rewritten version needs a separate similarity or editorial decision. Keep both provenance records even when only one story reaches the draft."}]},
       {
         heading: "The demo worked on a Tuesday",
         blocks: [
@@ -95,8 +98,9 @@ export const articlesEn: Article[] = [
     takeaway: "Write the budget first—RAM, storage, first-response time, battery—then choose a model that meets the quality target with margin. Then design what happens when the margin disappears.",
     diagram: "offline",
     diagramTitle: "A latency budget on one timeline",
-    diagramCaption: "Targets for one spoken phrase on a mid-range Android phone. The longest bar sets the pace of the whole interaction, which is why the language model, not the speech model, dictates the design.",
+    diagramCaption: "Illustrative sequential budget: 5.6 seconds including capture and review, with translation complete at 4.8 seconds. Each stage contributes to the total; these are targets, not device measurements.",
     sections: [
+      {"heading": "Separate waiting from working", "blocks": [{"type": "note", "label": "Proposed worked case", "text": "In the illustrative timeline, capture takes 2.5 seconds, recognition 0.9, translation 1.4 and review 0.8: the sequential total is 5.6 seconds. The post-capture path is 3.1 seconds, including review. Saving 0.2 seconds in recognition saves 0.2 seconds overall; it does not eliminate model loading. Measure cold and warm runs separately, and report capture duration and human review outside the machine-only latency metric."}]},
       {
         heading: "The budget comes before the model",
         blocks: [
@@ -166,6 +170,7 @@ export const articlesEn: Article[] = [
     diagramTitle: "Consequence × confidence, not confidence alone",
     diagramCaption: "The same probability lands in different cells depending on what kind of token it is. The row—what happens if this word is wrong—decides the interface response; the column only tunes it.",
     sections: [
+      {"heading": "Test the action, not just the highlight", "blocks": [{"type": "note", "label": "Proposed worked case", "text": "Use two edited transcripts with the same diagnostic score: one changes a filler word, the other changes a delivery address. Ask a reviewer to recover the intended meaning from the audio. Compare completion time, missed consequential errors and unnecessary interruptions. These are proposed evaluation cases, not measured outcomes. If highlighting raises review time without reducing consequential mistakes, change the intervention rather than simply lowering its threshold."}]},
       {
         heading: "A 0.61 is not a 0.61",
         blocks: [
@@ -239,6 +244,7 @@ export const articlesEn: Article[] = [
     diagramTitle: "Five rings, one model",
     diagramCaption: "Each ring only talks to its neighbours. The model sees selected context and typed tools; permissions and tracing wrap those without the model being aware of them. Swapping the core does not touch the outer rings.",
     sections: [
+      {"heading": "A valid argument can still be forbidden", "blocks": [{"type": "note", "label": "Proposed worked case", "text": "Consider a file-reading tool given a well-formed path outside the allowed workspace. Schema validation should pass the string shape; the permission check should reject the location before reading. Record the denied call without including the protected file contents. This case separates three checks that a successful demo can blur: argument structure, caller authority and execution result. Keep it alongside a permitted read so the test also catches a tool that denies everything."}]},
       {
         heading: "Same model, two behaviours",
         blocks: [
@@ -320,6 +326,7 @@ export const articlesEn: Article[] = [
     diagramTitle: "The app as a state machine",
     diagramCaption: "Seven states, with the timeouts and thresholds that move between them. Dashed transitions are the ones triggered by uncertainty or failure; solid ones are the happy path and the person's own actions.",
     sections: [
+      {"heading": "Correct the source while translation is running", "blocks": [{"type": "note", "label": "Proposed worked case", "text": "Try this interaction: start a translation, edit the transcript, then let the older request finish last. The old result must not overwrite the translation of the corrected phrase. Assign each source revision an identifier and accept a result only for the active revision. Cancellation can save work, but the revision check still matters if cancellation arrives too late. Test the visible text and the saved history together so they cannot disagree about which source produced the answer."}]},
       {
         heading: "The brief",
         blocks: [
@@ -406,6 +413,7 @@ Keep numbers, units and names exactly as given.
     diagramTitle: "One loop, three exits",
     diagramCaption: "The control loop runs at roughly 10 Hz with a fresh observation on every turn. The dashed exits are states of their own: the arm waits there until a new, valid observation arrives, rather than finishing an old plan.",
     sections: [
+      {"heading": "A fresh delivery can contain an old observation", "blocks": [{"type": "note", "label": "Proposed worked case", "text": "Inject a queue delay while keeping the detector output unchanged. A frame received now may have been captured before the target moved. Log capture time, processing completion and command time separately, then inspect observation age when the controller acts. Define a stale-data response for the specific mechanism and test it in a controlled setup. An accurate bounding box on an old frame does not establish where the target is now."}]},
       {
         heading: "Camera, target, hold",
         blocks: [
@@ -476,6 +484,7 @@ Keep numbers, units and names exactly as given.
     diagramTitle: "Windows, markers, and a split that respects time",
     diagramCaption: "Top: one filtered channel with a cue marker and overlapping 2-second windows. Bottom: two ways to split the same recordings. Only the second one measures what a person will experience next Friday.",
     sections: [
+      {"heading": "Audit one window across the split", "blocks": [{"type": "note", "label": "Proposed worked case", "text": "For a proposed leakage audit, attach participant, session, trial and raw sample interval to every window. Pick a test window and check whether any training window overlaps its samples or belongs to a group the evaluation intends to hold out. Split those groups before generating overlapping windows. Then fit learned preprocessing only on the training portion. A lower score after this repair can be a more useful estimate than the original optimistic result."}]},
       {
         heading: "What the electrode actually sees",
         blocks: [

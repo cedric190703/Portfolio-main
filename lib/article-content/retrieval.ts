@@ -15,6 +15,7 @@ export const retrievalEn: Article = {
   diagramTitle: "From question to evidence to answer",
   diagramCaption: "Retrieval and generation need separate checks.",
   sections: [
+    {"heading": "Work through one retrieval score", "blocks": [{"type": "p", "text": "Suppose a question requires passages A and B, and the first three results are A, C and D. Recall@3 is 1/2, while hit rate for this question is 1: at least one relevant passage was found. The answer still lacks B. Now supply A and B directly to the generator. If the answer becomes complete, investigate retrieval; if it still omits B, inspect context use and answer construction. Keep this two-passage case separate from questions that need only one supporting passage."}]},
     {
       heading: "The answer can be right for the wrong version",
       blocks: [
@@ -104,6 +105,7 @@ export const retrievalFr: Article = {
   diagramTitle: "De la question aux preuves, puis à la réponse",
   diagramCaption: "La recherche et la génération exigent des vérifications distinctes.",
   sections: [
+    {"heading": "Calculer un score de recherche", "blocks": [{"type": "p", "text": "Supposons qu’une question exige les passages A et B et que les trois premiers résultats soient A, C et D. Le rappel à 3 vaut 1/2 ; le taux de succès de cette question vaut 1, car au moins un passage pertinent est présent. B manque toujours. Fournissez ensuite A et B directement au générateur. Si la réponse devient complète, examinez la recherche ; sinon, l’usage du contexte et la rédaction. Distinguez ce cas des questions nécessitant un seul passage."}]},
     {
       heading: "Une réponse peut être exacte pour la mauvaise version",
       blocks: [
